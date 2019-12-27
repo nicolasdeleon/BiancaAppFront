@@ -1,4 +1,4 @@
-import React,{useState,useCallback} from 'react'
+import React,{useState,useCallback, useEffect} from 'react'
 import {View,Text,StyleSheet,FlatList,ActivityIndicator,StatusBar} from 'react-native'
 import {HeaderButtons, Item} from 'react-navigation-header-buttons' //CREO QUE ME LA TENGO Q BAJAR
 import {useSelector,useDispatch} from 'react-redux'
@@ -21,16 +21,57 @@ VER TEMA NOTIFICACIONES
 */
 
 
+
+
 const MainScreen = props => {
     const [modalVisible,setModalVisible] = useState(false)
     const [codeValue, setCodeValue] = useState('')
     const [error,setError] = useState()
+    const [sentCode,setSentCode] = useState(false)
     const [modalValidity,setModalValidity] = useState(false)
     const [isLoading,setIsLoading] = useState(false)
+    const [eventMsj,setEventMsj] = useState()
     const userToken = useSelector(state=>state.auth.token)
     const activeEvents = useSelector(state=>state.events.activeEvents)
     const dispatch = useDispatch()
 
+    //Tengo que hacer un useEffect para get active events y get active contracts
+    //Tengo que poder refreshear la pagina esta en la que estoy
+    //Active contracts son los contratos en los que el evento asociado no termino
+    //Active events son los eventos en los que el evento no termino
+    
+    //Tengo que setear el eventMsj:
+    // Si no hay match entre mi ActiveEvents[0].id (ya que en este caso hay solo 1)
+    // osea mi ActiveContracts(filter por id ActiveEvents[0].id) es null y sentCode = false => MUESTRO EL BOTON
+    // Si hay match => {
+        //Me fijo en ActiveContracts(filter por id ActiveEvents[0].id) status {
+                                                                                //2BA => "Esperando validar en cuenta @insta"
+                                                                                //W => "Has sido validado, retira con codigo TANTO"
+                                                                                //R => "Has siro rechazado, (BOTON DE MADNAR DENUEVO?)"
+                                                                                //F => "Gracias por haber participado de este evento por Bianca"
+    //                                                                      }
+    //}
+
+    const loadContractsAndEvents = useCallback(async () =>{
+        setIsLoading(true)
+        setError(null)
+        try {
+            await dispatch(EventActions.getActiveEvents())
+            await dispatch(EventActions.getActiveContracts(userToken))
+        } catch (err){
+            //mi fetchProducts tiene seteado un try catch para ahcer throw del error
+            //lo puedo atajar aca
+            setError(err.message)
+        }
+        setIsLoading(false)
+    },[dispatch,setIsLoading,setError])
+
+    useEffect(()=>{
+            loadContractsAndEvents()
+            console.log('yes')
+    },[dispatch,loadContractsAndEvents]) //por dependencia a dispatch solo se me llama una vez
+
+    
     const setCodeValueHandler = useCallback((InputIdentifier,inputValue,inputValidity) =>{
         setCodeValue(inputValue)
         setModalValidity(inputValidity)
@@ -64,6 +105,7 @@ const MainScreen = props => {
             try{
                 await dispatch(action)
                 setIsLoading(false)
+                setSentCode(true)
                 closeInsertCode()
             }catch (err){
                 //tipicamente error de Invalid Credentials proveniente del servidor data
@@ -119,7 +161,7 @@ const MainScreen = props => {
                     {isLoading ? 
                             (<ActivityIndicator size='large' color={Colors.primary}/>) 
                         :
-                            (activeEvents[0] ? 
+                            (!sentCode ? 
                                     <Text style={{...styles.stepTitle,paddingTop:10}}>Esperando Acreditar su Foto!!</Text>
                                 :
                                     <QRButton onPress={insertCodeButton}>
