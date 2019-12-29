@@ -3,7 +3,7 @@ export const JOIN_EVENT = 'JOIN_EVENT'
 export const joinEvent = (userToken, eventCode) => {
     return async dispatch =>{
         const response = await fetch(
-            'https://biancaapp-ndlc.herokuapp.com/api/BarEvento/adduser'
+            'https://biancaapp-ndlc.herokuapp.com/api/eventos/adduser'
             ,{
                 method:'POST',
                 headers:{
