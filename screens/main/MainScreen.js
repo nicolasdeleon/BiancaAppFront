@@ -10,18 +10,10 @@ import InsertCode from '../../components/CustomModal'
 import * as EventActions from '../../store/actions/events'
 import * as AuthActions from '../../store/actions/auth'
 
-/*
-ACA TENGO QUE HACER UN IMPORT CON USE EFFECT O DE ALGUNA MANERA CARGAR LOS EVENTOS EN LOS
-QUE ESTOY ENLISTADO. COSA DE PODER ACTUALIZAR EN CUALES ESTOY.
-PARA ESTO SE PODRIA HACER UN PEDIDO A UN URL DE LA API CON BAREVENTO/ENLISTED
-PODRIA TENER UN REGISTRO DE EVENTOS REALIZADOS. BAREVENTO/ISWINNER (fue medio lo que charlamos con los chicos)
-POR OTR LADO FALTA HACER UN OBJETO EVENTO ASI COMO EN SHOPP HAY OBJETOS DE COMPRAS.
-EMPROLIJAR BOTON DE LOGOUT.
-VER TEMA NOTIFICACIONES
-*/
-
-
-
+const stateInContractMatch = {
+    '2BA':'Estamos esperando validar su publicación',
+    'W':'Here is your event code:',
+}
 
 const MainScreen = props => {
     const [modalVisible,setModalVisible] = useState(false)
@@ -33,24 +25,8 @@ const MainScreen = props => {
     const [eventMsj,setEventMsj] = useState()
     const userToken = useSelector(state=>state.auth.token)
     const activeEvents = useSelector(state=>state.events.activeEvents)
+    const activeContracts = useSelector(state=>state.events.activeContracts)
     const dispatch = useDispatch()
-
-    //Tengo que hacer un useEffect para get active events y get active contracts
-    //Tengo que poder refreshear la pagina esta en la que estoy
-    //Active contracts son los contratos en los que el evento asociado no termino
-    //Active events son los eventos en los que el evento no termino
-    
-    //Tengo que setear el eventMsj:
-    // Si no hay match entre mi ActiveEvents[0].id (ya que en este caso hay solo 1)
-    // osea mi ActiveContracts(filter por id ActiveEvents[0].id) es null y sentCode = false => MUESTRO EL BOTON
-    // Si hay match => {
-        //Me fijo en ActiveContracts(filter por id ActiveEvents[0].id) status {
-                                                                                //2BA => "Esperando validar en cuenta @insta"
-                                                                                //W => "Has sido validado, retira con codigo TANTO"
-                                                                                //R => "Has siro rechazado, (BOTON DE MADNAR DENUEVO?)"
-                                                                                //F => "Gracias por haber participado de este evento por Bianca"
-    //                                                                      }
-    //}
 
     const loadContractsAndEvents = useCallback(async () =>{
         setIsLoading(true)
@@ -118,59 +94,61 @@ const MainScreen = props => {
         }
     }
 
-    verifyCodeValueAndError =() => {
-        console.log('Valores del Modal:')
-        console.log(codeValue)
-        console.log(modalValidity)
-        console.log(error)
+    DEBUG_PRINTS_TO_CONSOLE =() => {
+        //console.log('Valores del Modal:')
+        //console.log(codeValue)
+        //console.log(modalValidity)
+        //console.log(error)
+        console.log("ACTIVE EVENTS:")
         console.log(activeEvents)
+        console.log("USER ACTIVE CONTRACTS")
+        console.log(activeContracts)
     }
 
-    verifyCodeValueAndError()
+    DEBUG_PRINTS_TO_CONSOLE()
 
     return (
         
         <View style={styles.screen}>
             <StatusBar backgroundColor={Colors.dark} barStyle={"light-content"} translucent={false}/>
             <View style={{width:'100%',height:'100%',flex:1,marginTop:25}}> 
-            <InsertCode 
-            modalVisible={modalVisible} 
-            onClose={closeInsertCode}
-            onSetCodeValue={setCodeValueHandler}
-            onSend={sendInsertCode}
-            title={"Inserte Código del Local"}
-            initialValue={"....."}
-            acceptButtonText={"Activar"}
-            maxLength={5}
-            minLength={5}
-            errorText={error}
-            loading={isLoading}
-            />
-                    <View style={styles.howItWorks}>
-                        <Text style={styles.title}>¿Como funciona?</Text>
-                        <FlatList
-                            keyExtractor ={(item,index) => item.id}
-                            data={STEPS}
-                            renderItem={itemData =><Card>
-                                    <Text style={styles.stepTitle}> {itemData.item.title}</Text>
-                                    <Text style={styles.stepDesc}>{itemData.item.description}</Text>
-                                </Card>}
-                        />
-                    </View>
-                    <View style={styles.button}>
-                    {isLoading ? 
-                            (<ActivityIndicator size='large' color={Colors.primary}/>) 
-                        :
-                            (!sentCode ? 
-                                    <Text style={{...styles.stepTitle,paddingTop:10}}>Esperando Acreditar su Foto!!</Text>
-                                :
-                                    <QRButton onPress={insertCodeButton}>
-                                        <Text>Ingresar Codigo</Text>
-                                    </QRButton>
-                                
-                            )
-                    }
-                    </View>
+                <InsertCode 
+                modalVisible={modalVisible} 
+                onClose={closeInsertCode}
+                onSetCodeValue={setCodeValueHandler}
+                onSend={sendInsertCode}
+                title={"Inserte Código del Local"}
+                initialValue={"....."}
+                acceptButtonText={"Activar"}
+                maxLength={5}
+                minLength={5}
+                errorText={error}
+                loading={isLoading}
+                />
+                <View style={styles.howItWorks}>
+                    <Text style={styles.title}>¿Como funciona?</Text>
+                    <FlatList
+                        keyExtractor ={(item,index) => item.id}
+                        data={STEPS}
+                        renderItem={itemData =><Card>
+                                <Text style={styles.stepTitle}> {itemData.item.title}</Text>
+                                <Text style={styles.stepDesc}>{itemData.item.description}</Text>
+                            </Card>}
+                    />
+                </View>
+                <View style={styles.button}>
+                {isLoading ? 
+                        (<ActivityIndicator size='large' color={Colors.primary}/>) 
+                    :
+                        (!sentCode ? 
+                                <Text style={{...styles.stepTitle,paddingTop:10}}>Esperando Acreditar su Foto!!</Text>
+                            :
+                                <QRButton onPress={insertCodeButton}>
+                                    <Text>Ingresar Codigo</Text>
+                                </QRButton>   
+                        )
+                }
+                </View>
             </View>
         </View>
     )

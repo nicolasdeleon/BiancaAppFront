@@ -67,12 +67,8 @@ export const getActiveEvents = () => {
         const resData = await response.json()
         if(resData['response'] === 'Error'){
             // new Error('Something went wrong!')
-            console.log('lo siguiente:')
-            console.log(resData['error_message'])
             throw new Error(resData['error_message'])
         }
-        console.log("ACTIVE EVENT OBJECT LIST:")
-        console.log(resData['results'])
         dispatch({type:GET_ACTIVE_EVENTS,activeEventObjectList: resData['results']})
     }
 }
@@ -102,12 +98,8 @@ export const getActiveContracts = () => {
         const resData = await response.json()
         if(resData['response'] === 'Error'){
             // new Error('Something went wrong!')
-            console.log('lo siguiente:')
-            console.log(resData['error_message'])
             throw new Error(resData['error_message'])
         }
-        console.log("ACTIVE POST RELATION OBJECT LIST:")
-        console.log(resData['results'])
         dispatch({type:GET_ACTIVE_CONTRACTS,activePostRelationList: resData['results']})
     }
 }
