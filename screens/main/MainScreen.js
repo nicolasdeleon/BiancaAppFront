@@ -5,17 +5,16 @@ import {useSelector,useDispatch} from 'react-redux'
 import Colors from '../../constants/Colors'
 import STEPS from '../../staticData/comoFuncionaSteps'
 import Card from '../../components/Card'
-import QRButton from '../../components/QRButton'
 import InsertCode from '../../components/CustomModal'
+import EventStatusIndicator from '../../components/EventStatusIndicator'
 import * as EventActions from '../../store/actions/events'
 import * as AuthActions from '../../store/actions/auth'
 
-const stateInContractMatch = {
-    '2BA':'Estamos esperando validar su publicación',
-    'W':'Here is your event code:',
-}
 
 const MainScreen = props => {
+
+    //VARIABLES STORED IN COMPONENT STATE
+
     const [modalVisible,setModalVisible] = useState(false)
     const [codeValue, setCodeValue] = useState('')
     const [error,setError] = useState()
@@ -28,6 +27,7 @@ const MainScreen = props => {
     const activeContracts = useSelector(state=>state.events.activeContracts)
     const dispatch = useDispatch()
 
+    //FUNCTION THAT LOADS CONTRACTS AND EVENTS
     const loadContractsAndEvents = useCallback(async () =>{
         setIsLoading(true)
         setError(null)
@@ -35,13 +35,12 @@ const MainScreen = props => {
             await dispatch(EventActions.getActiveEvents())
             await dispatch(EventActions.getActiveContracts(userToken))
         } catch (err){
-            //mi fetchProducts tiene seteado un try catch para ahcer throw del error
-            //lo puedo atajar aca
             setError(err.message)
         }
         setIsLoading(false)
     },[dispatch,setIsLoading,setError])
 
+    //FUNTION THAT RUNS LOAD CONTRACTS AND EVENTS
     useEffect(()=>{
             loadContractsAndEvents()
             console.log('yes')
@@ -140,19 +139,27 @@ const MainScreen = props => {
                 {isLoading ? 
                         (<ActivityIndicator size='large' color={Colors.primary}/>) 
                     :
-                        (!sentCode ? 
-                                <Text style={{...styles.stepTitle,paddingTop:10}}>Esperando Acreditar su Foto!!</Text>
-                            :
-                                <QRButton onPress={insertCodeButton}>
-                                    <Text>Ingresar Codigo</Text>
-                                </QRButton>   
-                        )
+                        <EventStatusIndicator
+                            onButtonPress={insertCodeButton}
+                            event={activeEvents[1]}
+                            contractList={activeContracts} 
+                        />
                 }
                 </View>
             </View>
         </View>
     )
 }
+
+/**
+ * (!sentCode ? 
+                                <Text style={{...styles.stepTitle,paddingTop:10}}>Esperando Acreditar su Foto!!</Text>
+                            :
+                                <QRButton onPress={insertCodeButton}>
+                                    <Text>Ingresar Codigo</Text>
+                                </QRButton>   
+                        )
+ */
 
 const styles = StyleSheet.create({
     screen:{
