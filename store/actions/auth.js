@@ -119,7 +119,7 @@ export const reset_password = (email) =>{
 export const reset_password_confirm = (email,token,password,password2) =>{
     return async dispatch =>{
         const response = await fetch(
-            'https://biancaapp-ndlc.herokuapp.com/api/accounts/reset_password_confirm'
+            'https://biancaapp-ndlc.herokuapp.com/api/accounts/reset_password_confirm/'
             ,{
                 method:'POST',
                 headers:{

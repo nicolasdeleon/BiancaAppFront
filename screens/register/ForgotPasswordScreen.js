@@ -88,7 +88,7 @@ const ForgotPasswordScreen = props => {
             try{
                 await dispatch(action)
                 setIsLoading(false)
-                props.navigation.navigate('app')
+              //  props.navigation.navigate('app')
             }catch (err){
                 //tipicamente error de Invalid Credentials proveniente del servidor data
                 setError(err.message)
@@ -146,13 +146,8 @@ const ForgotPasswordScreen = props => {
                         </Text>
                         
                         <View style={styles.buttonContainer}>
-                            <Button 
-                                title={false ? 'Registarse' : 'Ingresar'} 
-                                color={Colors.accent} 
-                                onPress={ret2SignIn}
-                            />
                             {error && <Text style={{color:'red'}}>{error}</Text>}
-                            </View>
+                        </View>
                     </ScrollView>
                 </View>
             </LinearGradient>
