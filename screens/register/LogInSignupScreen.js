@@ -1,6 +1,6 @@
 //imports from react and expo
 import React,{useState,useReducer,useCallback} from 'react'
-import {View,Text,StyleSheet,KeyboardAvoidingView,ScrollView,Button,ActivityIndicator} from 'react-native'
+import {View,Text,StyleSheet,KeyboardAvoidingView,ScrollView,Button,ActivityIndicator,TouchableOpacity, Switch} from 'react-native'
 import {LinearGradient} from 'expo-linear-gradient'
 
 //constants and components imports
@@ -116,7 +116,7 @@ const LogInSignupScreen = props => {
     goToRegister = () =>{
         props.navigation.navigate('register')
     }
-
+    
     return (
         <KeyboardAvoidingView
         behavior="padding"
@@ -132,42 +132,58 @@ const LogInSignupScreen = props => {
                             required
                             email
                             autoCapitalize="none"
-                            errorText="Enter a valid E-Mail address."
+                            errorText="Ingrese un e-mail válido."
                             onInputChange={inputChangeHandler}
                             initialValue=''
                         />
                         <Input
                             id='password'
-                            label='Password'
+                            label='Contraseña'
                             keyboardType='default'
                             required
                             secureTextEntry
                             minLength={5}
                             autoCapitalize="none"
-                            errorText="Enter a valid password."
+                            errorText="Ingrese una contraseña válida."
                             onInputChange={inputChangeHandler}
                             initialValue=''
                         />
                         <View style={styles.buttonContainer}>
                             {isLoading ? (<ActivityIndicator size='small' color={Colors.primary}/>) : 
                             (<Button 
-                                title='Sign Up' 
+                                title='Ingresar' 
                                 color={Colors.primary} 
                                 onPress={authHandler}
                             />)}
                             </View>
                         <View style={styles.buttonContainer}>
                             <Button 
-                                title={true ? 'Switch to LogIn' : 'Switch to signup'} 
+                                title={true ? 'Registarse' : 'Ingresar'} 
                                 color={Colors.accent} 
                                 onPress={goToRegister}
                             />
                             {error && <Text style={{color:'red'}}>{error}</Text>}
                             </View>
+                        <View >
+                            <Text> ¿Olvidaste tu contraseña? </Text>
+                            <TouchableOpacity onPress={this.signup}><Text style={{ textDecorationLine: 'underline' }}> Haz click aquí para resetear.</Text></TouchableOpacity>
+                        </View>
+                        <View>
+                        <Switch
+                        //value={this.state.rememberMe}
+                        //onValueChange={(value) => this.toggleRememberMe(value)}
+                        /><Text>Remember Me</Text>
+                        </View>
+                        
+                        
                     </ScrollView>
+                    
                 </View>
+                
             </LinearGradient>
+            
         </KeyboardAvoidingView>
+        
     )
 }
 

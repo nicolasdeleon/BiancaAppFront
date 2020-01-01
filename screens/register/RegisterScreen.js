@@ -203,7 +203,7 @@ const RegisterScreen = props => {
                             </View>
                         <View style={styles.buttonContainer}>
                             <Button 
-                                title={false ? 'Switch to LogIn' : 'Switch to signup'} 
+                                title={false ? 'Registarse' : 'Ingresar'} 
                                 color={Colors.accent} 
                                 onPress={ret2SignIn}
                             />
