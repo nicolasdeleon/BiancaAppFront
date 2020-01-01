@@ -4,6 +4,7 @@ export const LOGIN = 'LOGIN'
 export const REGISTER = 'REGISTER'
 export const AUTHENTICATE = 'AUTHENTICATE'
 export const LOGOUT = 'LOGOUT'
+export const RESETPASSWORD = 'RESETPASSWORD'
 
 export const authenticate=(token,userId) =>{
     return {
@@ -89,7 +90,7 @@ export const register = (email,fullname,instaaccount,password,password2) =>{
 export const reset_password = (email) =>{
     return async dispatch =>{
         const response = await fetch(
-            'https://biancaapp-ndlc.herokuapp.com/api/accounts/reset_password'
+            'https://biancaapp-ndlc.herokuapp.com/api/accounts/reset_password/'
             ,{
                 method:'POST',
                 headers:{
@@ -106,12 +107,11 @@ export const reset_password = (email) =>{
         const resData = await response.json()
         console.log(resData)
         if(resData['response'] === 'Error'){
-            // new Error('Something went wrong!')
             console.log('Reset Password Error:')
             console.log(resData['error_message'])
             throw new Error(resData['error_message'])
         }
-        dispatch({type:FORGOTPASSWORD, userId: resData['email']}) //forgotPass
+        dispatch({type:RESETPASSWORD, userId: resData['email']}) //forgotPass
     }
 }
 

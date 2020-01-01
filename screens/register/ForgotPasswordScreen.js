@@ -136,7 +136,7 @@ const ForgotPasswordScreen = props => {
                         <View style={styles.buttonContainer}>
                             {isLoading ? (<ActivityIndicator size='small' color={Colors.primary}/>) : 
                             (<Button 
-                                title='Solicitar Token Reseteo' 
+                                title='Solicitar Clave Reseteo' 
                                 color={Colors.primary} 
                                 onPress={emailAuthHandler}
                             />)}
@@ -144,48 +144,7 @@ const ForgotPasswordScreen = props => {
                         <Text>
                             Revise su correo (spam) y complete los siguientes datos:
                         </Text>
-                        <Input
-                            id='token'
-                            label='Token:'
-                            keyboardType='default'
-                            required
-                            autoCapitalize="none"
-                            errorText="Ingrese un token válido."
-                            onInputChange={inputChangeHandler}
-                            initialValue=''
-                        />
-                        <Input
-                            id='password'
-                            label='Ingrese su nueva contraseña:'
-                            keyboardType='default'
-                            required
-                            secureTextEntry
-                            minLength={5}
-                            autoCapitalize="none"
-                            errorText="Ingrese una contraseña válida."
-                            onInputChange={inputChangeHandler}
-                            initialValue=''
-                        />
-                        <Input
-                            id='password2'
-                            label='Confirme su nueva contraseña:'
-                            keyboardType='default'
-                            required
-                            secureTextEntry
-                            minLength={5}
-                            autoCapitalize="none"
-                            errorText="Ingrese una contraseña válida."
-                            onInputChange={inputChangeHandler}
-                            initialValue=''
-                        />
-                        <View style={styles.buttonContainer}>
-                            {isLoading ? (<ActivityIndicator size='small' color={Colors.primary}/>) : 
-                            (<Button 
-                                title='Resetear Password' 
-                                color={Colors.primary} 
-                             //   onPress={authHandler}
-                            />)}
-                        </View>
+                        
                         <View style={styles.buttonContainer}>
                             <Button 
                                 title={false ? 'Registarse' : 'Ingresar'} 
