@@ -25,7 +25,7 @@ export default (state = initialState,action) => {
         //forgotPass
         case RESETPASSWORD:
             return {
-            // userId: action.userId
+             userId: action.userId
             }
         //forgotPass
         case RESETPASSWORDCONFIRM:

@@ -107,7 +107,7 @@ export const reset_password = (email) =>{
         const resData = await response.json()
         console.log(resData)
         if(resData['response'] === 'Error'){
-            console.log('Reset Password Error:')
+            console.log('Error Reset Password:')
             console.log(resData['error_message'])
             throw new Error(resData['error_message'])
         }
