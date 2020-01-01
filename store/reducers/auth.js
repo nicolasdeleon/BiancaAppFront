@@ -1,4 +1,4 @@
-import { LOGIN, REGISTER,AUTHENTICATE,LOGOUT } from "../actions/auth"
+import { LOGIN, REGISTER,AUTHENTICATE,LOGOUT, FORGOTPASSWORD } from "../actions/auth" //forgotPass
 
 const initialState = {
     token: null,
@@ -18,6 +18,12 @@ export default (state = initialState,action) => {
                 userId: action.userId
             }
         case REGISTER:
+            return {
+                token: action.token,
+                userId: action.userId
+            }
+        //forgotPass
+        case FORGOTPASSWORD:
             return {
                 token: action.token,
                 userId: action.userId

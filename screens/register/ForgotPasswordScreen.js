@@ -1,6 +1,7 @@
+//forgotPass
 //imports from react and expo
 import React,{useState,useReducer,useCallback} from 'react'
-import {View,Text,StyleSheet,KeyboardAvoidingView,ScrollView,Button,ActivityIndicator,TouchableOpacity, Switch} from 'react-native'
+import {View,Text,StyleSheet,KeyboardAvoidingView,ScrollView,Button,ActivityIndicator} from 'react-native'
 import {LinearGradient} from 'expo-linear-gradient'
 
 //constants and components imports
@@ -39,7 +40,7 @@ const formReducer = (state, action) =>{
     return state //si no cayo en el if por alguna razon rara 
 }
  
-const LogInSignupScreen = props => {
+const ForgotPasswordScreen = props => {
 
     //variables de estado de mi Screen
     const [isLoading,setIsLoading] = useState(false) //para establecer algun load en async
@@ -50,12 +51,18 @@ const LogInSignupScreen = props => {
     //inputValidities que es la validez de cada campo, y la validez total del form
     const [formState,dispatchFormState] = useReducer(formReducer,{
              inputValues: {
+                fullname:'',
+                instaaccount:'',
                 email:'',
-                password:''
+                password:'',                
+                password2:''
              }, 
              inputValidities:{
+                fullname:false,
+                instaaccount:false,
                 email:false,
-                password:false
+                password:false,                
+                password2:false
             },
              formIsValid: false 
              }
@@ -78,13 +85,19 @@ const LogInSignupScreen = props => {
 
         //para log in los campos necesarios para el request son email y password
         //fijarse en store/actions/auth --> signup(email,password){...}
-        action = AuthActions.login(
+        action = AuthActions.register(
             formState.inputValues.email,
-            formState.inputValues.password
-        )
-        console.log("login in")
+            formState.inputValues.fullname,
+            formState.inputValues.instaaccount,
+            formState.inputValues.password,
+            formState.inputValues.password2
+            )
+        console.log("REGISTERING form:.............")
         console.log(formState.inputValues.email)
+        console.log(formState.inputValues.fullname)
+        console.log(formState.inputValues.instaaccount)
         console.log(formState.inputValues.password)
+        console.log(formState.inputValues.password2)
         if(formState.formIsValid){
             setIsLoading(true)
             setError(null)
@@ -112,14 +125,10 @@ const LogInSignupScreen = props => {
         console.log(datauserId)
     }
 
-    //getDataTest()
-    goToRegister = () =>{
-        props.navigation.navigate('register')
-    }
-    
-    //Navegar a forgotPassword //forgotPass
-    goToForgotPassword = () =>{
-        props.navigation.navigate('forgotPassword')
+    getDataTest()
+
+    ret2SignIn = () =>{
+        props.navigation.pop()
     }
 
     return (
@@ -131,72 +140,86 @@ const LogInSignupScreen = props => {
                 <View style={styles.authContainer}>
                     <ScrollView>
                         <Input
+                            id='fullname'
+                            label='Full Name'
+                            keyboardType='default'
+                            required
+                            autoCapitalize="none"
+                            errorText="Enter a valid E-Mail address."
+                            onInputChange={inputChangeHandler}
+                            initialValue=''
+                        />
+                        <Input
+                            id='instaaccount'
+                            label='Instagram Account'
+                            keyboardType='default'
+                            required
+                            autoCapitalize="none"
+                            errorText="Enter a valid E-Mail address."
+                            onInputChange={inputChangeHandler}
+                            initialValue=''
+                        />
+                        <Input
                             id='email'
                             label='E-Mail'
                             keyboardType='email-address'
                             required
                             email
                             autoCapitalize="none"
-                            errorText="Ingrese un e-mail válido."
+                            errorText="Enter a valid E-Mail address."
                             onInputChange={inputChangeHandler}
                             initialValue=''
                         />
                         <Input
                             id='password'
-                            label='Contraseña'
+                            label='Password'
                             keyboardType='default'
                             required
                             secureTextEntry
                             minLength={5}
                             autoCapitalize="none"
-                            errorText="Ingrese una contraseña válida."
+                            errorText="Enter a valid password."
+                            onInputChange={inputChangeHandler}
+                            initialValue=''
+                        />
+                        <Input
+                            id='password2'
+                            label='re Password'
+                            keyboardType='default'
+                            required
+                            secureTextEntry
+                            minLength={5}
+                            autoCapitalize="none"
+                            errorText="Enter a valid password."
                             onInputChange={inputChangeHandler}
                             initialValue=''
                         />
                         <View style={styles.buttonContainer}>
                             {isLoading ? (<ActivityIndicator size='small' color={Colors.primary}/>) : 
                             (<Button 
-                                title='Ingresar' 
+                                title='Register' 
                                 color={Colors.primary} 
                                 onPress={authHandler}
                             />)}
                             </View>
                         <View style={styles.buttonContainer}>
                             <Button 
-                                title={true ? 'Registarse' : 'Ingresar'} 
+                                title={false ? 'Registarse' : 'Ingresar'} 
                                 color={Colors.accent} 
-                                onPress={goToRegister}
+                                onPress={ret2SignIn}
                             />
                             {error && <Text style={{color:'red'}}>{error}</Text>}
-                        </View>            
-                        <View>                            
-                            <Text> ¿Olvidaste tu contraseña? </Text> 
-                            <TouchableOpacity onPress={goToForgotPassword}>  
-                                <Text style={{ textDecorationLine: 'underline' }}> Haz click aquí para resetear.</Text>
-                            </TouchableOpacity>
-                        </View>
-                        <View>
-                        <Switch
-                        //value={this.state.rememberMe}
-                        //onValueChange={(value) => this.toggleRememberMe(value)}
-                        /><Text>Remember Me</Text>
-                        </View>
-                        
-                        
+                            </View>
                     </ScrollView>
-                    
                 </View>
-                
             </LinearGradient>
-            
         </KeyboardAvoidingView>
-        
     )
 }
 
-LogInSignupScreen.navigationOptions = (navData) => {
+ForgotPasswordScreen.navigationOptions = (navData) => {
     return{
-        headerTitle: 'LogIn'
+        headerTitle: 'Register'
     }
 }
 
@@ -240,4 +263,4 @@ const styles = StyleSheet.create({
     }
 })
 
-export default LogInSignupScreen
+export default ForgotPasswordScreen
