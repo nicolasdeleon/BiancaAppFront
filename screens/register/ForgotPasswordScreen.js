@@ -40,7 +40,7 @@ const formReducer = (state, action) =>{
     return state //si no cayo en el if por alguna razon rara 
 }
  
-const ForgotPasswordScreen = props => {
+const ForgotPasswordScreen = props => { 
 
     //variables de estado de mi Screen
     const [isLoading,setIsLoading] = useState(false) //para establecer algun load en async
@@ -51,18 +51,10 @@ const ForgotPasswordScreen = props => {
     //inputValidities que es la validez de cada campo, y la validez total del form
     const [formState,dispatchFormState] = useReducer(formReducer,{
              inputValues: {
-                fullname:'',
-                instaaccount:'',
                 email:'',
-                password:'',                
-                password2:''
              }, 
              inputValidities:{
-                fullname:false,
-                instaaccount:false,
                 email:false,
-                password:false,                
-                password2:false
             },
              formIsValid: false 
              }
@@ -80,24 +72,16 @@ const ForgotPasswordScreen = props => {
     //LOGICA DE DISPATCH AUTH A SERVER
     dispatch = useDispatch()
     
-    const authHandler = async () =>{
+    const emailAuthHandler = async () =>{
         let action
 
         //para log in los campos necesarios para el request son email y password
         //fijarse en store/actions/auth --> signup(email,password){...}
-        action = AuthActions.register(
+        action = AuthActions.reset_password(
             formState.inputValues.email,
-            formState.inputValues.fullname,
-            formState.inputValues.instaaccount,
-            formState.inputValues.password,
-            formState.inputValues.password2
             )
-        console.log("REGISTERING form:.............")
+        console.log("Sending reset password:.............")
         console.log(formState.inputValues.email)
-        console.log(formState.inputValues.fullname)
-        console.log(formState.inputValues.instaaccount)
-        console.log(formState.inputValues.password)
-        console.log(formState.inputValues.password2)
         if(formState.formIsValid){
             setIsLoading(true)
             setError(null)
@@ -140,68 +124,68 @@ const ForgotPasswordScreen = props => {
                 <View style={styles.authContainer}>
                     <ScrollView>
                         <Input
-                            id='fullname'
-                            label='Full Name'
-                            keyboardType='default'
-                            required
-                            autoCapitalize="none"
-                            errorText="Enter a valid E-Mail address."
-                            onInputChange={inputChangeHandler}
-                            initialValue=''
-                        />
-                        <Input
-                            id='instaaccount'
-                            label='Instagram Account'
-                            keyboardType='default'
-                            required
-                            autoCapitalize="none"
-                            errorText="Enter a valid E-Mail address."
-                            onInputChange={inputChangeHandler}
-                            initialValue=''
-                        />
-                        <Input
                             id='email'
-                            label='E-Mail'
-                            keyboardType='email-address'
-                            required
-                            email
-                            autoCapitalize="none"
-                            errorText="Enter a valid E-Mail address."
-                            onInputChange={inputChangeHandler}
-                            initialValue=''
-                        />
-                        <Input
-                            id='password'
-                            label='Password'
+                            label='Ingrese su e-mail:'
                             keyboardType='default'
                             required
-                            secureTextEntry
-                            minLength={5}
                             autoCapitalize="none"
-                            errorText="Enter a valid password."
-                            onInputChange={inputChangeHandler}
-                            initialValue=''
-                        />
-                        <Input
-                            id='password2'
-                            label='re Password'
-                            keyboardType='default'
-                            required
-                            secureTextEntry
-                            minLength={5}
-                            autoCapitalize="none"
-                            errorText="Enter a valid password."
+                            errorText="Ingrese un e-mail válido."
                             onInputChange={inputChangeHandler}
                             initialValue=''
                         />
                         <View style={styles.buttonContainer}>
                             {isLoading ? (<ActivityIndicator size='small' color={Colors.primary}/>) : 
                             (<Button 
-                                title='Register' 
+                                title='Solicitar Token Reseteo' 
                                 color={Colors.primary} 
-                                onPress={authHandler}
+                                onPress={emailAuthHandler}
                             />)}
-                            </View>
+                        </View>
+                        <Text>
+                            Revise su correo (spam) y complete los siguientes datos:
+                        </Text>
+                        <Input
+                            id='token'
+                            label='Token:'
+                            keyboardType='default'
+                            required
+                            autoCapitalize="none"
+                            errorText="Ingrese un token válido."
+                            onInputChange={inputChangeHandler}
+                            initialValue=''
+                        />
+                        <Input
+                            id='password'
+                            label='Ingrese su nueva contraseña:'
+                            keyboardType='default'
+                            required
+                            secureTextEntry
+                            minLength={5}
+                            autoCapitalize="none"
+                            errorText="Ingrese una contraseña válida."
+                            onInputChange={inputChangeHandler}
+                            initialValue=''
+                        />
+                        <Input
+                            id='password2'
+                            label='Confirme su nueva contraseña:'
+                            keyboardType='default'
+                            required
+                            secureTextEntry
+                            minLength={5}
+                            autoCapitalize="none"
+                            errorText="Ingrese una contraseña válida."
+                            onInputChange={inputChangeHandler}
+                            initialValue=''
+                        />
+                        <View style={styles.buttonContainer}>
+                            {isLoading ? (<ActivityIndicator size='small' color={Colors.primary}/>) : 
+                            (<Button 
+                                title='Resetear Password' 
+                                color={Colors.primary} 
+                             //   onPress={authHandler}
+                            />)}
+                        </View>
                         <View style={styles.buttonContainer}>
                             <Button 
                                 title={false ? 'Registarse' : 'Ingresar'} 

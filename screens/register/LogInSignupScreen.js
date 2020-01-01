@@ -174,13 +174,7 @@ const LogInSignupScreen = props => {
                             <TouchableOpacity onPress={goToForgotPassword}>  
                                 <Text style={{ textDecorationLine: 'underline' }}> Haz click aquí para resetear.</Text>
                             </TouchableOpacity>
-                        </View>
-                        <View>
-                        <Switch
-                        //value={this.state.rememberMe}
-                        //onValueChange={(value) => this.toggleRememberMe(value)}
-                        /><Text>Remember Me</Text>
-                        </View>
+                        </View>                  
                         
                         
                     </ScrollView>

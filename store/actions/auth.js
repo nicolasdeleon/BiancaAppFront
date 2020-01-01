@@ -85,11 +85,11 @@ export const register = (email,fullname,instaaccount,password,password2) =>{
         saveDataToStorage(resData['token'],resData['email'])
     }
 }
-
-export const forgotPassword = (email,fullname,instaaccount,password,password2) =>{
+//forgotPass
+export const reset_password = (email) =>{
     return async dispatch =>{
         const response = await fetch(
-            'https://biancaapp-ndlc.herokuapp.com/api/accounts/register'
+            'https://biancaapp-ndlc.herokuapp.com/api/accounts/reset_password'
             ,{
                 method:'POST',
                 headers:{
@@ -97,10 +97,6 @@ export const forgotPassword = (email,fullname,instaaccount,password,password2) =
                 },
                 body: JSON.stringify({
                     email:email,
-                    full_name:fullname,
-                    instaaccount:instaaccount,
-                    password:password,
-                    password2:password2
                 })
             }
         )
@@ -111,12 +107,44 @@ export const forgotPassword = (email,fullname,instaaccount,password,password2) =
         console.log(resData)
         if(resData['response'] === 'Error'){
             // new Error('Something went wrong!')
-            console.log('lo siguiente:')
+            console.log('Reset Password Error:')
             console.log(resData['error_message'])
             throw new Error(resData['error_message'])
         }
-        dispatch({type:REGISTER,token: resData['token'], userId: resData['email']})
-        saveDataToStorage(resData['token'],resData['email'])
+        dispatch({type:FORGOTPASSWORD, userId: resData['email']}) //forgotPass
+    }
+}
+
+//forgotPass
+export const reset_password_confirm = (email,token,password,password2) =>{
+    return async dispatch =>{
+        const response = await fetch(
+            'https://biancaapp-ndlc.herokuapp.com/api/accounts/reset_password_confirm'
+            ,{
+                method:'POST',
+                headers:{
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    email:email,
+                    old_password:token,
+                    password:password,
+                    new_password:password2, 
+                })
+            }
+        )
+        if(response.status>207){
+            throw new Error(response.status)
+        }
+        const resData = await response.json()
+        console.log(resData)
+        if(resData['response'] === 'Error'){
+            // new Error('Something went wrong!')
+            console.log('Reset Password Error:')
+            console.log(resData['error_message'])
+            throw new Error(resData['error_message'])
+        }
+        //dispatch({type:FORGOTPASSWORDCONFIRM, userId: resData['email']}) //forgotPass
     }
 }
 
