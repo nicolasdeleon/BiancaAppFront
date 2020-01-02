@@ -141,7 +141,7 @@ const ForgotPasswordScreen = props => {
 
     }
 
-
+/*
     const getDataTest = ()=>{
         console.log('USUARIOS EN STORE:')
         let dataToken = useSelector(state=>state.auth.token)
@@ -150,12 +150,13 @@ const ForgotPasswordScreen = props => {
         console.log(datauserId)
     }
 
+
     getDataTest()
 
     ret2SignIn = () =>{
         props.navigation.pop()
     }
-
+*/
     return (
         <KeyboardAvoidingView
         behavior="padding"

@@ -4,8 +4,6 @@ export const LOGIN = 'LOGIN'
 export const REGISTER = 'REGISTER'
 export const AUTHENTICATE = 'AUTHENTICATE'
 export const LOGOUT = 'LOGOUT'
-export const RESETPASSWORD = 'RESETPASSWORD'
-export const RESETPASSWORDCONFIRM = 'RESETPASSWORDCONFIRM'
 
 export const authenticate=(token,userId) =>{
     return {
