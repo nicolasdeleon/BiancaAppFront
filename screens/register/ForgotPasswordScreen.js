@@ -180,7 +180,7 @@ const ForgotPasswordScreen = props => {
                         <View style={styles.buttonContainer}>
                             {isLoading ? (<ActivityIndicator size='small' color={Colors.primary}/>) : 
                             (<Button 
-                                title='Enviar Clave Reseteo' 
+                                title='Enviar' 
                                 color={Colors.primary} 
                                 onPress={emailAuthHandler}
                             />)}
@@ -195,7 +195,7 @@ const ForgotPasswordScreen = props => {
                         </Text>
                         <Input
                             id='token'
-                            label='Clave:'
+                            label='Token:'
                             keyboardType='default'
                             required
                             autoCapitalize="none"
@@ -205,10 +205,10 @@ const ForgotPasswordScreen = props => {
                         />
                         <Input
                             id='password'
-                            label='Ingrese su nueva contraseña:'
+                            label='Contraseña:'
                             keyboardType='default'
                             required
-                           // secureTextEntry
+                            secureTextEntry
                             minLength={5}
                             autoCapitalize="none"
                             errorText="Ingrese una contraseña válida."
@@ -217,10 +217,10 @@ const ForgotPasswordScreen = props => {
                         />
                         <Input
                             id='password2'
-                            label='Confirme su nueva contraseña:'
+                            label='Confirmar contraseña:'
                             keyboardType='default'
                             required
-                           // secureTextEntry
+                            secureTextEntry
                             minLength={5}
                             autoCapitalize="none"
                             errorText="Ingrese una contraseña válida."
@@ -233,7 +233,7 @@ const ForgotPasswordScreen = props => {
                             <View style={styles.buttonContainer}>
                                 {isLoading ? (<ActivityIndicator size='small' color={Colors.primary}/>) : 
                                 (<Button 
-                                    title='Resetear Password' 
+                                    title='Confirmar' 
                                     color={Colors.primary} 
                                     onPress={confirmResetAuthHandler}
                                 />)}
@@ -244,12 +244,7 @@ const ForgotPasswordScreen = props => {
                         <View style={styles.buttonContainer}>
                         {error && <Text style={{color:'red'}}>{error}</Text>}
                         </View>
-                        
-                        
-
-
-
-                        
+                                                
                     </ScrollView>
                 </View>
             </LinearGradient>
