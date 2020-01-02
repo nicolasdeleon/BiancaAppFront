@@ -141,7 +141,7 @@ const ForgotPasswordScreen = props => {
 
     }
 
-
+/*
     const getDataTest = ()=>{
         console.log('USUARIOS EN STORE:')
         let dataToken = useSelector(state=>state.auth.token)
@@ -150,12 +150,13 @@ const ForgotPasswordScreen = props => {
         console.log(datauserId)
     }
 
+
     getDataTest()
 
     ret2SignIn = () =>{
         props.navigation.pop()
     }
-
+*/
     return (
         <KeyboardAvoidingView
         behavior="padding"
@@ -194,7 +195,7 @@ const ForgotPasswordScreen = props => {
                         </Text>
                         <Input
                             id='token'
-                            label='Clave:'
+                            label='Token:'
                             keyboardType='default'
                             required
                             autoCapitalize="none"
@@ -204,10 +205,10 @@ const ForgotPasswordScreen = props => {
                         />
                         <Input
                             id='password'
-                            label='Ingrese su nueva contraseña:'
+                            label='Contraseña:'
                             keyboardType='default'
                             required
-                           // secureTextEntry
+                            secureTextEntry
                             minLength={5}
                             autoCapitalize="none"
                             errorText="Ingrese una contraseña válida."
@@ -216,10 +217,10 @@ const ForgotPasswordScreen = props => {
                         />
                         <Input
                             id='password2'
-                            label='Confirme su nueva contraseña:'
+                            label='Confirmar contraseña:'
                             keyboardType='default'
                             required
-                           // secureTextEntry
+                            secureTextEntry
                             minLength={5}
                             autoCapitalize="none"
                             errorText="Ingrese una contraseña válida."
@@ -243,12 +244,7 @@ const ForgotPasswordScreen = props => {
                         <View style={styles.buttonContainer}>
                         {error && <Text style={{color:'red'}}>{error}</Text>}
                         </View>
-                        
-                        
-
-
-
-                        
+                                                
                     </ScrollView>
                 </View>
             </LinearGradient>
