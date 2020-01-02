@@ -46,6 +46,8 @@ const Input = props =>{
         if (props.minLength != null && text.length < props.minLength) {
         isValid = false;
         }
+        if(props.email)
+            text = text.trim();
         dispatch({
             type: INPUT_CHANGE,
             value: text,
