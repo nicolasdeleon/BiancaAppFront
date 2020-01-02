@@ -117,7 +117,6 @@ const ForgotPasswordScreen = props => {
             formState.inputValues.password,
             formState.inputValues.password2
             )
-        console.log("REGISTERING form:.............")
         console.log(formState.inputValues.email)
         console.log(formState.inputValues.fullname)
         console.log(formState.inputValues.instaaccount)

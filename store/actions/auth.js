@@ -127,9 +127,8 @@ export const reset_password_confirm = (email,token,password,password2) =>{
                 },
                 body: JSON.stringify({
                     email:email,
-                    old_password:token,
+                    token:token,
                     password:password,
-                    new_password:password2, 
                 })
             }
         )
@@ -139,7 +138,6 @@ export const reset_password_confirm = (email,token,password,password2) =>{
         const resData = await response.json()
         console.log(resData)
         if(resData['response'] === 'Error'){
-            // new Error('Something went wrong!')
             console.log('Reset Password Error:')
             console.log(resData['error_message'])
             throw new Error(resData['error_message'])
