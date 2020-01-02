@@ -207,7 +207,7 @@ const ForgotPasswordScreen = props => {
                             label='Ingrese su nueva contraseña:'
                             keyboardType='default'
                             required
-                            secureTextEntry
+                           // secureTextEntry
                             minLength={5}
                             autoCapitalize="none"
                             errorText="Ingrese una contraseña válida."
@@ -219,7 +219,7 @@ const ForgotPasswordScreen = props => {
                             label='Confirme su nueva contraseña:'
                             keyboardType='default'
                             required
-                            secureTextEntry
+                           // secureTextEntry
                             minLength={5}
                             autoCapitalize="none"
                             errorText="Ingrese una contraseña válida."

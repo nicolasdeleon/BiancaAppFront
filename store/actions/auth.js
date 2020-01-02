@@ -5,6 +5,7 @@ export const REGISTER = 'REGISTER'
 export const AUTHENTICATE = 'AUTHENTICATE'
 export const LOGOUT = 'LOGOUT'
 export const RESETPASSWORD = 'RESETPASSWORD'
+export const RESETPASSWORDCONFIRM = 'RESETPASSWORDCONFIRM'
 
 export const authenticate=(token,userId) =>{
     return {
@@ -116,10 +117,10 @@ export const reset_password = (email) =>{
 }
 
 //forgotPass
-export const reset_password_confirm = (email,token,password,password2) =>{
+export const reset_password_confirm = (email,token,password) =>{
     return async dispatch =>{
         const response = await fetch(
-            'https://biancaapp-ndlc.herokuapp.com/api/accounts/reset_password_confirm/'
+            'https://biancaapp-ndlc.herokuapp.com/api/accounts/reset_password/confirm/'
             ,{
                 method:'POST',
                 headers:{
@@ -132,6 +133,8 @@ export const reset_password_confirm = (email,token,password,password2) =>{
                 })
             }
         )
+        
+        console.log('Reset Password Entro:')
         if(response.status>207){
             throw new Error(response.status)
         }
@@ -142,7 +145,7 @@ export const reset_password_confirm = (email,token,password,password2) =>{
             console.log(resData['error_message'])
             throw new Error(resData['error_message'])
         }
-        dispatch({type:FORGOTPASSWORDCONFIRM, userId: resData['email']}) //forgotPass
+        dispatch({type:RESETPASSWORDCONFIRM, userId: resData['email']}) //forgotPass
     }
 }
 
