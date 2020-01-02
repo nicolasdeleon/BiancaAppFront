@@ -170,9 +170,9 @@ const LogInSignupScreen = props => {
                             {error && <Text style={{color:'red'}}>{error}</Text>}
                         </View>            
                         <View>                            
-                            <Text> ¿Olvidaste tu contraseña? </Text> 
+                            <Text> </Text> 
                             <TouchableOpacity onPress={goToForgotPassword}>  
-                                <Text style={{ textDecorationLine: 'underline' }}> Haz click aquí para resetear.</Text>
+                                <Text style={{ textDecorationLine: 'underline' }}> Olvidé mi contraseña.</Text>
                             </TouchableOpacity>
                         </View>                  
                         

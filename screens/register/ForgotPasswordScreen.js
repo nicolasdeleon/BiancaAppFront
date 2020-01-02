@@ -179,7 +179,7 @@ const ForgotPasswordScreen = props => {
                         <View style={styles.buttonContainer}>
                             {isLoading ? (<ActivityIndicator size='small' color={Colors.primary}/>) : 
                             (<Button 
-                                title='Enviar Clave Reseteo' 
+                                title='Enviar' 
                                 color={Colors.primary} 
                                 onPress={emailAuthHandler}
                             />)}
@@ -190,7 +190,7 @@ const ForgotPasswordScreen = props => {
                         <View > 
                             
                         <Text>
-                            Revise su correo (spam) y complete los siguientes datos:
+                            Revise su correo (spam) y complete:
                         </Text>
                         <Input
                             id='token'
@@ -232,7 +232,7 @@ const ForgotPasswordScreen = props => {
                             <View style={styles.buttonContainer}>
                                 {isLoading ? (<ActivityIndicator size='small' color={Colors.primary}/>) : 
                                 (<Button 
-                                    title='Resetear Password' 
+                                    title='Confirmar' 
                                     color={Colors.primary} 
                                     onPress={confirmResetAuthHandler}
                                 />)}
@@ -272,7 +272,7 @@ const styles = StyleSheet.create({
     authContainer:{
         width:'80%',
         maxWidth:400,
-        height:'50%',
+        height:'80%',
         maxHeight:400,
         padding:15,
         borderColor:'#f5f5f5',
