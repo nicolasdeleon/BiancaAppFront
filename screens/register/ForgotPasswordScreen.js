@@ -128,7 +128,7 @@ const ForgotPasswordScreen = props => {
             try{
                 await dispatch(action)
                 setIsLoading(false)
-                props.navigation.navigate('app')
+                props.navigation.navigate('singIn')
             }catch (err){
                 //tipicamente error de Invalid Credentials proveniente del servidor data
                 setError(err.message)

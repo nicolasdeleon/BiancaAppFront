@@ -112,13 +112,17 @@ export const reset_password = (email) =>{
             console.log(resData['error_message'])
             throw new Error(resData['error_message'])
         }
-        dispatch({type:RESETPASSWORD, userId: resData['email']}) //forgotPass
+        //dispatch({type:RESETPASSWORD, userId: resData['email']}) //forgotPass
     }
 }
 
 //forgotPass
-export const reset_password_confirm = (email,token,password) =>{
+export const reset_password_confirm = (email,token,password,password2) =>{
     return async dispatch =>{
+        if(password!=password2){
+            throw new Error("Las passwords deben ser iguales")
+        }
+        
         const response = await fetch(
             'https://biancaapp-ndlc.herokuapp.com/api/accounts/reset_password/confirm/'
             ,{
@@ -145,7 +149,7 @@ export const reset_password_confirm = (email,token,password) =>{
             console.log(resData['error_message'])
             throw new Error(resData['error_message'])
         }
-        dispatch({type:RESETPASSWORDCONFIRM, userId: resData['email']}) //forgotPass
+        //dispatch({type:RESETPASSWORDCONFIRM, userId: resData['email']}) //forgotPass
     }
 }
 
