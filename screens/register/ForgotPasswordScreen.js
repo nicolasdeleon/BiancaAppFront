@@ -45,6 +45,8 @@ const ForgotPasswordScreen = props => {
     //variables de estado de mi Screen
     const [isLoading,setIsLoading] = useState(false) //para establecer algun load en async
     const [error,setError] = useState(null) //errores de loading o de logeo/registro
+    
+    const [showTokenForm, setShowTokenForm] = useState(null) //visualizar segundo form
 
     //useReducer toma mi formReducer para saber con que form actualizar mi formState
     //inicializo formState con inputValues que es el valor en cada campo
@@ -89,6 +91,8 @@ const ForgotPasswordScreen = props => {
                 await dispatch(action)
                 setIsLoading(false)
               //  props.navigation.navigate('app')
+              
+                setShowTokenForm(true)
             }catch (err){
                 //tipicamente error de Invalid Credentials proveniente del servidor data
                 setError(err.message)
@@ -100,6 +104,44 @@ const ForgotPasswordScreen = props => {
         }
 
     }
+
+    
+    const confirmResetAuthHandler = async () =>{
+        let action
+
+        //para log in los campos necesarios para el request son email y password
+        //fijarse en store/actions/auth --> signup(email,password){...}
+        action = AuthActions.reset_password_confirm(
+            formState.inputValues.email,
+            formState.inputValues.token,
+            formState.inputValues.password,
+            formState.inputValues.password2
+            )
+        console.log("REGISTERING form:.............")
+        console.log(formState.inputValues.email)
+        console.log(formState.inputValues.fullname)
+        console.log(formState.inputValues.instaaccount)
+        console.log(formState.inputValues.password)
+        console.log(formState.inputValues.password2)
+        if(formState.formIsValid){
+            setIsLoading(true)
+            setError(null)
+            try{
+                await dispatch(action)
+                setIsLoading(false)
+                props.navigation.navigate('app')
+            }catch (err){
+                //tipicamente error de Invalid Credentials proveniente del servidor data
+                setError(err.message)
+                setIsLoading(false)
+            }
+        }else{
+            //si el form esta mal ni me gasto en mandar las credentials
+            setError('Invalid form credentials')
+        }
+
+    }
+
 
     const getDataTest = ()=>{
         console.log('USUARIOS EN STORE:')
@@ -133,6 +175,8 @@ const ForgotPasswordScreen = props => {
                             onInputChange={inputChangeHandler}
                             initialValue=''
                         />
+                        
+                        {!showTokenForm &&
                         <View style={styles.buttonContainer}>
                             {isLoading ? (<ActivityIndicator size='small' color={Colors.primary}/>) : 
                             (<Button 
@@ -140,11 +184,15 @@ const ForgotPasswordScreen = props => {
                                 color={Colors.primary} 
                                 onPress={emailAuthHandler}
                             />)}
-                        </View>
+                        </View>}
+                        
+                        
+                        {showTokenForm &&
+                        <View > 
+                            
                         <Text>
                             Revise su correo (spam) y complete los siguientes datos:
                         </Text>
-                        
                         <Input
                             id='token'
                             label='Clave:'
@@ -179,9 +227,29 @@ const ForgotPasswordScreen = props => {
                             onInputChange={inputChangeHandler}
                             initialValue=''
                         />
-                        <View style={styles.buttonContainer}>
-                            {error && <Text style={{color:'red'}}>{error}</Text>}
                         </View>
+                        }
+                        {showTokenForm &&
+                            <View style={styles.buttonContainer}>
+                                {isLoading ? (<ActivityIndicator size='small' color={Colors.primary}/>) : 
+                                (<Button 
+                                    title='Resetear Password' 
+                                    color={Colors.primary} 
+                                    onPress={confirmResetAuthHandler}
+                                />)}
+                            </View>
+                                                       
+                        }
+                        
+                        <View style={styles.buttonContainer}>
+                        {error && <Text style={{color:'red'}}>{error}</Text>}
+                        </View>
+                        
+                        
+
+
+
+                        
                     </ScrollView>
                 </View>
             </LinearGradient>

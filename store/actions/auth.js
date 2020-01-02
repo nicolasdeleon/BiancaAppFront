@@ -144,7 +144,7 @@ export const reset_password_confirm = (email,token,password,password2) =>{
             console.log(resData['error_message'])
             throw new Error(resData['error_message'])
         }
-        //dispatch({type:FORGOTPASSWORDCONFIRM, userId: resData['email']}) //forgotPass
+        dispatch({type:FORGOTPASSWORDCONFIRM, userId: resData['email']}) //forgotPass
     }
 }
 

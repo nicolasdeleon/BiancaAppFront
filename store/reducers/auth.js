@@ -31,7 +31,7 @@ export default (state = initialState,action) => {
         case RESETPASSWORDCONFIRM:
             return {
                 //  token: action.token,
-                // userId: action.userId
+                 userId: action.userId
             }
         case LOGOUT:
             return initialState
