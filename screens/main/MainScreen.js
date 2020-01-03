@@ -46,6 +46,14 @@ const MainScreen = props => {
             console.log('yes')
     },[dispatch,loadContractsAndEvents]) //por dependencia a dispatch solo se me llama una vez
 
+    useEffect(()=>{
+        const willFocusSub = props.navigation.addListener('willFocus',()=>{
+            loadContractsAndEvents() 
+        })
+        return () => {
+            willFocusSub.remove()
+        }
+    },[loadContractsAndEvents])
     
     const setCodeValueHandler = useCallback((InputIdentifier,inputValue,inputValidity) =>{
         setCodeValue(inputValue)
@@ -108,7 +116,7 @@ const MainScreen = props => {
 
     return (
         
-        <View style={styles.screen}>
+        <View style={styles.screen} >
             <StatusBar backgroundColor={Colors.dark} barStyle={"light-content"} translucent={false}/>
             <View style={{width:'100%',height:'100%',flex:1,marginTop:25}}> 
                 <InsertCode 
@@ -127,6 +135,8 @@ const MainScreen = props => {
                 <View style={styles.howItWorks}>
                     <Text style={styles.title}>¿Como funciona?</Text>
                     <FlatList
+                        onRefresh={loadContractsAndEvents}
+                        refreshing={isLoading}
                         keyExtractor ={(item,index) => item.id}
                         data={STEPS}
                         renderItem={itemData =><Card>
@@ -140,6 +150,7 @@ const MainScreen = props => {
                         (<ActivityIndicator size='large' color={Colors.primary}/>) 
                     :
                         <EventStatusIndicator
+                            sent={sentCode}
                             onButtonPress={insertCodeButton}
                             event={activeEvents[1]}
                             contractList={activeContracts} 
@@ -151,15 +162,6 @@ const MainScreen = props => {
     )
 }
 
-/**
- * (!sentCode ? 
-                                <Text style={{...styles.stepTitle,paddingTop:10}}>Esperando Acreditar su Foto!!</Text>
-                            :
-                                <QRButton onPress={insertCodeButton}>
-                                    <Text>Ingresar Codigo</Text>
-                                </QRButton>   
-                        )
- */
 
 const styles = StyleSheet.create({
     screen:{
