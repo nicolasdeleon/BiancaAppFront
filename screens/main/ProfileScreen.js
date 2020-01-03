@@ -128,8 +128,10 @@ const ProfileScreen = props => {
                     onPress={()=>{setInstaInfoToggle(!instaInfoToggle)}}>
                         <FontAwesome name='user-o' size={25} color={Colors.accent}/>
                         {isLoading ? 
-                                (<ActivityIndicator size='large' color={Colors.primary}/>) : 
-                        <Text style={styles.instaAccount}> {userData.instaAccount} </Text>}
+                            (<ActivityIndicator size='large' color={Colors.primary}/>) 
+                            : 
+                            <Text style={styles.instaAccount}> {userData.instaAccount} </Text>
+                        }
                     </TouchableOpacity>
                 </View>
                 {instaInfoToggle &&
@@ -149,26 +151,35 @@ const ProfileScreen = props => {
                 <View style={styles.textContainer}>
                     <FontAwesome name='user-o' size={25} color={Colors.accent}/>
                     {isLoading ? 
-                            (<ActivityIndicator size='large' color={Colors.primary}/>)  :
-                    <Text style={styles.instaAccount}> {userData.name} </Text>}
+                        (<ActivityIndicator size='large' color={Colors.primary}/>) 
+                        :
+                        <Text style={styles.instaAccount}> {userData.name} </Text>
+                    }
                 </View>
                 <View style={styles.textContainer}>
                     <FontAwesome name='user-o' size={25} color={Colors.accent}/>
                     {isLoading ? 
-                            (<ActivityIndicator size='large' color={Colors.primary}/>) :
-                    <Text style={styles.instaAccount}> {userData.email} </Text>}
-                </View>
-                <View style={styles.textContainer}>
-                    <FontAwesome name='user-o' size={25} color={Colors.accent}/>
-                    {isLoading ? 
-                            (<ActivityIndicator size='large' color={Colors.primary}/>) :
-                    <Text style={styles.instaAccount}> Puntaje de usuario {userData.score} </Text>}
+                        (<ActivityIndicator size='large' color={Colors.primary}/>) 
+                        :
+                        <Text style={styles.instaAccount}> {userData.email} </Text>
+                    }
                 </View>
                 <Text>{error}</Text>
             </View>
         </View>
     )
 }
+
+/**
+ * PUNTAJE DEL
+ *                 
+ * <View style={styles.textContainer}>
+        <FontAwesome name='user-o' size={25} color={Colors.accent}/>
+        {isLoading ? 
+                (<ActivityIndicator size='large' color={Colors.primary}/>) :
+        <Text style={styles.instaAccount}> Puntaje de usuario {userData.score} </Text>}
+    </View>
+ */
 
 const styles = StyleSheet.create({
     screen:{
