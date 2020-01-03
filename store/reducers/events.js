@@ -1,16 +1,23 @@
-import{ JOIN_EVENT } from "../actions/events"
+import{ JOIN_EVENT,GET_ACTIVE_CONTRACTS,GET_ACTIVE_EVENTS } from "../actions/events"
 
 const initialState = {
+    activeContracts : [],
     activeEvents: [],
-    allEvents : []
 }
 
 export default (state = initialState, action) => {
     switch(action.type) {
         case JOIN_EVENT:
+            return state
+        case GET_ACTIVE_CONTRACTS:
             return {
-                ...state, //mantengo el valor de los estados que no toco
-                activeEvents : [...state.activeEvents,action.activeEvent]
+                ...state,
+                activeContracts: action.activePostRelationList
+            }
+        case GET_ACTIVE_EVENTS:
+            return {
+                ...state,
+                activeEvents: action.activeEventObjectList
             }
         default:
             return state
