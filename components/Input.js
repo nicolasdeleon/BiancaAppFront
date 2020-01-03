@@ -46,6 +46,8 @@ const Input = props =>{
         if (props.minLength != null && text.length < props.minLength) {
         isValid = false;
         }
+        if(props.email)
+            text = text.trim();
         dispatch({
             type: INPUT_CHANGE,
             value: text,
@@ -82,6 +84,7 @@ const Input = props =>{
             //onEndEditing={()=>{console.log("end editing")}}
             //onSubmitEditing={()=>{console.log("submited")}}
         />
+        
         {!inputState.isValid && inputState.touched && <View style={styles.errorContainer}>
             <Text style={styles.errorText}>{props.errorText}</Text>
             </View>}

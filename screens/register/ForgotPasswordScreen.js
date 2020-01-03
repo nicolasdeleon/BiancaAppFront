@@ -1,6 +1,7 @@
+//forgotPass
 //imports from react and expo
 import React,{useState,useReducer,useCallback} from 'react'
-import {View,Text,StyleSheet,KeyboardAvoidingView,ScrollView,Button,ActivityIndicator,TouchableOpacity, Switch} from 'react-native'
+import {View,Text,StyleSheet,KeyboardAvoidingView,ScrollView,Button,ActivityIndicator} from 'react-native'
 import {LinearGradient} from 'expo-linear-gradient'
 
 //constants and components imports
@@ -39,11 +40,13 @@ const formReducer = (state, action) =>{
     return state //si no cayo en el if por alguna razon rara 
 }
  
-const LogInSignupScreen = props => {
+const ForgotPasswordScreen = props => { 
 
     //variables de estado de mi Screen
     const [isLoading,setIsLoading] = useState(false) //para establecer algun load en async
     const [error,setError] = useState(null) //errores de loading o de logeo/registro
+    
+    const [showTokenForm, setShowTokenForm] = useState(null) //visualizar segundo form
 
     //useReducer toma mi formReducer para saber con que form actualizar mi formState
     //inicializo formState con inputValues que es el valor en cada campo
@@ -51,11 +54,9 @@ const LogInSignupScreen = props => {
     const [formState,dispatchFormState] = useReducer(formReducer,{
              inputValues: {
                 email:'',
-                password:''
              }, 
              inputValidities:{
                 email:false,
-                password:false
             },
              formIsValid: false 
              }
@@ -73,25 +74,25 @@ const LogInSignupScreen = props => {
     //LOGICA DE DISPATCH AUTH A SERVER
     dispatch = useDispatch()
     
-    const authHandler = async () =>{
+    const emailAuthHandler = async () =>{
         let action
 
         //para log in los campos necesarios para el request son email y password
         //fijarse en store/actions/auth --> signup(email,password){...}
-        action = AuthActions.login(
+        action = AuthActions.reset_password(
             formState.inputValues.email,
-            formState.inputValues.password
-        )
-        console.log("login in")
+            )
+        console.log("Sending reset password:.............")
         console.log(formState.inputValues.email)
-        console.log(formState.inputValues.password)
         if(formState.formIsValid){
             setIsLoading(true)
             setError(null)
             try{
                 await dispatch(action)
                 setIsLoading(false)
-                props.navigation.navigate('app')
+              //  props.navigation.navigate('app')
+              
+                setShowTokenForm(true)
             }catch (err){
                 //tipicamente error de Invalid Credentials proveniente del servidor data
                 setError(err.message)
@@ -104,6 +105,43 @@ const LogInSignupScreen = props => {
 
     }
 
+    
+    const confirmResetAuthHandler = async () =>{
+        let action
+
+        //para log in los campos necesarios para el request son email y password
+        //fijarse en store/actions/auth --> signup(email,password){...}
+        action = AuthActions.reset_password_confirm(
+            formState.inputValues.email,
+            formState.inputValues.token,
+            formState.inputValues.password,
+            formState.inputValues.password2
+            )
+        console.log(formState.inputValues.email)
+        console.log(formState.inputValues.fullname)
+        console.log(formState.inputValues.instaaccount)
+        console.log(formState.inputValues.password)
+        console.log(formState.inputValues.password2)
+        if(formState.formIsValid){
+            setIsLoading(true)
+            setError(null)
+            try{
+                await dispatch(action)
+                setIsLoading(false)
+                props.navigation.navigate('singIn')
+            }catch (err){
+                //tipicamente error de Invalid Credentials proveniente del servidor data
+                setError(err.message)
+                setIsLoading(false)
+            }
+        }else{
+            //si el form esta mal ni me gasto en mandar las credentials
+            setError('Invalid form credentials')
+        }
+
+    }
+
+/*
     const getDataTest = ()=>{
         console.log('USUARIOS EN STORE:')
         let dataToken = useSelector(state=>state.auth.token)
@@ -112,16 +150,13 @@ const LogInSignupScreen = props => {
         console.log(datauserId)
     }
 
-    //getDataTest()
-    goToRegister = () =>{
-        props.navigation.navigate('register')
-    }
-    
-    //Navegar a forgotPassword //forgotPass
-    goToForgotPassword = () =>{
-        props.navigation.navigate('forgotPassword')
-    }
 
+    getDataTest()
+
+    ret2SignIn = () =>{
+        props.navigation.pop()
+    }
+*/
     return (
         <KeyboardAvoidingView
         behavior="padding"
@@ -132,18 +167,45 @@ const LogInSignupScreen = props => {
                     <ScrollView>
                         <Input
                             id='email'
-                            label='E-Mail'
-                            keyboardType='email-address'
+                            label='Ingrese su e-mail:'
+                            keyboardType='default'
                             required
-                            email
                             autoCapitalize="none"
                             errorText="Ingrese un e-mail válido."
                             onInputChange={inputChangeHandler}
                             initialValue=''
                         />
+                        
+                        {!showTokenForm &&
+                        <View style={styles.buttonContainer}>
+                            {isLoading ? (<ActivityIndicator size='small' color={Colors.primary}/>) : 
+                            (<Button 
+                                title='Enviar' 
+                                color={Colors.primary} 
+                                onPress={emailAuthHandler}
+                            />)}
+                        </View>}
+                        
+                        
+                        {showTokenForm &&
+                        <View > 
+                            
+                        <Text>
+                            Revise su correo (spam) y complete:
+                        </Text>
+                        <Input
+                            id='token'
+                            label='Token:'
+                            keyboardType='default'
+                            required
+                            autoCapitalize="none"
+                            errorText="Ingrese un token válido."
+                            onInputChange={inputChangeHandler}
+                            initialValue=''
+                        />
                         <Input
                             id='password'
-                            label='Contraseña'
+                            label='Contraseña:'
                             keyboardType='default'
                             required
                             secureTextEntry
@@ -153,44 +215,46 @@ const LogInSignupScreen = props => {
                             onInputChange={inputChangeHandler}
                             initialValue=''
                         />
-                        <View style={styles.buttonContainer}>
-                            {isLoading ? (<ActivityIndicator size='small' color={Colors.primary}/>) : 
-                            (<Button 
-                                title='Ingresar' 
-                                color={Colors.primary} 
-                                onPress={authHandler}
-                            />)}
+                        <Input
+                            id='password2'
+                            label='Confirmar contraseña:'
+                            keyboardType='default'
+                            required
+                            secureTextEntry
+                            minLength={5}
+                            autoCapitalize="none"
+                            errorText="Ingrese una contraseña válida."
+                            onInputChange={inputChangeHandler}
+                            initialValue=''
+                        />
+                        </View>
+                        }
+                        {showTokenForm &&
+                            <View style={styles.buttonContainer}>
+                                {isLoading ? (<ActivityIndicator size='small' color={Colors.primary}/>) : 
+                                (<Button 
+                                    title='Confirmar' 
+                                    color={Colors.primary} 
+                                    onPress={confirmResetAuthHandler}
+                                />)}
                             </View>
+                                                       
+                        }
+                        
                         <View style={styles.buttonContainer}>
-                            <Button 
-                                title={true ? 'Registarse' : 'Ingresar'} 
-                                color={Colors.accent} 
-                                onPress={goToRegister}
-                            />
-                            {error && <Text style={{color:'red'}}>{error}</Text>}
-                        </View>            
-                        <View>                            
-                            <Text> </Text> 
-                            <TouchableOpacity onPress={goToForgotPassword}>  
-                                <Text style={{ textDecorationLine: 'underline' }}> Olvidé mi contraseña.</Text>
-                            </TouchableOpacity>
-                        </View>                  
-                        
-                        
+                        {error && <Text style={{color:'red'}}>{error}</Text>}
+                        </View>
+                                                
                     </ScrollView>
-                    
                 </View>
-                
             </LinearGradient>
-            
         </KeyboardAvoidingView>
-        
     )
 }
 
-LogInSignupScreen.navigationOptions = (navData) => {
+ForgotPasswordScreen.navigationOptions = (navData) => {
     return{
-        headerTitle: 'LogIn'
+        headerTitle: 'Reset Password'
     }
 }
 
@@ -204,7 +268,7 @@ const styles = StyleSheet.create({
     authContainer:{
         width:'80%',
         //maxWidth:400,
-        //height:'50%',
+        //height:'80%',
         //maxHeight:400,
         padding:15,
         borderColor:'#f5f5f5',
@@ -234,4 +298,4 @@ const styles = StyleSheet.create({
     }
 })
 
-export default LogInSignupScreen
+export default ForgotPasswordScreen

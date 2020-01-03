@@ -28,6 +28,7 @@ import RegisterScreen from '../screens/register/RegisterScreen'
 import StartupScreen from '../screens/StartupScreen'
 import EditProfileScreen from '../screens/main/EditProfileScreen'
 import FeedbackFormScreen from '../screens/main/FeedbackFormScreen'
+import ForgotPasswordScreen from '../screens/register/ForgotPasswordScreen' //forgotPass
 
 //CREATION OF NAVIGATION FLOW
 
@@ -210,8 +211,10 @@ const MainProfileDrawer = createDrawerNavigator({
 //Falta darle un formato apropiado
 const RegisterOrSignIn = createStackNavigator({
     singIn: LogInSignupScreen,
-    register: RegisterScreen
+    register: RegisterScreen,    
+    forgotPassword: ForgotPasswordScreen, //forgotPass
 })
+
 //Switch navigator permite que pueda tener screens que no pueden volver a la anterior.
 //utilizo para separar mi app de login-signup a Main
 const AppAndLoginSignup = createSwitchNavigator({
@@ -219,6 +222,8 @@ const AppAndLoginSignup = createSwitchNavigator({
     auth:RegisterOrSignIn,
     app:MainProfileDrawer,
 })
+
+
 
 const styles = StyleSheet.create({
     menuButtonContainer:{

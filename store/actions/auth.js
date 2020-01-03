@@ -85,6 +85,71 @@ export const register = (email,fullname,instaaccount,password,password2) =>{
         saveDataToStorage(resData['token'],resData['email'])
     }
 }
+//forgotPass
+export const reset_password = (email) =>{
+    return async dispatch =>{
+        const response = await fetch(
+            'https://biancaapp-ndlc.herokuapp.com/api/accounts/reset_password/'
+            ,{
+                method:'POST',
+                headers:{
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    email:email,
+                })
+            }
+        )
+        if(response.status>207){
+            throw new Error(response.status)
+        }
+        const resData = await response.json()
+        console.log(resData)
+        if(resData['response'] === 'Error'){
+            console.log('Error Reset Password:')
+            console.log(resData['error_message'])
+            throw new Error(resData['error_message'])
+        }
+        //dispatch({type:RESETPASSWORD, userId: resData['email']}) //forgotPass
+    }
+}
+
+//forgotPass
+export const reset_password_confirm = (email,token,password,password2) =>{
+    return async dispatch =>{
+        if(password!=password2){
+            throw new Error("Las passwords deben ser iguales")
+        }
+        
+        const response = await fetch(
+            'https://biancaapp-ndlc.herokuapp.com/api/accounts/reset_password/confirm/'
+            ,{
+                method:'POST',
+                headers:{
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    email:email,
+                    token:token,
+                    password:password,
+                })
+            }
+        )
+        
+        console.log('Reset Password Entro:')
+        if(response.status>207){
+            throw new Error(response.status)
+        }
+        const resData = await response.json()
+        console.log(resData)
+        if(resData['response'] === 'Error'){
+            console.log('Reset Password Error:')
+            console.log(resData['error_message'])
+            throw new Error(resData['error_message'])
+        }
+        //dispatch({type:RESETPASSWORDCONFIRM, userId: resData['email']}) //forgotPass
+    }
+}
 
 const saveDataToStorage = (token,userId) => {
     AsyncStorage.setItem('userData',

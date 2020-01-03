@@ -140,7 +140,7 @@ const RegisterScreen = props => {
                     <ScrollView>
                         <Input
                             id='fullname'
-                            label='Full Name'
+                            label='Nombre y Apellido'
                             keyboardType='default'
                             required
                             autoCapitalize="none"
@@ -150,11 +150,11 @@ const RegisterScreen = props => {
                         />
                         <Input
                             id='instaaccount'
-                            label='Instagram Account'
+                            label='Usuario Instagram'
                             keyboardType='default'
                             required
                             autoCapitalize="none"
-                            errorText="Enter a valid E-Mail address."
+                            errorText="Ingrese un instagram válido."
                             onInputChange={inputChangeHandler}
                             initialValue=''
                         />
@@ -165,49 +165,41 @@ const RegisterScreen = props => {
                             required
                             email
                             autoCapitalize="none"
-                            errorText="Enter a valid E-Mail address."
+                            errorText="Ingrese un e-mail válido."
                             onInputChange={inputChangeHandler}
                             initialValue=''
                         />
                         <Input
                             id='password'
-                            label='Password'
+                            label='Contraseña'
                             keyboardType='default'
                             required
                             secureTextEntry
                             minLength={5}
                             autoCapitalize="none"
-                            errorText="Enter a valid password."
+                            errorText="Ingrese una contraseña válida."
                             onInputChange={inputChangeHandler}
                             initialValue=''
                         />
                         <Input
                             id='password2'
-                            label='re Password'
+                            label='Confirmar Contraseña'
                             keyboardType='default'
                             required
                             secureTextEntry
                             minLength={5}
                             autoCapitalize="none"
-                            errorText="Enter a valid password."
+                            errorText="Ingrese una contraseña válida."
                             onInputChange={inputChangeHandler}
                             initialValue=''
                         />
                         <View style={styles.buttonContainer}>
                             {isLoading ? (<ActivityIndicator size='small' color={Colors.primary}/>) : 
                             (<Button 
-                                title='Register' 
+                                title='Registrarse' 
                                 color={Colors.primary} 
                                 onPress={authHandler}
                             />)}
-                            </View>
-                        <View style={styles.buttonContainer}>
-                            <Button 
-                                title={false ? 'Switch to LogIn' : 'Switch to signup'} 
-                                color={Colors.accent} 
-                                onPress={ret2SignIn}
-                            />
-                            {error && <Text style={{color:'red'}}>{error}</Text>}
                             </View>
                     </ScrollView>
                 </View>
@@ -218,7 +210,7 @@ const RegisterScreen = props => {
 
 RegisterScreen.navigationOptions = (navData) => {
     return{
-        headerTitle: 'Register'
+        headerTitle: 'Registro'
     }
 }
 
@@ -231,9 +223,9 @@ const styles = StyleSheet.create({
     },
     authContainer:{
         width:'80%',
-        maxWidth:400,
-        height:'50%',
-        maxHeight:400,
+        //maxWidth:400,
+        //height:'50%',
+        //maxHeight:400,
         padding:15,
         borderColor:'#f5f5f5',
         borderWidth:1,
