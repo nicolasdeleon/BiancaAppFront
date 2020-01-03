@@ -158,17 +158,22 @@ const ProfileScreen = props => {
                             (<ActivityIndicator size='large' color={Colors.primary}/>) :
                     <Text style={styles.instaAccount}> {userData.email} </Text>}
                 </View>
-                <View style={styles.textContainer}>
-                    <FontAwesome name='user-o' size={25} color={Colors.accent}/>
-                    {isLoading ? 
-                            (<ActivityIndicator size='large' color={Colors.primary}/>) :
-                    <Text style={styles.instaAccount}> Puntaje de usuario {userData.score} </Text>}
-                </View>
                 <Text>{error}</Text>
             </View>
         </View>
     )
 }
+
+/**
+ * PUNTAJE DEL USUARIO COMENTADO!
+ *                 
+ * <View style={styles.textContainer}>
+        <FontAwesome name='user-o' size={25} color={Colors.accent}/>
+        {isLoading ? 
+                (<ActivityIndicator size='large' color={Colors.primary}/>) :
+        <Text style={styles.instaAccount}> Puntaje de usuario {userData.score} </Text>}
+    </View>
+ */
 
 const styles = StyleSheet.create({
     screen:{
