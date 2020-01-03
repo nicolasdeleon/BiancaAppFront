@@ -26,7 +26,6 @@ import ProfileScreen from '../screens/main/ProfileScreen'
 import LogInSignupScreen from '../screens/register/LogInSignupScreen'
 import RegisterScreen from '../screens/register/RegisterScreen'
 import StartupScreen from '../screens/StartupScreen'
-import EditProfileScreen from '../screens/main/EditProfileScreen'
 import FeedbackFormScreen from '../screens/main/FeedbackFormScreen'
 import ForgotPasswordScreen from '../screens/register/ForgotPasswordScreen' //forgotPass
 
@@ -159,7 +158,6 @@ const FeedbackStack = createStackNavigator({
 const MainProfileDrawer = createDrawerNavigator({
     ok:MainandProfile,
     feedback:FeedbackStack,
-    editProfile:EditProfileScreen
 },{
     contentOptions:{
         activeTintColor: Colors.primary,
@@ -187,12 +185,6 @@ const MainProfileDrawer = createDrawerNavigator({
                             <Button title='Give us Feedback!' color={Colors.accent} onPress={()=>{
                                 props.navigation.navigate('feedback')
                             }}/> 
-                        </View>
-
-                        <View style={styles.menuButtonContainer}>
-                            <Button title='Configurations' color={Colors.accent} onPress={()=>{
-                                props.navigation.navigate('editProfile')
-                            }}/>   
                         </View>
                         
                         <View style={styles.menuButtonContainer}>
