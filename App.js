@@ -1,4 +1,4 @@
-//import react and expo stuff
+//import react and expo stuff 
 import React, {useState} from 'react';
 import * as Font from 'expo-font'
 import {AppLoading} from 'expo'
