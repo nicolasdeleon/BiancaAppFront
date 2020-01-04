@@ -135,7 +135,7 @@ const RegisterScreen = props => {
         behavior="padding"
         keyboardVerticalOffset={50}
         style={styles.screen}>
-            <LinearGradient colors={['#ffedff','#ffe3ff']} style={styles.gradient}>
+            <LinearGradient colors={[Colors.accent,Colors.dark]} style={styles.gradient}>
                 <View style={styles.authContainer}>
                     <ScrollView>
                         <Input
@@ -229,6 +229,7 @@ const styles = StyleSheet.create({
         padding:15,
         borderColor:'#f5f5f5',
         borderWidth:1,
+        borderRadius:4,
         elevation:3,
         backgroundColor:'white'
     },
