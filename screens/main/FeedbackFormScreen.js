@@ -1,6 +1,9 @@
 import React,{useState} from 'react'
 import {View,Text,StyleSheet,TouchableOpacity,ScrollView} from 'react-native'
-import {AirbnbRating } from 'react-native-ratings'; //https://www.npmjs.com/package/react-native-ratings
+
+//https://www.npmjs.com/package/react-native-ratings
+import {AirbnbRating } from 'react-native-ratings';
+
 import Colors from '../../constants/Colors';
 import {useSelector} from 'react-redux'
 
@@ -30,11 +33,8 @@ const FeedbackFormScreen = props => {
                     puntaje_pago: pago,
                     puntaje_general: general
                 })
-            })
-    
-        
+            })        
        props.navigation.navigate('ok')
-
     }
 
     return (

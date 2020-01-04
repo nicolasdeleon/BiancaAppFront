@@ -126,7 +126,7 @@ const ProfileScreen = props => {
                     <TouchableOpacity 
                     style={{flex:1,alignContent:'center',justifyContent:'center',flexDirection:'row'}}
                     onPress={()=>{setInstaInfoToggle(!instaInfoToggle)}}>
-                        <FontAwesome name='user-o' size={25} color={Colors.accent}/>
+                        <FontAwesome name='instagram' size={25} color={Colors.accent}/>
                         {isLoading ? 
                             (<ActivityIndicator size='large' color={Colors.primary}/>) 
                             : 
@@ -157,7 +157,7 @@ const ProfileScreen = props => {
                     }
                 </View>
                 <View style={styles.textContainer}>
-                    <FontAwesome name='user-o' size={25} color={Colors.accent}/>
+                    <FontAwesome name='envelope-square' size={25} color={Colors.accent}/>
                     {isLoading ? 
                         (<ActivityIndicator size='large' color={Colors.primary}/>) 
                         :

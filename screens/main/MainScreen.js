@@ -1,6 +1,5 @@
 import React,{useState,useCallback, useEffect} from 'react'
 import {View,Text,StyleSheet,FlatList,ActivityIndicator,StatusBar} from 'react-native'
-import {HeaderButtons, Item} from 'react-navigation-header-buttons' //CREO QUE ME LA TENGO Q BAJAR
 import {useSelector,useDispatch} from 'react-redux'
 import Colors from '../../constants/Colors'
 import STEPS from '../../staticData/comoFuncionaSteps'
