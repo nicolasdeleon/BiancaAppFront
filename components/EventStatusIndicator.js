@@ -1,5 +1,5 @@
 import React, { useState ,useEffect} from 'react'
-import {Text,View,StyleSheet} from 'react-native'
+import {Text,View,StyleSheet,TouchableOpacity,Alert} from 'react-native'
 import QRButton from '../components/QRButton'
 import Colors from '../constants/Colors'
 
@@ -7,9 +7,11 @@ import Colors from '../constants/Colors'
 const EventStatusIndicator = props => {
     
     const [message,setMessage] = useState('')
-    const [showButton,setShowButton] = useState(false)
+    const [showButton,setShowButton] = useState(true)
+    const [propButtonFlag,setPropButtonFlag] = useState(true)
 
     const Funcion = (event,contractList)=>{
+        setPropButtonFlag(true)
         if (event == null || contractList.length == 0){
             setShowButton(true)
             return
@@ -20,6 +22,7 @@ const EventStatusIndicator = props => {
                 //comparo por titulo QUE NO ES UNIQUE NO DEBERIA SER ASI pero por ahora lo dejo..
                 if (contract.eventTitle == event.title) {
                     //estoy en el evento
+                    setPropButtonFlag(false)
                     setShowButton(false)
                     switch (contract.status){
                         case "2BA":
@@ -27,7 +30,7 @@ const EventStatusIndicator = props => {
                             break;
                         case "W":
                             setMessage(`Felicitaciones, tu foto fue acreditada.
-                            \rRetira con el siguiente codigo ${contract.winer_code}` )
+                            \rRetira con el siguiente codigo ${contract.instaaccount}` )
                             break;
                         case "F":
                             setMessage("Muchas gracias por participar.")
@@ -41,6 +44,9 @@ const EventStatusIndicator = props => {
         } else if (event.status == "C"){
             setShowButton(false)
             setMessage("Este evento esta cerrado")
+        } 
+        if (propButtonFlag){
+            setShowButton(true)
         }
     }
 
@@ -54,11 +60,17 @@ const EventStatusIndicator = props => {
                 <QRButton onPress={props.onButtonPress}>
                     <Text>Ingresar Codigo</Text>
                 </QRButton>
-                :   
+                :
+                <TouchableOpacity onPress={()=>{
+                    Alert.alert(
+                        'Bianca','Bianca lo contactara por mail al validar la foto.\nPruebe refrescando la aplicacion en unos minutos!',
+                        [{text:'Aceptar',style:'cancel',onPress: () => props.onLoadContractsAndEvents()}])
+                    }}>  
                 <View style={styles.container}>
                         <Text>{message}</Text>
                     <Text>@Biancaapp lo seguira por Instagram</Text>    
-                </View>     
+                </View>
+                </TouchableOpacity>     
             }
         </View>
     )

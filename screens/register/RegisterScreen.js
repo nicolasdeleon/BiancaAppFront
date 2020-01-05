@@ -223,9 +223,7 @@ const styles = StyleSheet.create({
     },
     authContainer:{
         width:'80%',
-        //maxWidth:400,
-        //height:'50%',
-        //maxHeight:400,
+
         padding:15,
         borderColor:'#f5f5f5',
         borderWidth:1,

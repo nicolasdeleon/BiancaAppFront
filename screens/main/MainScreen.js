@@ -89,6 +89,7 @@ const MainScreen = props => {
                 setIsLoading(false)
                 setSentCode(true)
                 closeInsertCode()
+                loadContractsAndEvents()
             }catch (err){
                 //tipicamente error de Invalid Credentials proveniente del servidor data
                 setError(err.message)
@@ -132,7 +133,7 @@ const MainScreen = props => {
                 loading={isLoading}
                 />
                 <View style={styles.howItWorks}>
-                    <Text style={styles.title}>¿Como funciona?</Text>
+                    <Text style={styles.title}>Camino de Canje</Text>
                     <FlatList
                         onRefresh={loadContractsAndEvents}
                         refreshing={isLoading}
@@ -151,8 +152,9 @@ const MainScreen = props => {
                         <EventStatusIndicator
                             sent={sentCode}
                             onButtonPress={insertCodeButton}
-                            event={activeEvents[1]}
-                            contractList={activeContracts} 
+                            event={activeEvents[activeEvents.length-1]}
+                            contractList={activeContracts}
+                            onLoadContractsAndEvents={loadContractsAndEvents} 
                         />
                 }
                 </View>
