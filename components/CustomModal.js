@@ -6,8 +6,10 @@ import {
     TouchableWithoutFeedback,
     StyleSheet, 
     TouchableOpacity,
-    View,} from 'react-native';
-import Input from './Input'
+    View,
+    Keyboard
+} from 'react-native';
+
 
 const CustomModal = props =>{
     return (
@@ -22,15 +24,11 @@ const CustomModal = props =>{
                 <TouchableWithoutFeedback>
                     <View style={styles.container}>
                         <Text style={styles.title}>{props.title}</Text>
-                        <Input
-                        maxLength={props.maxLength}
-                        min={props.minLength} 
-                        initialValue ={props.initialValue}
-                        fontSize={24}
-                        textAlign='center'
-                        onInputChange={props.onSetCodeValue}/>
+                        {props.children}
                         <View style={styles.buttonContainer}>
-                        <Button title={props.acceptButtonText} color="green" onPress={()=>{props.onSend()}}/>
+                        <Button title={props.acceptButtonText} color="green" onPress={()=>{
+                            Keyboard.dismiss() 
+                            props.onSend()}}/>
                         <Button title="Cancelar" color="red" onPress={()=>{props.onClose()}}/>
                         </View>
                         {props.errorText && <View style={styles.errorContainer}>

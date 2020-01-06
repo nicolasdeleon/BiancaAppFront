@@ -162,7 +162,7 @@ const ForgotPasswordScreen = props => {
         behavior="padding"
         keyboardVerticalOffset={50}
         style={styles.screen}>
-            <LinearGradient colors={['#ffedff','#ffe3ff']} style={styles.gradient}>
+            <LinearGradient colors={[Colors.accent,Colors.dark]} style={styles.gradient}>
                 <View style={styles.authContainer}>
                     <ScrollView>
                         <Input

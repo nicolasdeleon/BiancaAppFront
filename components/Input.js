@@ -1,5 +1,5 @@
 import React, {useReducer,useEffect} from 'react'
-import {View,Text,TextInput,StyleSheet} from 'react-native'
+import {View,Text,TextInput,StyleSheet, Keyboard} from 'react-native'
 
 const INPUT_CHANGE = "INPUT_CHANGE"
 const INPUT_BLUR = "INPUT_BLUR"
@@ -56,6 +56,7 @@ const Input = props =>{
     }
 
     const lostFocusHandler = () => {
+        Keyboard.dismiss()
         dispatch({
             type:INPUT_BLUR,
         })
@@ -67,7 +68,14 @@ const Input = props =>{
             onInputChange(id, inputState.value,inputState.isValid)
             console.log(inputState.isValid)    
         }
-    },[inputState,onInputChange,id])
+    },[inputState.value,inputState.isValid,onInputChange,id])
+
+    useEffect(()=>{
+        if(props.desiredLength == inputState.value.length){
+            Keyboard.dismiss()
+            onInputChange(id, inputState.value,inputState.isValid)
+        }
+    })
 
     return (
         <View style={styles.formControl}>
@@ -78,11 +86,7 @@ const Input = props =>{
             value= {inputState.value}
             onChangeText={textChangeHandler}
             onBlur={lostFocusHandler}
-           //keyboardType='default'
-           //autoCapitalize="words"
-           //returnKeyType="next"
-            //onEndEditing={()=>{console.log("end editing")}}
-            //onSubmitEditing={()=>{console.log("submited")}}
+            
         />
         
         {!inputState.isValid && inputState.touched && <View style={styles.errorContainer}>

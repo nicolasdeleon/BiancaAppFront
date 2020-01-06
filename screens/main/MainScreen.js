@@ -1,5 +1,5 @@
 import React,{useState,useCallback, useEffect} from 'react'
-import {View,Text,StyleSheet,FlatList,ActivityIndicator,StatusBar} from 'react-native'
+import {View,Text,StyleSheet,FlatList,ActivityIndicator,StatusBar, Keyboard} from 'react-native'
 import {useSelector,useDispatch} from 'react-redux'
 import Colors from '../../constants/Colors'
 import STEPS from '../../staticData/comoFuncionaSteps'
@@ -8,6 +8,7 @@ import InsertCode from '../../components/CustomModal'
 import EventStatusIndicator from '../../components/EventStatusIndicator'
 import * as EventActions from '../../store/actions/events'
 import * as AuthActions from '../../store/actions/auth'
+import Input from '../../components/Input'
 
 
 const MainScreen = props => {
@@ -57,11 +58,10 @@ const MainScreen = props => {
     const setCodeValueHandler = useCallback((InputIdentifier,inputValue,inputValidity) =>{
         setCodeValue(inputValue)
         setModalValidity(inputValidity)
-        },[setCodeValueHandler,setCodeValue,setError])
+        },[setCodeValueHandler,setCodeValue,setModalValidity,codeValue])
 
     insertCodeButton = () => { 
         setModalVisible(true)
-       //iPermitir ingresar codigo
     }
     LogOutHandler = () => {
         dispatch(AuthActions.logout())
@@ -73,6 +73,10 @@ const MainScreen = props => {
     }
 
     sendInsertCode = async () => {
+        console.log("------------------------------DEBUG-------------------------------")+
+        console.log(modalValidity)
+        console.log(codeValue)
+
         if(!userToken){
             console.log("AUTHENTICATE!")
             return
@@ -97,15 +101,12 @@ const MainScreen = props => {
             }
         }else{
             //SER MAS ROBUSTO CON ESTOOOOOOOOOOOOOOOOO!!!!
+            console.log(codeValue)
             setError('Invalid form credentials')
         }
     }
 
     DEBUG_PRINTS_TO_CONSOLE =() => {
-        //console.log('Valores del Modal:')
-        //console.log(codeValue)
-        //console.log(modalValidity)
-        //console.log(error)
         console.log("ACTIVE EVENTS:")
         console.log(activeEvents)
         console.log("USER ACTIVE CONTRACTS")
@@ -119,19 +120,24 @@ const MainScreen = props => {
         <View style={styles.screen} >
             <StatusBar backgroundColor={Colors.dark} barStyle={"light-content"} translucent={false}/>
             <View style={{width:'100%',height:'100%',flex:1,marginTop:25}}> 
-                <InsertCode 
+                <InsertCode
                 modalVisible={modalVisible} 
                 onClose={closeInsertCode}
-                onSetCodeValue={setCodeValueHandler}
                 onSend={sendInsertCode}
                 title={"Inserte Código del Local"}
-                initialValue={"....."}
                 acceptButtonText={"Activar"}
-                maxLength={5}
-                minLength={5}
                 errorText={error}
-                loading={isLoading}
+                loading={isLoading}>
+                <Input
+                maxLength={5}
+                min={5}
+                desiredLength={5} 
+                initialValue ={"....."}
+                fontSize={24}
+                textAlign='center'
+                onInputChange={setCodeValueHandler}
                 />
+                </InsertCode>
                 <View style={styles.howItWorks}>
                     <Text style={styles.title}>Camino de Canje</Text>
                     <FlatList
