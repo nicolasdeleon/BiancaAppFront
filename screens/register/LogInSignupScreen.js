@@ -163,7 +163,7 @@ const LogInSignupScreen = props => {
                             </View>
                         <View style={styles.buttonContainer}>
                             <Button 
-                                title={true ? 'Registarse' : 'Ingresar'} 
+                                title={true ? 'Registrarse' : 'Ingresar'} 
                                 color={Colors.accent} 
                                 onPress={goToRegister}
                             />
