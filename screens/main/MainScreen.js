@@ -136,6 +136,7 @@ const MainScreen = props => {
                 fontSize={24}
                 textAlign='center'
                 onInputChange={setCodeValueHandler}
+                autoCapitalize={'characters'}
                 />
                 </InsertCode>
                 <View style={styles.howItWorks}>

@@ -5,6 +5,7 @@ import {FontAwesome} from '@expo/vector-icons'
 import {useSelector,useDispatch} from 'react-redux'
 import EditModal from '../../components/CustomModal'
 import * as userActions from '../../store/actions/user'
+import Input from '../../components/Input'
 
 const ProfileScreen = props => {
 
@@ -105,21 +106,28 @@ const ProfileScreen = props => {
 
     return (
         <View style={styles.screen}>
-            <EditModal 
+            <EditModal
             modalVisible={modalVisible} 
             onClose={closeEditModal}
-            onSetCodeValue={setEditValueHandler} //Esta funcion proviene de on InputChange del input
             onSend={modalSendFormHandler}
             errorText={error}
             loading={isLoading}
             title={changingField}
-            initialValue={modalValue}
             acceptButtonText={'Aceptar'}
-            maxLength={15}
-            minLength={1}
             errorText={error}
             loading={isLoading}
+            >
+            <Input
+            maxLength={15}
+            min={1}
+            desiredLength={15} 
+            initialValue ={modalValue}
+            fontSize={24}
+            textAlign='center'
+            onInputChange={setEditValueHandler}
+            autoCapitalize={'none'}
             />
+            </EditModal>
             <View style={styles.titleContainer}>
                 <Text style={styles.title}>Bienvenido a Bianca!</Text>
                 <View style={styles.textContainer}>
