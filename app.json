@@ -6,28 +6,29 @@
     "sdkVersion": "35.0.0",
     "platforms": [
       "ios",
-      "android",
-      "web"
+      "android"
     ],
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/icon.png",
+    "icon": "./staticData/BiancaLogo.png",
     "splash": {
-      "image": "./assets/splash.png",
+      "image": "./staticData/BiancaLogo.png",
       "resizeMode": "contain",
-      "backgroundColor": "#ffffff"
+      "backgroundColor": "#101f27"
     },
     "updates": {
-      "fallbackToCacheTimeout": 0
+      "fallbackToCacheTimeout": 5000
     },
     "assetBundlePatterns": [
       "**/*"
     ],
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": false
     },
     "android": {
-      "package": "Bianca.Bianca"
+      "package": "Bianca.Bianca",
+      "versionCode": 1,
+      "permissions": []
     }
   }
 }
