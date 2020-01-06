@@ -140,6 +140,7 @@ const LogInSignupScreen = props => {
                             errorText="Ingrese un e-mail válido."
                             onInputChange={inputChangeHandler}
                             initialValue=''
+                            desiredLength={60}
                         />
                         <Input
                             id='password'
@@ -152,6 +153,7 @@ const LogInSignupScreen = props => {
                             errorText="Ingrese una contraseña válida."
                             onInputChange={inputChangeHandler}
                             initialValue=''
+                            desiredLength={60}
                         />
                         <View style={styles.buttonContainer}>
                             {isLoading ? (<ActivityIndicator size='small' color={Colors.primary}/>) : 
@@ -163,7 +165,7 @@ const LogInSignupScreen = props => {
                             </View>
                         <View style={styles.buttonContainer}>
                             <Button 
-                                title={true ? 'Registrarse' : 'Ingresar'} 
+                                title='Registrarse' 
                                 color={Colors.accent} 
                                 onPress={goToRegister}
                             />

@@ -56,7 +56,6 @@ const Input = props =>{
     }
 
     const lostFocusHandler = () => {
-        Keyboard.dismiss()
         dispatch({
             type:INPUT_BLUR,
         })
@@ -64,11 +63,13 @@ const Input = props =>{
 
     const {onInputChange,id} = props
     useEffect(()=>{
+        console.log(inputState.touched)
         if (inputState.touched){
             onInputChange(id, inputState.value,inputState.isValid)
+            console.log(id, inputState.value,inputState.isValid)
             console.log(inputState.isValid)    
         }
-    },[inputState.value,inputState.isValid,onInputChange,id])
+    },[inputState,onInputChange,id])
 
     useEffect(()=>{
         if(props.desiredLength == inputState.value.length){
@@ -86,7 +87,6 @@ const Input = props =>{
             value= {inputState.value}
             onChangeText={textChangeHandler}
             onBlur={lostFocusHandler}
-            
         />
         
         {!inputState.isValid && inputState.touched && <View style={styles.errorContainer}>

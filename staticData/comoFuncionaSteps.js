@@ -4,25 +4,31 @@ STEPS = [
     new functionStep(
         'step1',
         '1er paso',
-        'Bajarse la app y registrarse. Es importante la informacion como nombre y apellido, asi como cuenta de instagram porque permiten validar las acciones realizadas para luego emitir la bonificacion',
+        'Bajarse la app y registrarse. Es importante la información como nombre y apellido, así como la cuenta de Instagram, ya que permitirán validar las acciones realizadas para luego emitir su bonificación',
         ''
       ),
       new functionStep(
         'step2',
         '2do paso',
-        'Ingresar el codigo del local, presente en la ubicacion. Preguntar a encargados de no encontrar el codigo',
+        'Ingresar el codigo del local presente en la ubicación. Preguntar a encargados de no encontrar el código',
         ''
       ),
       new functionStep(
         'step3',
         '3er paso',
-        'Realizar una historia en instagram con los @ y # soliticados. BiancaInstagram estara activamente chequendo que este la publicacion por lo que de tener cuenta privada permitir que BiancaInstagram te siga',
+        'Realizar una historia en instagram del momento compartido. @Bianca estara activamente chequendo que este la publicación. Permitir que BiancaInstagram te siga para casos de cuentas privadas',
         ''
       ),
       new functionStep(
         'step4',
         '4to paso',
-        'Ya realizada la publicacion en Instagram, se les enviara un codigo a su celular con el cual podran ir al mostrador del local o al agente de Bianca visible conuna gorra amarilla a pedir su bonificacion!',
+        'Ya realizada y validada la publicación, se le enviará un aviso a su Mail (o lo encontrará presente aquí) con el cual podrá ir al mostrador del local o al agente de Bianca a pedir su bonificación!',
+        ''
+      ),
+      new functionStep(
+        'step5',
+        '5to paso',
+        'En todo momento va a encontrar información aquí sobre su estado. Pruebe refrescar cada unos minutos',
         ''
       ),
 ]
