@@ -63,12 +63,12 @@ const EventStatusIndicator = props => {
                 :
                 <TouchableOpacity onPress={()=>{
                     Alert.alert(
-                        'Bianca','Bianca lo contactara por mail al validar la foto.\nPruebe refrescando la aplicacion en unos minutos!',
+                        'Bianca Info:','- Bianca lo contactara por mail al validar la foto.\n- Tenga en cuenta que @Bianca lo seguira por instagram, corrobore que se encuentra bien la cuenta de Instagram en su perfil.\n- Si todavia no se le indicó que retire su premió, pruebe refrescando la app!\n- El proceso puede demorar hasta 5 minutos',
                         [{text:'Aceptar',style:'cancel',onPress: () => props.onLoadContractsAndEvents()}])
                     }}>  
                 <View style={styles.container}>
-                        <Text>{message}</Text>
-                    <Text>@Biancaapp lo seguira por Instagram</Text>    
+                        <Text style={styles.messageText}>{message}</Text>
+                        <Text style={styles.infoText}>Click aqui para mas información</Text>
                 </View>
                 </TouchableOpacity>     
             }
@@ -83,7 +83,14 @@ const styles = StyleSheet.create({
         backgroundColor:Colors.primary,
         padding:12,
         borderRadius:10,
-        
+    },
+    messageText:{
+        fontSize:14,
+        fontFamily:'open-sans'
+    },
+    infoText:{
+        fontSize:10,
+        fontFamily:'open-sans'
     }
 })
 
