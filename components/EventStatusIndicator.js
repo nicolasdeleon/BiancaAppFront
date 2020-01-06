@@ -29,8 +29,7 @@ const EventStatusIndicator = props => {
                             setMessage("Esperando Validar su Foto")
                             break;
                         case "W":
-                            setMessage(`Felicitaciones, tu foto fue acreditada.
-                            \rRetira con el siguiente codigo ${contract.instaaccount}` )
+                            setMessage(`Felicitaciones, tu foto fue acreditada.\nMuestra ${contract.instaaccount} en mostrador` )
                             break;
                         case "F":
                             setMessage("Muchas gracias por participar.")
@@ -81,7 +80,7 @@ const styles = StyleSheet.create({
         alignContent:'center',
         justifyContent:'center',
         backgroundColor:Colors.primary,
-        padding:12,
+        padding:8,
         borderRadius:10,
     },
     messageText:{
