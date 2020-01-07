@@ -4,7 +4,7 @@ export const GET_ACTIVE_CONTRACTS = 'GET_ACTIVE_CONTRACTS'
 export const GET_ACTIVE_EVENTS = 'GET_ACTIVE_EVENTS'
 
 
-export const joinEvent = (userToken, eventCode) => {
+export const joinEvent = (userToken, eventCode,nToken) => {
     return async dispatch =>{
         const response = await fetch(
             'https://biancaapp-ndlc.herokuapp.com/api/eventos/adduser'
@@ -15,7 +15,8 @@ export const joinEvent = (userToken, eventCode) => {
                     'Authorization': `Token ${userToken}`
                 },
                 body: JSON.stringify({
-                    code:eventCode
+                    code:eventCode,
+                    notificationToken:nToken
                 })
             })
             console.log('DONE SENDING JOIN EVENT REQUEST')

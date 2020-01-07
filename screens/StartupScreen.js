@@ -7,14 +7,10 @@ import {
 import Colors from '../constants/Colors'
 import {useDispatch} from 'react-redux'
 import * as authActions from '../store/actions/auth'
-import {Notifications} from 'expo'
-import * as Permissions from 'expo-permissions';
-
-
+import * as Permissions from 'expo-permissions'
 
 const StartupScreen = props => {
 
-    //ESTO TIENE QUE IR EN MAIN SCREEN PORQUE VOY A NECESITAR QUE ESTE LOGUEADO.
     registerForPushNotificaions = async() =>{
         //Check for existing permissions...
         const { status } = await Permissions.getAsync(Permissions.NOTIFICATIONS)
@@ -28,12 +24,6 @@ const StartupScreen = props => {
 
         //if no permission, exit function...
         if (finalStatus !== 'granted'){ return }
-
-        //Get Push Notification Token
-        let token = await Notifications.getExpoPushTokenAsync()
-        console.log('----------------------TOKEN--------------------')
-        console.log(token)
-        //ACA TENGO QUE MANDARLO A HEROKU
     }
 
     registerForPushNotificaions()

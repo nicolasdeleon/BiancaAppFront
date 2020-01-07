@@ -9,7 +9,8 @@ import EventStatusIndicator from '../../components/EventStatusIndicator'
 import * as EventActions from '../../store/actions/events'
 import * as AuthActions from '../../store/actions/auth'
 import Input from '../../components/Input'
-
+import {Notifications} from 'expo'
+import * as Permissions from 'expo-permissions'
 
 const MainScreen = props => {
 
@@ -73,9 +74,16 @@ const MainScreen = props => {
     }
 
     sendInsertCode = async () => {
+
+        let notificationToken = null
+        const { status } = await Permissions.getAsync(Permissions.NOTIFICATIONS)
+        if (status === 'granted'){
+            notificationToken = await Notifications.getExpoPushTokenAsync()
+        }
         console.log("------------------------------DEBUG-------------------------------")+
         console.log(modalValidity)
         console.log(codeValue)
+        console.log(notificationToken)
 
         if(!userToken){
             console.log("AUTHENTICATE!")
@@ -83,7 +91,7 @@ const MainScreen = props => {
         }
         let action
         
-        action = EventActions.joinEvent(userToken,codeValue)
+        action = EventActions.joinEvent(userToken,codeValue,notificationToken)
 
         if(modalValidity){
             setIsLoading(true)
