@@ -85,6 +85,7 @@ const ForgotPasswordScreen = props => {
         console.log("Sending reset password:.............")
         console.log(formState.inputValues.email)
         if(formState.formIsValid){
+            console.log(formState.formIsValid)
             setIsLoading(true)
             setError(null)
             try{
@@ -100,7 +101,7 @@ const ForgotPasswordScreen = props => {
             }
         }else{
             //si el form esta mal ni me gasto en mandar las credentials
-            setError('Invalid form credentials')
+            setError('Credenciales inválidas')
         }
 
     }
@@ -166,14 +167,16 @@ const ForgotPasswordScreen = props => {
                 <View style={styles.authContainer}>
                     <ScrollView>
                         <Input
-                            id='email'
-                            label='Ingrese su e-mail:'
-                            keyboardType='default'
-                            required
-                            autoCapitalize="none"
-                            errorText="Ingrese un e-mail válido."
-                            onInputChange={inputChangeHandler}
-                            initialValue=''
+                           id='email'
+                           label='E-Mail'
+                           keyboardType='email-address'
+                           required
+                           email
+                           autoCapitalize="none"
+                           errorText="Ingrese un e-mail válido."
+                           onInputChange={inputChangeHandler}
+                           initialValue=''
+                           desiredLength={60}
                         />
                         
                         {!showTokenForm &&
