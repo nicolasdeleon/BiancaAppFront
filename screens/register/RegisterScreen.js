@@ -210,7 +210,7 @@ const RegisterScreen = props => {
 
 RegisterScreen.navigationOptions = (navData) => {
     return{
-        headerTitle: 'Registro'
+        headerTitle: 'Registrarse',
     }
 }
 
@@ -223,7 +223,6 @@ const styles = StyleSheet.create({
     },
     authContainer:{
         width:'80%',
-
         padding:15,
         borderColor:'#f5f5f5',
         borderWidth:1,

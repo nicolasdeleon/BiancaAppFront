@@ -57,7 +57,7 @@ const EventStatusIndicator = props => {
         <View>
             {showButton && !props.sent ? 
                 <QRButton onPress={props.onButtonPress}>
-                    <Text>Ingresar Codigo</Text>
+                    <Text style={styles.ingresarCodigoText}>Ingresar Codigo</Text>
                 </QRButton>
                 :
                 <TouchableOpacity onPress={()=>{
@@ -90,6 +90,9 @@ const styles = StyleSheet.create({
     infoText:{
         fontSize:10,
         fontFamily:'open-sans'
+    },
+    ingresarCodigoText:{
+        fontFamily:'open-sans'     
     }
 })
 

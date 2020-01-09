@@ -169,12 +169,11 @@ const LogInSignupScreen = props => {
                                 color={Colors.accent} 
                                 onPress={goToRegister}
                             />
-                            {error && <Text style={{color:'red'}}>{error}</Text>}
+                            {error && <Text style={styles.errorText}>{error}</Text>}
                         </View>            
                         <View>                            
-                            <Text> </Text> 
                             <TouchableOpacity onPress={goToForgotPassword}>  
-                                <Text style={{ textDecorationLine: 'underline' }}> Olvidé mi contraseña.</Text>
+                                <Text style={styles.forgotPasswordTex}>Olvidé mi contraseña.</Text>
                             </TouchableOpacity>
                         </View>                  
                         
@@ -192,7 +191,7 @@ const LogInSignupScreen = props => {
 
 LogInSignupScreen.navigationOptions = (navData) => {
     return{
-        headerTitle: 'LogIn'
+        headerTitle: 'Ingresar'
     }
 }
 
@@ -231,6 +230,14 @@ const styles = StyleSheet.create({
     },
     buttonContainer:{
         marginTop:10,
+    },
+    forgotPasswordTex:{
+        textDecorationLine: 'underline',
+        fontFamily:'open-sans'
+    },
+    errorText:{
+        color:'red',
+        fontFamily:'open-sans'
     }
 })
 

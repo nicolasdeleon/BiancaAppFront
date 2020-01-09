@@ -119,7 +119,7 @@ const MainScreen = props => {
         
         <View style={styles.screen} >
             <StatusBar backgroundColor={Colors.dark} barStyle={"light-content"} translucent={false}/>
-            <View style={{width:'100%',height:'100%',flex:1,marginTop:25}}> 
+            <View style={{flex:1}}> 
                 <InsertCode
                 modalVisible={modalVisible} 
                 onClose={closeInsertCode}
@@ -140,7 +140,9 @@ const MainScreen = props => {
                 />
                 </InsertCode>
                 <View style={styles.howItWorks}>
+                    <View style={{borderBottomWidth:1,borderBottomColor:"#dddddd"}}>
                     <Text style={styles.title}>Camino de Canje</Text>
+                    </View>
                     <FlatList
                         onRefresh={loadContractsAndEvents}
                         refreshing={isLoading}
@@ -210,7 +212,7 @@ const styles = StyleSheet.create({
 
 MainScreen.navigationOptions = navData => {
     return {
-        headerTitle: 'MainScreen'
+        headerTitle: 'Bianca'
     }
 }
 
