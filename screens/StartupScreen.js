@@ -7,9 +7,27 @@ import {
 import Colors from '../constants/Colors'
 import {useDispatch} from 'react-redux'
 import * as authActions from '../store/actions/auth'
-
+import * as Permissions from 'expo-permissions'
 
 const StartupScreen = props => {
+
+    registerForPushNotificaions = async() =>{
+        //Check for existing permissions...
+        const { status } = await Permissions.getAsync(Permissions.NOTIFICATIONS)
+        let finalStatus = status
+
+        //if no existing permissions, ask user for permissions...
+        if (status !== 'granted') {
+            const { status } = await Permissions.askAsync(Permissions.NOTIFICATIONS)
+            finalStatus = status
+        }
+
+        //if no permission, exit function...
+        if (finalStatus !== 'granted'){ return }
+    }
+
+    registerForPushNotificaions()
+
     const dispatch = useDispatch()
     useEffect(()=>{
         const tryLogin = async () => {
