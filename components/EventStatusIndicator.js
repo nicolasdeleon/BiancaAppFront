@@ -37,6 +37,9 @@ const EventStatusIndicator = props => {
                     }
                 }
             }
+            if (propButtonFlag){
+                setShowButton(true)
+            }
         } else if (event.status == "2BO"){
             setShowButton(false)
             setMessage("Este evento no ha arrancado")
@@ -44,9 +47,7 @@ const EventStatusIndicator = props => {
             setShowButton(false)
             setMessage("Este evento esta cerrado")
         } 
-        if (propButtonFlag){
-            setShowButton(true)
-        }
+
     }
 
     useEffect(()=>{
