@@ -241,7 +241,7 @@ const RegisterScreen = props => {
                         />
                         <Input
                             id='instaaccount'
-                            label='Usuario Instagram'
+                            label='Usuario Instagram (no es necesario que contenga @)'
                             keyboardType='default'
                             required
                             autoCapitalize="none"

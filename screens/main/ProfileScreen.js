@@ -149,7 +149,8 @@ const ProfileScreen = props => {
                         style={{color:Colors.accent,fontFamily:'open-sans',fontSize:18,textAlign:'center'}}
                         >Tenga presente que mediante esta cuenta de instagram Bianca 
                             <Text style={{fontFamily:'open-sans-bold'}}> valida las publicaciones</Text>, verifique que
-                            <Text style={{fontFamily:'open-sans-bold'}}> coincida con la de su cuenta en Instagram!</Text></Text>
+                            <Text style={{fontFamily:'open-sans-bold'}}> coincida con la de su cuenta en Instagram!</Text>
+                            <Text style={{fontFamily:'open-sans'}}>No es necesario que contenga el @.</Text></Text>
                         <TouchableOpacity
                         onPress={()=>openModalHandler('Instagram Account',userData.instaAccount)} 
                         style={{margin:4}}><Text style={{color:'green'}}>Edit</Text></TouchableOpacity>
