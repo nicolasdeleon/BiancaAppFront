@@ -12,11 +12,13 @@ const EventStatusIndicator = props => {
 
     const Funcion = (event,contractList)=>{
         setPropButtonFlag(true)
-        if (event == null || contractList.length == 0){
-            setShowButton(true)
+        if (event == null){
+            setMessage("No hay eventos activos")
+            setShowButton(false)
             return
         }
         if (event.status=="O" || event.status=="F"){
+            console.log("---------------------------------------DB----------------------------")
             for (i=0; i<contractList.length; i++){
                 contract = contractList[i]
                 //comparo por titulo QUE NO ES UNIQUE NO DEBERIA SER ASI pero por ahora lo dejo..
@@ -43,6 +45,7 @@ const EventStatusIndicator = props => {
             if (propButtonFlag && event.status=="F"){
                 setMessage("Este evento ya no acepta cupos")
                 setShowButton(false)
+                console.log("hola?")
             } else if (propButtonFlag){
                 setShowButton(true)
                 }
@@ -63,7 +66,7 @@ const EventStatusIndicator = props => {
 
     return(
         <View>
-            {showButton && !props.sent ? 
+            {showButton ? 
                 <QRButton onPress={props.onButtonPress}>
                     <Text style={styles.ingresarCodigoText}>Ingresar Codigo</Text>
                 </QRButton>
