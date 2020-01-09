@@ -84,36 +84,53 @@ const RegisterScreen = props => {
 
         //para log in los campos necesarios para el request son email y password
         //fijarse en store/actions/auth --> signup(email,password){...}
-        action = AuthActions.register(
-            formState.inputValues.email,
-            formState.inputValues.fullname,
-            formState.inputValues.instaaccount,
-            formState.inputValues.password,
-            formState.inputValues.password2
-            )
-        console.log("REGISTERING form:.............")
-        console.log(formState.inputValues.email)
-        console.log(formState.inputValues.fullname)
-        console.log(formState.inputValues.instaaccount)
-        console.log(formState.inputValues.password)
-        console.log(formState.inputValues.password2)
-        if(formState.formIsValid){
-            setIsLoading(true)
-            setError(null)
-            try{
-                await dispatch(action)
-                setIsLoading(false)
-                props.navigation.navigate('app')
-            }catch (err){
-                //tipicamente error de Invalid Credentials proveniente del servidor data
-                setError(err.message)
-                setIsLoading(false)
-            }
-        }else{
-            //si el form esta mal ni me gasto en mandar las credentials
-            setError('Invalid form credentials')
-        }
 
+        if (formState.inputValues.password != 
+        formState.inputValues.password2 )
+        {
+            setError('Las contraseñas deben coincidir')
+        }else
+            // evito que vaya al back end si el usuario no presionó sobre los input
+            if (formState.inputValues.email != "" && 
+            formState.inputValues.fullname != "" &&
+            formState.inputValues.instaaccount!= "" &&
+            formState.inputValues.password != "" &&
+            formState.inputValues.password2 != ""
+            ) {
+
+                action = AuthActions.register(
+                    formState.inputValues.email,
+                    formState.inputValues.fullname,
+                    formState.inputValues.instaaccount,
+                    formState.inputValues.password,
+                    formState.inputValues.password2
+                    )
+                console.log("REGISTERING form:.............")
+                console.log(formState.inputValues.email)
+                console.log(formState.inputValues.fullname)
+                console.log(formState.inputValues.instaaccount)
+                console.log(formState.inputValues.password)
+                console.log(formState.inputValues.password2)
+                if(formState.formIsValid){
+                    setIsLoading(true)
+                    setError(null)
+                    try{
+                        await dispatch(action)
+                        setIsLoading(false)
+                        props.navigation.navigate('app')
+                    }catch (err){
+                        //tipicamente error de Invalid Credentials proveniente del servidor data
+                        setError(err.message)
+                        setIsLoading(false)
+                    }
+                }else{
+                    //si el form esta mal ni me gasto en mandar las credentials
+                    setError('Credenciales inválidas.')
+                }
+            }else{
+                setError('Complete todos los datos requeridos.')
+            } 
+        
     }
 
     const getDataTest = ()=>{
@@ -177,7 +194,7 @@ const RegisterScreen = props => {
                             secureTextEntry
                             minLength={5}
                             autoCapitalize="none"
-                            errorText="Ingrese una contraseña válida."
+                            errorText="Ingrese una contraseña válida mínimo 5 caracteres."
                             onInputChange={inputChangeHandler}
                             initialValue=''
                         />
@@ -189,7 +206,7 @@ const RegisterScreen = props => {
                             secureTextEntry
                             minLength={5}
                             autoCapitalize="none"
-                            errorText="Ingrese una contraseña válida."
+                            errorText="Ingrese una contraseña válida mínimo 5 caracteres."
                             onInputChange={inputChangeHandler}
                             initialValue=''
                         />
@@ -200,6 +217,8 @@ const RegisterScreen = props => {
                                 color={Colors.primary} 
                                 onPress={authHandler}
                             />)}
+                            
+                            {error && <Text style={{color:'red'}}>{error}</Text>}
                             </View>
                     </ScrollView>
                 </View>

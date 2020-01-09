@@ -44,7 +44,7 @@ const LogInSignupScreen = props => {
     //variables de estado de mi Screen
     const [isLoading,setIsLoading] = useState(false) //para establecer algun load en async
     const [error,setError] = useState(null) //errores de loading o de logeo/registro
-
+    
     //useReducer toma mi formReducer para saber con que form actualizar mi formState
     //inicializo formState con inputValues que es el valor en cada campo
     //inputValidities que es la validez de cada campo, y la validez total del form
@@ -78,29 +78,34 @@ const LogInSignupScreen = props => {
 
         //para log in los campos necesarios para el request son email y password
         //fijarse en store/actions/auth --> signup(email,password){...}
-        action = AuthActions.login(
-            formState.inputValues.email,
-            formState.inputValues.password
-        )
-        console.log("login in")
-        console.log(formState.inputValues.email)
-        console.log(formState.inputValues.password)
-        if(formState.formIsValid){
-            setIsLoading(true)
-            setError(null)
-            try{
-                await dispatch(action)
-                setIsLoading(false)
-                props.navigation.navigate('app')
-            }catch (err){
-                //tipicamente error de Invalid Credentials proveniente del servidor data
-                setError(err.message)
-                setIsLoading(false)
+
+        if (formState.inputValues.email != '' &&
+            formState.inputValues.password != ''){
+            
+            action = AuthActions.login(
+                formState.inputValues.email,
+                formState.inputValues.password
+            )
+            console.log("login in")
+            console.log(formState.inputValues.email)
+            console.log(formState.inputValues.password)
+            if(formState.formIsValid){
+                setIsLoading(true)
+                setError(null)
+                try{
+                    await dispatch(action)
+                    setIsLoading(false)
+                    props.navigation.navigate('app')
+                }catch (err){
+                    //tipicamente error de Invalid Credentials proveniente del servidor data
+                    setError(err.message)
+                    setIsLoading(false)
+                }
+            }else{
+                //si el form esta mal ni me gasto en mandar las credentials
+                setError('Credenciales inválidas.')
             }
-        }else{
-            //si el form esta mal ni me gasto en mandar las credentials
-            setError('Invalid form credentials')
-        }
+        }else setError('Complete usuario y contraseña.')
 
     }
 
@@ -142,19 +147,24 @@ const LogInSignupScreen = props => {
                             initialValue=''
                             desiredLength={60}
                         />
-                        <Input
-                            id='password'
-                            label='Contraseña'
-                            keyboardType='default'
-                            required
-                            secureTextEntry
-                            minLength={5}
-                            autoCapitalize="none"
-                            errorText="Ingrese una contraseña válida."
-                            onInputChange={inputChangeHandler}
-                            initialValue=''
-                            desiredLength={60}
-                        />
+                        
+                        <View >
+                            <Input
+                                id='password'
+                                label='Contraseña'
+                                keyboardType='default'
+                                required
+                                secureTextEntry
+                                minLength={5}
+                                autoCapitalize="none"
+                                errorText="Ingrese una contraseña válida."
+                                onInputChange={inputChangeHandler}
+                                initialValue=''
+                                desiredLength={60}
+                            />
+                            
+                            
+                        </View>
                         <View style={styles.buttonContainer}>
                             {isLoading ? (<ActivityIndicator size='small' color={Colors.primary}/>) : 
                             (<Button 

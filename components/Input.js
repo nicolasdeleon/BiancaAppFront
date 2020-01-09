@@ -1,5 +1,6 @@
-import React, {useReducer,useEffect} from 'react'
-import {View,Text,TextInput,StyleSheet, Keyboard} from 'react-native'
+import React, {useState,useReducer,useEffect} from 'react'
+import {View,Text,TextInput,StyleSheet, Keyboard,TouchableOpacity} from 'react-native'
+import {MaterialCommunityIcons as Icon } from '@expo/vector-icons'
 
 const INPUT_CHANGE = "INPUT_CHANGE"
 const INPUT_BLUR = "INPUT_BLUR"
@@ -28,6 +29,10 @@ const Input = props =>{
         isValid: props.initiallyValid,
         touched: false, 
     })
+
+    const [iconName,setIconName] = useState("eye") //visualizar password
+    const [secureTextPassword,changeSecureTextPassword] = useState(props.secureTextEntry) //visualizar password
+
     const textChangeHandler = text => {
         const emailRegex = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
         let isValid = true;
@@ -78,17 +83,38 @@ const Input = props =>{
         }
     })
 
+
+    const changeIconName= async () =>{
+        if (iconName == "eye"){
+        setIconName("eye-off")
+        changeSecureTextPassword(false)
+        
+        }
+        else {
+            setIconName("eye")
+            changeSecureTextPassword(true)
+        }
+    }
+
     return (
         <View style={styles.formControl}>
         <Text style={styles.label}>{props.label}</Text>
+        
+        <View style={{flexDirection: "row"}}>
         <TextInput
             {...props} 
             style={styles.input}
+            secureTextEntry = {secureTextPassword}
             value= {inputState.value}
             onChangeText={textChangeHandler}
             onBlur={lostFocusHandler}
         />
-        
+        {(id=="password" || id=="password2") &&
+        <TouchableOpacity onPress={changeIconName}>
+            <Icon name={iconName} size={25}/>
+        </TouchableOpacity>
+        }
+        </View>
         {!inputState.isValid && inputState.touched && <View style={styles.errorContainer}>
             <Text style={styles.errorText}>{props.errorText}</Text>
             </View>}
@@ -101,6 +127,7 @@ const styles = StyleSheet.create({
         width:'100%'
     },
     input:{
+        flex:1,
         paddingHorizontal:2,
         paddingVertical:5,
         borderBottomColor:"#ccc",
