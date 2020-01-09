@@ -1,7 +1,8 @@
 //imports from react and expo
 import React,{useState,useReducer,useCallback} from 'react'
-import {View,Text,StyleSheet,KeyboardAvoidingView,ScrollView,Button,ActivityIndicator} from 'react-native'
+import {View,Text,StyleSheet,KeyboardAvoidingView,ScrollView,Button,ActivityIndicator,DatePickerAndroid} from 'react-native'
 import {LinearGradient} from 'expo-linear-gradient'
+import DateTimePicker from '@react-native-community/datetimepicker';
 
 //constants and components imports
 import Input from '../../components/Input'
@@ -44,6 +45,8 @@ const RegisterScreen = props => {
     //variables de estado de mi Screen
     const [isLoading,setIsLoading] = useState(false) //para establecer algun load en async
     const [error,setError] = useState(null) //errores de loading o de logeo/registro
+    const [showDatePicker,setShowDatePicker] = useState(false)
+    const [datePickerMode,setDatePickerMode] = useState('date')
 
     //useReducer toma mi formReducer para saber con que form actualizar mi formState
     //inicializo formState con inputValues que es el valor en cada campo
@@ -53,6 +56,7 @@ const RegisterScreen = props => {
                 fullname:'',
                 instaaccount:'',
                 email:'',
+                date: new Date('2020-06-12T14:42:42'),
                 password:'',                
                 password2:''
              }, 
@@ -60,6 +64,7 @@ const RegisterScreen = props => {
                 fullname:false,
                 instaaccount:false,
                 email:false,
+                date:false,
                 password:false,                
                 password2:false
             },
@@ -94,10 +99,12 @@ const RegisterScreen = props => {
             if (formState.inputValues.email != "" && 
             formState.inputValues.fullname != "" &&
             formState.inputValues.instaaccount!= "" &&
+            formState.inputValues.date!= "" &&
             formState.inputValues.password != "" &&
             formState.inputValues.password2 != ""
             ) {
 
+                //FALTA AGREGAR DATE!!!!
                 action = AuthActions.register(
                     formState.inputValues.email,
                     formState.inputValues.fullname,
@@ -147,6 +154,16 @@ const RegisterScreen = props => {
         props.navigation.pop()
     }
 
+    openAndroidDatePicker = async () => {
+        try {
+          const {action, year, month, day} = await DatePickerAndroid.open({
+            date: new Date(2019,4,5)
+          });
+        } catch ({code, message}) {
+          console.warn('Cannot open date picker', message);
+        }
+      }
+
     return (
         <KeyboardAvoidingView
         behavior="padding"
@@ -186,6 +203,14 @@ const RegisterScreen = props => {
                             onInputChange={inputChangeHandler}
                             initialValue=''
                         />
+                        <View>
+                            <Button onPress={()=>{
+                                openAndroidDatePicker()
+                                setShowDatePicker(true)
+                                console.log(formState.inputValues.date)
+                            }} 
+                            title="Show date picker!" />
+                        </View>
                         <Input
                             id='password'
                             label='Contraseña'
