@@ -161,7 +161,7 @@ const RegisterScreen = props => {
                             keyboardType='default'
                             required
                             autoCapitalize="none"
-                            errorText="Enter a valid E-Mail address."
+                            errorText="Ingrese nombre y apellido válidos."
                             onInputChange={inputChangeHandler}
                             initialValue=''
                         />

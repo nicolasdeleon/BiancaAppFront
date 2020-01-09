@@ -126,6 +126,7 @@ const ProfileScreen = props => {
             textAlign='center'
             onInputChange={setEditValueHandler}
             autoCapitalize={'none'}
+            errorText="Ingrese un instagram válido."
             />
             </EditModal>
             <View style={styles.titleContainer}>
