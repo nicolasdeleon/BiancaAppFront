@@ -34,12 +34,19 @@ const EventStatusIndicator = props => {
                         case "F":
                             setMessage("Muchas gracias por participar.")
                             break;
+                        case "R":
+                            setMessage("Acercate a un personal de Bianca")
+                            break;
                     }
                 }
             }
-            if (propButtonFlag){
+            if (propButtonFlag && event.status=="F"){
+                setMessage("Este evento ya no acepta cupos")
+                setShowButton(false)
+            } else if (propButtonFlag){
                 setShowButton(true)
-            }
+                }
+
         } else if (event.status == "2BO"){
             setShowButton(false)
             setMessage("Este evento no ha arrancado")
