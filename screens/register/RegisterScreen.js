@@ -78,7 +78,8 @@ const RegisterScreen = props => {
     //inputValidities que es la validez de cada campo, y la validez total del form
     const [formState,dispatchFormState] = useReducer(formReducer,{
              inputValues: {
-                fullname:'',
+                firstname:'',
+                lastname:'',
                 instaaccount:'',
                 email:'',
                 date: new Date(),
@@ -86,7 +87,8 @@ const RegisterScreen = props => {
                 password2:''
              }, 
              inputValidities:{
-                fullname:false,
+                firstname:false,
+                lastname:false,
                 instaaccount:false,
                 email:false,
                 date:false,
@@ -120,7 +122,7 @@ const RegisterScreen = props => {
         {
             setError('Las contraseñas deben coincidir')
         }
-        else if (Date().getFullYear()- formState.inputValues.date.getFullYear() <10)
+        else if (new Date().getFullYear() - formState.inputValues.date.getFullYear() <10)
         {
             //Parseo medio choto de fechas si o si tiene que ser mayor a 10años
             setError('Ingrese una fecha de nacimiento válida')
@@ -128,7 +130,8 @@ const RegisterScreen = props => {
         else
             // evito que vaya al back end si el usuario no presionó sobre los input
             if (formState.inputValues.email != "" && 
-            formState.inputValues.fullname != "" &&
+            formState.inputValues.firstname != "" &&
+            formState.inputValues.lastname != "" &&
             formState.inputValues.instaaccount!= "" &&
             formState.inputValues.date!= "" &&
             formState.inputValues.password != "" &&
@@ -138,14 +141,17 @@ const RegisterScreen = props => {
                 //FALTA AGREGAR DATE!!!!
                 action = AuthActions.register(
                     formState.inputValues.email,
-                    formState.inputValues.fullname,
+                    formState.inputValues.firstname,
+                    formState.inputValues.lastname,
                     formState.inputValues.instaaccount,
+                    formState.inputValues.date.toJSON(),
                     formState.inputValues.password,
                     formState.inputValues.password2
                     )
                 console.log("REGISTERING form:.............")
                 console.log(formState.inputValues.email)
-                console.log(formState.inputValues.fullname)
+                console.log(formState.inputValues.firstname)
+                console.log(formState.inputValues.lastname)
                 console.log(formState.inputValues.instaaccount)
                 console.log(formState.inputValues.date)
                 console.log(formState.inputValues.password)
@@ -214,12 +220,22 @@ const RegisterScreen = props => {
                 <View style={styles.authContainer}>
                     <ScrollView>
                         <Input
-                            id='fullname'
-                            label='Nombre y Apellido'
+                            id='firstname'
+                            label='Nombre'
                             keyboardType='default'
                             required
                             autoCapitalize="none"
-                            errorText="Ingrese nombre y apellido válidos."
+                            errorText="Ingrese nombre válido."
+                            onInputChange={inputChangeHandler}
+                            initialValue=''
+                        />
+                        <Input
+                            id='lastname'
+                            label='Apellido'
+                            keyboardType='default'
+                            required
+                            autoCapitalize="none"
+                            errorText="Ingrese apellido válido."
                             onInputChange={inputChangeHandler}
                             initialValue=''
                         />
