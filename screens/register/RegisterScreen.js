@@ -1,6 +1,17 @@
 //imports from react and expo
 import React,{useState,useReducer,useCallback} from 'react'
-import {View,Text,StyleSheet,KeyboardAvoidingView,ScrollView,Button,ActivityIndicator} from 'react-native'
+import {
+    View,
+    Text,
+    StyleSheet,
+    KeyboardAvoidingView,
+    ScrollView,
+    Button,
+    ActivityIndicator,
+    DatePickerAndroid,
+    TouchableOpacity,
+} from 'react-native'
+
 import {LinearGradient} from 'expo-linear-gradient'
 
 //constants and components imports
@@ -10,6 +21,21 @@ import Colors from '../../constants/Colors'
 //store and redux imports
 import {useDispatch,useSelector} from 'react-redux'
 import * as AuthActions from '../../store/actions/auth'
+
+function formatDate(date) {
+    var monthNames = [
+      "Enero", "Febrero", "Marzo",
+      "Abril", "Mayo", "Junio", "Julio",
+      "Agosto", "Septiembre", "Octubre",
+      "Noviembre", "Diciembre"
+    ];
+  
+    var day = date.getDate();
+    var monthIndex = date.getMonth();
+    var year = date.getFullYear();
+  
+    return day + ' ' + monthNames[monthIndex] + ' ' + year;
+  }
 
 //action type for form reducer
 const FORM_INPUT_UPDATE = 'FORM_INPUT_UPDATE'
@@ -44,22 +70,28 @@ const RegisterScreen = props => {
     //variables de estado de mi Screen
     const [isLoading,setIsLoading] = useState(false) //para establecer algun load en async
     const [error,setError] = useState(null) //errores de loading o de logeo/registro
+    const [showDatePicker,setShowDatePicker] = useState(false)
+    const [datePickerMode,setDatePickerMode] = useState('date')
 
     //useReducer toma mi formReducer para saber con que form actualizar mi formState
     //inicializo formState con inputValues que es el valor en cada campo
     //inputValidities que es la validez de cada campo, y la validez total del form
     const [formState,dispatchFormState] = useReducer(formReducer,{
              inputValues: {
-                fullname:'',
+                firstname:'',
+                lastname:'',
                 instaaccount:'',
                 email:'',
+                date: new Date(),
                 password:'',                
                 password2:''
              }, 
              inputValidities:{
-                fullname:false,
+                firstname:false,
+                lastname:false,
                 instaaccount:false,
                 email:false,
+                date:false,
                 password:false,                
                 password2:false
             },
@@ -89,26 +121,39 @@ const RegisterScreen = props => {
         formState.inputValues.password2 )
         {
             setError('Las contraseñas deben coincidir')
-        }else
+        }
+        else if (new Date().getFullYear() - formState.inputValues.date.getFullYear() <10)
+        {
+            //Parseo medio choto de fechas si o si tiene que ser mayor a 10años
+            setError('Ingrese una fecha de nacimiento válida')
+        }
+        else
             // evito que vaya al back end si el usuario no presionó sobre los input
             if (formState.inputValues.email != "" && 
-            formState.inputValues.fullname != "" &&
+            formState.inputValues.firstname != "" &&
+            formState.inputValues.lastname != "" &&
             formState.inputValues.instaaccount!= "" &&
+            formState.inputValues.date!= "" &&
             formState.inputValues.password != "" &&
             formState.inputValues.password2 != ""
             ) {
 
+                //FALTA AGREGAR DATE!!!!
                 action = AuthActions.register(
                     formState.inputValues.email,
-                    formState.inputValues.fullname,
+                    formState.inputValues.firstname,
+                    formState.inputValues.lastname,
                     formState.inputValues.instaaccount,
+                    formState.inputValues.date.toJSON(),
                     formState.inputValues.password,
                     formState.inputValues.password2
                     )
                 console.log("REGISTERING form:.............")
                 console.log(formState.inputValues.email)
-                console.log(formState.inputValues.fullname)
+                console.log(formState.inputValues.firstname)
+                console.log(formState.inputValues.lastname)
                 console.log(formState.inputValues.instaaccount)
+                console.log(formState.inputValues.date)
                 console.log(formState.inputValues.password)
                 console.log(formState.inputValues.password2)
                 if(formState.formIsValid){
@@ -147,6 +192,25 @@ const RegisterScreen = props => {
         props.navigation.pop()
     }
 
+    openAndroidDatePicker = async () => {
+        try {
+          const {action, year, month, day} = await DatePickerAndroid.open({
+            //seteo date inicial: Por ahora para 
+            date: formState.inputValues.date
+          });
+          if (action !== DatePickerAndroid.dismissedAction) {
+            // ESTO SE DISPARA CUANDO DA CLICK EN ACEPTAR
+            console.log(year,month,day)
+            inputChangeHandler('date',new Date(year,month,day),true)
+          } 
+          //else if (action !== DatePickerAndroid.dateSetAction) {
+            // ESTO SE DISPARA CUANDO ELIGE UNA FECHA DENTRO DEL CALENDARIO
+          //}
+        } catch ({code, message}) {
+          console.warn('Cannot open date picker', message);
+        }
+      }
+
     return (
         <KeyboardAvoidingView
         behavior="padding"
@@ -156,12 +220,22 @@ const RegisterScreen = props => {
                 <View style={styles.authContainer}>
                     <ScrollView>
                         <Input
-                            id='fullname'
-                            label='Nombre y Apellido'
+                            id='firstname'
+                            label='Nombre'
                             keyboardType='default'
                             required
                             autoCapitalize="none"
-                            errorText="Ingrese nombre y apellido válidos."
+                            errorText="Ingrese nombre válido."
+                            onInputChange={inputChangeHandler}
+                            initialValue=''
+                        />
+                        <Input
+                            id='lastname'
+                            label='Apellido'
+                            keyboardType='default'
+                            required
+                            autoCapitalize="none"
+                            errorText="Ingrese apellido válido."
                             onInputChange={inputChangeHandler}
                             initialValue=''
                         />
@@ -186,6 +260,15 @@ const RegisterScreen = props => {
                             onInputChange={inputChangeHandler}
                             initialValue=''
                         />
+                        <View style={{width:'100%',marginVertical:4,}}>
+                            <Text style={{fontFamily:'open-sans-bold',marginVertical:2,}}>Fecha de nacimiento</Text>
+                            <Text style={{fontFamily:'open-sans',marginTop:6,marginBottom:4,textAlign:"left"}}>{formatDate(formState.inputValues.date)}</Text>
+                            <View style={{alignItems:"flex-end",width:'100%',}}>
+                            <TouchableOpacity onPress={()=>{openAndroidDatePicker()}}>
+                                <Text>Elegir fecha</Text>
+                            </TouchableOpacity>
+                            </View>
+                        </View>
                         <Input
                             id='password'
                             label='Contraseña'

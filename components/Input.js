@@ -97,23 +97,23 @@ const Input = props =>{
     }
 
     return (
-        <View style={styles.formControl}>
+    <View style={styles.formControl}>
         <Text style={styles.label}>{props.label}</Text>
         
         <View style={{flexDirection: "row"}}>
-        <TextInput
-            {...props} 
-            style={styles.input}
-            secureTextEntry = {secureTextPassword}
-            value= {inputState.value}
-            onChangeText={textChangeHandler}
-            onBlur={lostFocusHandler}
-        />
-        {(id=="password" || id=="password2") &&
-        <TouchableOpacity onPress={changeIconName}>
-            <Icon name={iconName} size={25}/>
-        </TouchableOpacity>
-        }
+            <TextInput
+                {...props} 
+                style={styles.input}
+                secureTextEntry = {secureTextPassword}
+                value= {inputState.value}
+                onChangeText={textChangeHandler}
+                onBlur={lostFocusHandler}
+            />
+            {(id=="password" || id=="password2") &&
+            <TouchableOpacity onPress={changeIconName}>
+                <Icon name={iconName} size={25}/>
+            </TouchableOpacity>
+            }
         </View>
         {!inputState.isValid && inputState.touched && <View style={styles.errorContainer}>
             <Text style={styles.errorText}>{props.errorText}</Text>
