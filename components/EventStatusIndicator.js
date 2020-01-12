@@ -67,9 +67,7 @@ const EventStatusIndicator = props => {
     return(
         <View>
             {showButton ? 
-                <QRButton onPress={props.onButtonPress}>
-                    <Text style={styles.ingresarCodigoText}>Ingresar Codigo</Text>
-                </QRButton>
+                <QRButton onPress={props.onButtonPress}/>
                 :
                 <TouchableOpacity onPress={()=>{
                     Alert.alert(

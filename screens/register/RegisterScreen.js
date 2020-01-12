@@ -10,6 +10,8 @@ import {
     ActivityIndicator,
     DatePickerAndroid,
     TouchableOpacity,
+    Platform,
+    DatePickerIOS
 } from 'react-native'
 
 import {LinearGradient} from 'expo-linear-gradient'
@@ -70,8 +72,7 @@ const RegisterScreen = props => {
     //variables de estado de mi Screen
     const [isLoading,setIsLoading] = useState(false) //para establecer algun load en async
     const [error,setError] = useState(null) //errores de loading o de logeo/registro
-    const [showDatePicker,setShowDatePicker] = useState(false)
-    const [datePickerMode,setDatePickerMode] = useState('date')
+    const [showDatePickerIos,setShowDatePickerIos] = useState(false)
 
     //useReducer toma mi formReducer para saber con que form actualizar mi formState
     //inicializo formState con inputValues que es el valor en cada campo
@@ -211,6 +212,10 @@ const RegisterScreen = props => {
         }
       }
 
+    openIosDatePicker = async () => {
+        
+    }
+
     return (
         <KeyboardAvoidingView
         behavior="padding"
@@ -263,10 +268,28 @@ const RegisterScreen = props => {
                         <View style={{width:'100%',marginVertical:4,}}>
                             <Text style={{fontFamily:'open-sans-bold',marginVertical:2,}}>Fecha de nacimiento</Text>
                             <Text style={{fontFamily:'open-sans',marginTop:6,marginBottom:4,textAlign:"left"}}>{formatDate(formState.inputValues.date)}</Text>
-                            <View style={{alignItems:"flex-end",width:'100%',}}>
-                            <TouchableOpacity onPress={()=>{openAndroidDatePicker()}}>
+                            <View style={{alignItems:"center",width:'100%',}}>
+                            {showDatePickerIos &&
+                                    <View style={{width:"100%",height:200}}>
+                                    <DatePickerIOS 
+                                        initialDate = {formState.inputValues.date}
+                                        date = {formState.inputValues.date}
+                                        onDateChange = {(newDate) =>{
+                                            inputChangeHandler('date',new Date(newDate),true)
+                                    }}
+                                        mode = {'date'}
+                                    />
+                                    </View>  
+                            }
+                            <TouchableOpacity onPress={()=>{
+                                if(Platform.OS === 'android' && Platform.Version>=21){
+                                    openAndroidDatePicker()
+                                } else if(Platform.OS === 'ios'){
+                                    setShowDatePickerIos(!showDatePickerIos)
+                                }    
+                            }}>
                                 <Text>Elegir fecha</Text>
-                            </TouchableOpacity>
+                            </TouchableOpacity> 
                             </View>
                         </View>
                         <Input

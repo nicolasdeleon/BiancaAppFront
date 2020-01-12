@@ -182,13 +182,13 @@ const MainProfileDrawer = createDrawerNavigator({
                         </View>
 
                         <View style={styles.menuButtonContainer}>
-                            <Button title='Give us Feedback!' color={Colors.accent} onPress={()=>{
+                            <Button title='Give us Feedback!' color={'white'} onPress={()=>{
                                 props.navigation.navigate('feedback')
                             }}/> 
                         </View>
                         
                         <View style={styles.menuButtonContainer}>
-                            <Button title='LogOut' color={Colors.accent} onPress={()=>{
+                            <Button title='LogOut' color={'white'} onPress={()=>{
                                 dispatch(authActions.logout())
                                 props.navigation.navigate('start')
                             }}/>

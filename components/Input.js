@@ -30,7 +30,7 @@ const Input = props =>{
         touched: false, 
     })
 
-    const [iconName,setIconName] = useState("eye") //visualizar password
+    const [iconName,setIconName] = useState("eye-off") //visualizar password
     const [secureTextPassword,changeSecureTextPassword] = useState(props.secureTextEntry) //visualizar password
 
     const textChangeHandler = text => {
@@ -85,13 +85,13 @@ const Input = props =>{
 
 
     const changeIconName= async () =>{
-        if (iconName == "eye"){
-        setIconName("eye-off")
+        if (iconName == "eye-off"){
+        setIconName("eye")
         changeSecureTextPassword(false)
         
         }
         else {
-            setIconName("eye")
+            setIconName("eye-off")
             changeSecureTextPassword(true)
         }
     }
