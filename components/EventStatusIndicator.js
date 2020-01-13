@@ -4,6 +4,7 @@ import QRButton from '../components/QRButton'
 import Colors from '../constants/Colors'
 
 
+
 const EventStatusIndicator = props => {
     
     const [message,setMessage] = useState('')
@@ -30,7 +31,8 @@ const EventStatusIndicator = props => {
                         case "2BA":
                             setMessage("Esperando Validar su Foto")
                             break;
-                        case "W":
+                        case "W":        borderRadius:20,
+
                             setMessage(`Felicitaciones, tu foto fue acreditada.\nMuestra ${contract.instaaccount} en mostrador` )
                             break;
                         case "F":
@@ -60,15 +62,44 @@ const EventStatusIndicator = props => {
 
     }
 
+    const EventStatusFunction = (event) => {
+        setShowButton(false)
+        if (event.status === 'O'){
+            setMessage("Este evento esta abierto y acepta inscripciones!")
+        } else if(event.status == 'F'){
+            setMessage("Este evento finalizo. No se aceptan mas inscripciones")
+        } else if (event.status === '2BO')
+            setMessage("Esperando abrir evento. Mantenete alerta!")
+        else if (event.status === "C"){
+            setMessage("Evento Cerrado")
+        }else {
+            setMessage("?")
+        }
+    }
+
     useEffect(()=>{
-        Funcion(props.event,props.contractList)
+        if(props.showEventStatus){
+            EventStatusFunction(props.event)
+        }else {
+            Funcion(props.event,props.contractList)
+        }
     },[Funcion,props.event,props.contractList]) //por dependencia a dispatch solo se me llama una vez
 
+
+    if(props.showEventStatus){
+        return(
+            <View style={styles.screen}>
+                <Text style={styles.messageText}>{message}</Text>
+            </View>
+        )
+    }
+
     return(
-        <View>
+        <View style={styles.screen}>
             {showButton ? 
                 <QRButton onPress={props.onButtonPress}/>
                 :
+                <View style={styles.container}>
                 <TouchableOpacity onPress={()=>{
                     Alert.alert(
                         'Bianca Info:','- Bianca lo contactara por mail al validar la foto.\n- Tenga en cuenta que @Bianca lo seguira por instagram, corrobore que se encuentra bien la cuenta de Instagram en su perfil.\n- Si todavia no se le indicó que retire su premió, pruebe refrescando la app!\n- El proceso puede demorar hasta 5 minutos',
@@ -78,13 +109,19 @@ const EventStatusIndicator = props => {
                         <Text style={styles.messageText}>{message}</Text>
                         <Text style={styles.infoText}>Click aqui para mas información</Text>
                 </View>
-                </TouchableOpacity>     
+                </TouchableOpacity>
+                </View>     
             }
         </View>
     )
 }
 
 const styles = StyleSheet.create({
+    screen:{
+        flex:1,
+        alignContent:'center',
+        justifyContent:'center'
+    }, 
     container:{
         alignContent:'center',
         justifyContent:'center',
