@@ -182,16 +182,19 @@ const MainProfileDrawer = createDrawerNavigator({
                         </View>
 
                         <View style={styles.menuButtonContainer}>
-                            <Button title='Give us Feedback!' color={'white'} onPress={()=>{
+                            <TouchableOpacity  onPress={()=>{
                                 props.navigation.navigate('feedback')
-                            }}/> 
+                            }}>
+                                <Text style={styles.menuItemText}>Give us Feedback!</Text>
+                            </TouchableOpacity>
                         </View>
                         
                         <View style={styles.menuButtonContainer}>
-                            <Button title='LogOut' color={'white'} onPress={()=>{
-                                dispatch(authActions.logout())
+                           <TouchableOpacity  onPress={()=>{
                                 props.navigation.navigate('start')
-                            }}/>
+                            }}>
+                                <Text style={styles.menuItemText}>Log Out</Text>
+                            </TouchableOpacity>
                         </View>
                 </SafeAreaView>
             </View>
@@ -220,10 +223,15 @@ const AppAndLoginSignup = createSwitchNavigator({
 const styles = StyleSheet.create({
     menuButtonContainer:{
         margin:2,
+        alignContent:'center',
+        justifyContent:'center',
+        marginLeft:12,
+        marginVertical:7
     },
     menuItemText:{
         fontSize:18,
-        color:Colors.dark,
+        color:'white',
+        fontFamily:'open-sans-bold'
     },
     image:{
         width:'100%',
