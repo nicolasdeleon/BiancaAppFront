@@ -28,7 +28,7 @@ const styles = StyleSheet.create({
         elevation:5,
         alignContent:'center',
         alignItems:'center',
-        height:50
+        height:50,
     },
     ButtonText:{
         color:'white',

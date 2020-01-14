@@ -9,9 +9,11 @@ import {createAppContainer,createSwitchNavigator} from 'react-navigation'
 import {createStackNavigator} from 'react-navigation-stack'
 import {createDrawerNavigator,DrawerNavigatorItems} from 'react-navigation-drawer'
 import {createMaterialBottomTabNavigator} from 'react-navigation-material-bottom-tabs'
+import { createMaterialTopTabNavigator } from 'react-navigation-tabs';
 //import {createBottomTabNavigator} from 'react-navigation-tabs'
 
 import CustomHeaderButton from '../components/HeaderButton'
+import Circle from '../components/Circle'
 import {HeaderButtons, Item} from 'react-navigation-header-buttons' //CREO QUE ME LA TENGO Q BAJAR
 
 
@@ -28,6 +30,9 @@ import RegisterScreen from '../screens/register/RegisterScreen'
 import StartupScreen from '../screens/StartupScreen'
 import FeedbackFormScreen from '../screens/main/FeedbackFormScreen'
 import ForgotPasswordScreen from '../screens/register/ForgotPasswordScreen' //forgotPass
+import HowToScreen from '../screens/main/HowToScreen'
+import HowToScreen2 from '../screens/main/HowToScreen2'
+import HowToScreen3 from '../screens/main/HowToScreen3'
 
 //CREATION OF NAVIGATION FLOW
 
@@ -49,7 +54,52 @@ const MainStack = createStackNavigator({
             fontFamily:'open-sans-bold' 
         },
         headerTintColor: "black",
-        headerTitle: "Bianca App", //ESTO NO ANDA Y NO SE PORQQUE
+        headerTitle: "Eventos", //ESTO NO ANDA Y NO SE PORQQUE
+        headerRight:  <HeaderButtons HeaderButtonComponent={CustomHeaderButton}>
+        <Item 
+        title="Menu"
+        iconName="md-menu"
+        onPress={()=>{navigation.toggleDrawer()}}
+        />
+        </HeaderButtons>,
+    }),
+})
+
+const HowToScreenNav = createMaterialTopTabNavigator({
+    step_1:HowToScreen,
+    step_2:HowToScreen2,
+    step_3:HowToScreen3,
+},{
+    tabBarPosition:"bottom",
+    tabBarComponent: props => (
+        <View style={{flexDirection:'row',alignContent:'center',justifyContent:'center',marginBottom:5}}>
+            <Circle hollow={props.navigation.state.index===0}/>
+            <Circle hollow={props.navigation.state.index===1}/>
+            <Circle hollow={props.navigation.state.index===2}/>
+        </View>
+      ),
+})
+
+
+const HowToStack = createStackNavigator({
+    HowTo: HowToScreenNav,
+},{
+    navigationOptions:{
+        drawerIcon: drawerConfig =>(<Ionicons name='md-list' size={23} color={drawerConfig.tintColor}/>),
+    },
+
+    defaultNavigationOptions: ({navigation}) => ({
+        headerTitleStyle:{
+            fontFamily:'open-sans-bold'
+        },
+        headerStyle:{
+            backgroundColor: Colors.accent
+        },
+        headerBackTitleStyle:{
+            fontFamily:'open-sans-bold' 
+        },
+        headerTintColor: "black",
+        headerTitle: "Bianca", //ESTO NO ANDA Y NO SE PORQQUE
         headerRight:  <HeaderButtons HeaderButtonComponent={CustomHeaderButton}>
         <Item 
         title="Menu"
@@ -78,7 +128,7 @@ const ProfileStack = createStackNavigator({
             fontFamily:'open-sans-bold' 
         },
         headerTintColor: "black",
-        headerTitle: "Profile",
+        headerTitle: "Usuario",
         
         headerRight:  <HeaderButtons HeaderButtonComponent={CustomHeaderButton}>
         <Item 
@@ -93,12 +143,21 @@ const ProfileStack = createStackNavigator({
 
 //materialBottomTab entre Main y perfil
 const MainandProfile = createMaterialBottomTabNavigator({
-    Main: {
-        screen:MainStack,
+    HowTo: {
+        screen:HowToStack,
             navigationOptions:{
             tabBarColor:Colors.accent,
             tabBarIcon:  (tabInfo) =>{
                 return(<MaterialCommunityIcons name='dog' size={25} color={tabInfo.tintColor}/>)
+                },
+        }
+    },
+    Events: {
+        screen:MainStack,
+            navigationOptions:{
+            tabBarColor:Colors.accent,
+            tabBarIcon:  (tabInfo) =>{
+                return(<FontAwesome name='tasks' size={25} color={tabInfo.tintColor}/>)
                 },
         }
     },
@@ -191,6 +250,7 @@ const MainProfileDrawer = createDrawerNavigator({
                         
                         <View style={styles.menuButtonContainer}>
                            <TouchableOpacity  onPress={()=>{
+                               dispatch(authActions.logout())
                                 props.navigation.navigate('start')
                             }}>
                                 <Text style={styles.menuItemText}>Log Out</Text>

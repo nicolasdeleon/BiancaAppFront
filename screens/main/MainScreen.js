@@ -3,9 +3,8 @@ import {View,Text,StyleSheet,FlatList,ActivityIndicator,StatusBar, Keyboard} fro
 import {useSelector,useDispatch} from 'react-redux'
 import Colors from '../../constants/Colors'
 import STEPS from '../../staticData/comoFuncionaSteps'
-import Card from '../../components/Card'
+import EventDetail from '../../components/EventDetail'
 import InsertCode from '../../components/CustomModal'
-import EventStatusIndicator from '../../components/EventStatusIndicator'
 import * as EventActions from '../../store/actions/events'
 import * as AuthActions from '../../store/actions/auth'
 import Input from '../../components/Input'
@@ -127,15 +126,14 @@ const MainScreen = props => {
         
         <View style={styles.screen} >
             <StatusBar backgroundColor={Colors.dark} barStyle={"light-content"} translucent={false}/>
-            <View style={{flex:1}}> 
-                <InsertCode
+            <InsertCode
                 modalVisible={modalVisible} 
                 onClose={closeInsertCode}
                 onSend={sendInsertCode}
                 title={"Inserte Código del Local"}
                 acceptButtonText={"Activar"}
                 errorText={error}
-                loading={isLoading}>
+                loading={isLoading}>        
                 <Input
                 maxLength={5}
                 min={5}
@@ -146,66 +144,37 @@ const MainScreen = props => {
                 onInputChange={setCodeValueHandler}
                 autoCapitalize={'characters'}
                 />
-                </InsertCode>
-                <View style={styles.howItWorks}>
-                    <View style={{borderBottomWidth:1,borderBottomColor:"#dddddd"}}>
-                    <Text style={styles.title}>Camino de Canje</Text>
-                    </View>
-                    <FlatList
-                        onRefresh={loadContractsAndEvents}
-                        refreshing={isLoading}
-                        keyExtractor ={(item,index) => item.id}
-                        data={STEPS}
-                        renderItem={itemData =><Card>
-                                <Text style={styles.stepTitle}> {itemData.item.title}</Text>
-                                <Text style={styles.stepDesc}>{itemData.item.description}</Text>
-                            </Card>}
+            </InsertCode>
+            {activeEvents[activeEvents.length-1] ? 
+                <EventDetail 
+                    loading = {isLoading}
+                    sentCode = {sentCode}
+                    insertCodeButton = {insertCodeButton}
+                    event = {activeEvents[activeEvents.length-1]}
+                    activeContracts = {activeContracts}
+                    loadContractsAndEvents = {loadContractsAndEvents}
                     />
-                </View>
-                <View style={styles.button}>
-                {isLoading ? 
-                        (<ActivityIndicator size='large' color={Colors.primary}/>) 
                     :
-                        <EventStatusIndicator
-                            sent={sentCode}
-                            onButtonPress={insertCodeButton}
-                            event={activeEvents[activeEvents.length-1]}
-                            contractList={activeContracts}
-                            onLoadContractsAndEvents={loadContractsAndEvents} 
-                        />
-                }
-                </View>
-            </View>
+                (<ActivityIndicator size='large' color={Colors.primary}/>)
+            }
         </View>
     )
 }
 
-
 const styles = StyleSheet.create({
     screen:{
         flex:1,
+        width:'100%',
+        height:'100%',
         alignItems:'center',
         justifyContent:'center',
-        backgroundColor:"white",
+        backgroundColor:"#FFFFFF",
     },
     title:{
         textAlign:'center',
         fontSize:24,
         fontFamily:'open-sans-bold',
         marginVertical:12,
-    },
-    howItWorks:{
-        width:'100%',
-        height:'90%',
-        justifyContent:'space-around',
-        alignContent:'space-around',
-        
-    },
-    button:{
-        height:'5%',
-        justifyContent:'center',
-        alignItems:'center',
-        borderRadius:20,
     },
     stepTitle:{
         textAlign:'center',
@@ -220,7 +189,7 @@ const styles = StyleSheet.create({
 
 MainScreen.navigationOptions = navData => {
     return {
-        headerTitle: 'Bianca'
+        headerTitle: 'Eventos'
     }
 }
 
