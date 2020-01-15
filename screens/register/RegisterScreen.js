@@ -1,5 +1,6 @@
 //imports from react and expo
 import React,{useState,useReducer,useCallback} from 'react'
+
 import {
     View,
     Text,
@@ -11,7 +12,8 @@ import {
     DatePickerAndroid,
     TouchableOpacity,
     Platform,
-    DatePickerIOS
+    DatePickerIOS,
+    CheckBox,
 } from 'react-native'
 
 import {LinearGradient} from 'expo-linear-gradient'
@@ -73,6 +75,7 @@ const RegisterScreen = props => {
     const [isLoading,setIsLoading] = useState(false) //para establecer algun load en async
     const [error,setError] = useState(null) //errores de loading o de logeo/registro
     const [showDatePickerIos,setShowDatePickerIos] = useState(false)
+    const [acceptTerms,setAcceptTerms] = useState(false) //checkbox terminos y condiciones
 
     //useReducer toma mi formReducer para saber con que form actualizar mi formState
     //inicializo formState con inputValues que es el valor en cada campo
@@ -108,6 +111,16 @@ const RegisterScreen = props => {
         input: InputIdentifier //Esta es una key que voy a mapear en mis inputvalues
         })
     },[dispatchFormState])
+    
+    const changeAcceptTerms= async () =>{
+        if (acceptTerms == true){
+            setAcceptTerms(false)
+        }
+        else {
+            setAcceptTerms(true)
+        }
+    }
+
 
     //LOGICA DE DISPATCH AUTH A SERVER
     dispatch = useDispatch()
@@ -127,7 +140,8 @@ const RegisterScreen = props => {
         {
             //Parseo medio choto de fechas si o si tiene que ser mayor a 10años
             setError('Ingrese una fecha de nacimiento válida')
-        }
+        }else if(acceptTerms == false)
+            setError("Debe aceptar los términos y condiciones.")
         else
             // evito que vaya al back end si el usuario no presionó sobre los input
             if (formState.inputValues.email != "" && 
@@ -216,6 +230,10 @@ const RegisterScreen = props => {
         
     }
 
+    //Navegar a TermsAndCond 
+    goToTermsAndConds = () =>{
+        props.navigation.navigate('termsAndConds')
+    }
     return (
         <KeyboardAvoidingView
         behavior="padding"
@@ -316,6 +334,15 @@ const RegisterScreen = props => {
                             onInputChange={inputChangeHandler}
                             initialValue=''
                         />
+                        <View style={styles.checkbox}>
+                            <CheckBox 
+                            value={acceptTerms}
+                            onValueChange={changeAcceptTerms}
+                            />    
+                            <TouchableOpacity onPress={goToTermsAndConds}>  
+                                <Text style={styles.termsandcond}> Acepto los Términos y Condiciones.</Text>
+                            </TouchableOpacity>
+                        </View>       
                         <View style={styles.buttonContainer}>
                             {isLoading ? (<ActivityIndicator size='small' color={Colors.primary}/>) : 
                             (<Button 
@@ -374,7 +401,16 @@ const styles = StyleSheet.create({
     },
     buttonContainer:{
         marginTop:10,
-    }
+    },
+    checkbox:{
+        flexDirection: "row",
+        alignItems:'center',
+        fontFamily:'open-sans'
+    },
+    termsandcond:{
+        textDecorationLine: 'underline',
+        fontFamily:'open-sans'
+    },
 })
 
 export default RegisterScreen

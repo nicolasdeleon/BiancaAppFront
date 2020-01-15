@@ -28,6 +28,7 @@ import RegisterScreen from '../screens/register/RegisterScreen'
 import StartupScreen from '../screens/StartupScreen'
 import FeedbackFormScreen from '../screens/main/FeedbackFormScreen'
 import ForgotPasswordScreen from '../screens/register/ForgotPasswordScreen' //forgotPass
+import TermsAndCondsScreen from '../screens/register/TermsAndCondsScreen'
 
 //CREATION OF NAVIGATION FLOW
 
@@ -216,6 +217,7 @@ const AppAndLoginSignup = createSwitchNavigator({
     start:StartupScreen,
     auth:RegisterOrSignIn,
     app:MainProfileDrawer,
+    termsAndConds: TermsAndCondsScreen,
 })
 
 
