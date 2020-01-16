@@ -162,9 +162,14 @@ const LogInSignupScreen = props => {
                                 initialValue=''
                                 desiredLength={60}
                             />
-                            
-                            
-                        </View>
+                     </View>
+
+                        <View style={{marginVertical:8}}>                            
+                            <TouchableOpacity onPress={goToForgotPassword}>  
+                                <Text style={styles.forgotPasswordTex}>Olvidé mi contraseña.</Text>
+                            </TouchableOpacity>
+                        </View> 
+
                         <View style={styles.buttonContainer}>
                             {isLoading ? (<ActivityIndicator size='small' color={Colors.primary}/>) : 
                             (<Button 
@@ -180,13 +185,7 @@ const LogInSignupScreen = props => {
                                 onPress={goToRegister}
                             />
                             {error && <Text style={styles.errorText}>{error}</Text>}
-                        </View>            
-                        <View>                            
-                            <TouchableOpacity onPress={goToForgotPassword}>  
-                                <Text style={styles.forgotPasswordTex}>Olvidé mi contraseña.</Text>
-                            </TouchableOpacity>
-                        </View>                  
-                        
+                        </View>                                             
                         
                     </ScrollView>
                     
