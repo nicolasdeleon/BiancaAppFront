@@ -130,7 +130,7 @@ const LogInSignupScreen = props => {
     return (
         <KeyboardAvoidingView
         behavior="padding"
-        keyboardVerticalOffset={50}
+        keyboardVerticalOffset={70}
         style={styles.screen}>
             <LinearGradient colors={[Colors.accent,Colors.dark]} style={styles.gradient}>
                 <View style={styles.authContainer}>
@@ -212,7 +212,8 @@ const styles = StyleSheet.create({
         justifyContent:'center'
     },
     authContainer:{
-        width:'80%',
+        width:'90%',
+        maxHeight:'90%',
         padding:15,
         borderColor:'#f5f5f5',
         borderWidth:1,

@@ -1,26 +1,37 @@
-import React,{useState} from 'react'
-import {View,Text,StyleSheet,KeyboardAvoidingView,ScrollView,Button,ActivityIndicator} from 'react-native'
+import React from 'react'
+import {View,Text,StyleSheet,FlatList} from 'react-native'
 import {LinearGradient} from 'expo-linear-gradient'
-
+import TermsAndConditions from '../../staticData/terms'
 import Colors from '../../constants/Colors'
 
 const TermsAndCondsScreen = props => {
 
+    renderTermPoint = (item) => {
+        console.log(item.item.textito)
+        return(
+                <View style={{flexDirection:'row',justifyContent:'flex-start',alignContent:'center',marginVertical:5,width:'90%'}}>
+                    <Text style={{fontFamily:'open-sans'}}>{item.item.id}. </Text>
+                    <Text style={{fontFamily:'open-sans'}}>{item.item.textito}</Text>
+                </View>
+        )
+    }
+
     return (
-        <KeyboardAvoidingView
+        <View
         behavior="padding"
         keyboardVerticalOffset={50}
         style={styles.screen}>
             <LinearGradient colors={[Colors.accent,Colors.dark]} style={styles.gradient}>
                 <View style={styles.authContainer}>
-                    <ScrollView>   
-                        <View style={styles.screen} >
-                            <Text>TERMS AND CONDITIONS</Text>
-                        </View>
-                    </ScrollView>
+                <FlatList
+                    data={TermsAndConditions}
+                    renderItem={renderTermPoint}
+                    keyExtractor={item => item.id}
+                    style={{width:'100%'}}
+                    />
                 </View>
             </LinearGradient>
-        </KeyboardAvoidingView>
+        </View>
     )
 }
 
@@ -39,10 +50,8 @@ const styles = StyleSheet.create({
         backgroundColor:"white",
     },
     authContainer:{
-        width:'80%',
-        //maxWidth:400,
-        //height:'80%',
-        //maxHeight:400,
+        width:'90%',
+        maxHeight:'90%',
         padding:15,
         borderColor:'#f5f5f5',
         borderWidth:1,
