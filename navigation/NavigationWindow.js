@@ -33,6 +33,7 @@ import ForgotPasswordScreen from '../screens/register/ForgotPasswordScreen' //fo
 import HowToScreen from '../screens/main/HowToScreen'
 import HowToScreen2 from '../screens/main/HowToScreen2'
 import HowToScreen3 from '../screens/main/HowToScreen3'
+import TermsAndCondsScreen from '../screens/register/TermsAndCondsScreen'
 
 //CREATION OF NAVIGATION FLOW
 
@@ -268,6 +269,7 @@ const RegisterOrSignIn = createStackNavigator({
     singIn: LogInSignupScreen,
     register: RegisterScreen,    
     forgotPassword: ForgotPasswordScreen, //forgotPass
+    termsAndConds: TermsAndCondsScreen,
 })
 
 //Switch navigator permite que pueda tener screens que no pueden volver a la anterior.
@@ -277,8 +279,6 @@ const AppAndLoginSignup = createSwitchNavigator({
     auth:RegisterOrSignIn,
     app:MainProfileDrawer,
 })
-
-
 
 const styles = StyleSheet.create({
     menuButtonContainer:{
