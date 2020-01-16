@@ -192,6 +192,7 @@ const FeedbackStack = createStackNavigator({
     },
 
     defaultNavigationOptions: ({navigation}) => ({
+
         headerTitleStyle:{
             fontFamily:'open-sans-bold'
         },
@@ -270,7 +271,17 @@ const RegisterOrSignIn = createStackNavigator({
     register: RegisterScreen,    
     forgotPassword: ForgotPasswordScreen, //forgotPass
     termsAndConds: TermsAndCondsScreen,
-})
+},
+    
+{defaultNavigationOptions: ({navigation}) => ({
+
+    headerTitleStyle:{
+        fontFamily:'open-sans-bold'
+    },
+    headerStyle:{
+        backgroundColor: Colors.primary
+    }
+})})
 
 //Switch navigator permite que pueda tener screens que no pueden volver a la anterior.
 //utilizo para separar mi app de login-signup a Main
@@ -278,7 +289,8 @@ const AppAndLoginSignup = createSwitchNavigator({
     start:StartupScreen,
     auth:RegisterOrSignIn,
     app:MainProfileDrawer,
-})
+    })
+
 
 const styles = StyleSheet.create({
     menuButtonContainer:{
