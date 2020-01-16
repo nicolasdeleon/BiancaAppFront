@@ -209,6 +209,7 @@ const RegisterOrSignIn = createStackNavigator({
     singIn: LogInSignupScreen,
     register: RegisterScreen,    
     forgotPassword: ForgotPasswordScreen, //forgotPass
+    termsAndConds: TermsAndCondsScreen,
 })
 
 //Switch navigator permite que pueda tener screens que no pueden volver a la anterior.
@@ -217,10 +218,7 @@ const AppAndLoginSignup = createSwitchNavigator({
     start:StartupScreen,
     auth:RegisterOrSignIn,
     app:MainProfileDrawer,
-    termsAndConds: TermsAndCondsScreen,
 })
-
-
 
 const styles = StyleSheet.create({
     menuButtonContainer:{
