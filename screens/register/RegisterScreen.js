@@ -374,7 +374,8 @@ const styles = StyleSheet.create({
         justifyContent:'center'
     },
     authContainer:{
-        width:'80%',
+        height:'90%',
+        width:'90%',
         padding:15,
         borderColor:'#f5f5f5',
         borderWidth:1,
