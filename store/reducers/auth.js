@@ -18,10 +18,11 @@ export default (state = initialState,action) => {
                 userId: action.userId
             }
         case REGISTER:
-            return {
-                token: action.token,
-                userId: action.userId
-            }
+          //  return {
+           //     token: action.token,
+           //     userId: action.userId
+           // }
+           return state
       
         case LOGOUT:
             return initialState

@@ -41,12 +41,14 @@ export const login = (email,password) =>{
         }
         const resData = await response.json()
         console.log(resData)
-        if(resData['response'] === 'Error'){
+        if(resData['response'] === 'Error' || resData['error_message']){
             // new Error('Something went wrong!')
             console.log('lo siguiente:')
             console.log(resData['error_message'])
             throw new Error(resData['error_message'])
         }
+        console.log("DEBUG--------------------------------------------------------")
+        console.log(resData['token'])
         dispatch({type:LOGIN,token: resData['token'], userId: resData['email']})
         saveDataToStorage(resData['token'],resData['email'])
     }

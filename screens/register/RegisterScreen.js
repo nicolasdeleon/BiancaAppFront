@@ -177,7 +177,9 @@ const RegisterScreen = props => {
                     try{
                         await dispatch(action)
                         setIsLoading(false)
-                        props.navigation.navigate('app')
+                        props.navigation.navigate('singIn',{
+                            message: `Verifica tu cuenta en ${formState.inputValues.email} tu mail para ingresar!`
+                        })
                     }catch (err){
                         //tipicamente error de Invalid Credentials proveniente del servidor data
                         setError(err.message)
