@@ -161,3 +161,31 @@ const saveDataToStorage = (token,userId) => {
             })
         )
 }
+
+export const change_password = (token,old_password,password,password2) =>{
+    
+    return async dispatch =>{        
+        const response = await fetch(
+            'https://biancaapp-ndlc.herokuapp.com/api/accounts/change_password'
+            ,{
+                method:'PUT',
+                headers:{
+                    'Content-Type': 'application/json',
+                    Authorization: "Token "+token,
+                },
+                body: JSON.stringify({
+                    old_password:old_password,
+                    new_password:password,
+                    confirm_new_password:password2,
+                })
+            },
+            
+        )
+        
+        const resData = await response.json()
+        if(resData['response'] === 'Error'){
+            throw new Error(resData['error_message'])
+        }
+    }
+    
+}

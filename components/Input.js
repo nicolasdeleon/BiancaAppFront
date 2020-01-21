@@ -109,7 +109,7 @@ const Input = props =>{
                 onChangeText={textChangeHandler}
                 onBlur={lostFocusHandler}
             />
-            {(id=="password" || id=="password2") &&
+            {(id=="password" || id=="password2" || id=="old_password") &&
             <TouchableOpacity onPress={changeIconName}>
                 <Icon name={iconName} size={25}/>
             </TouchableOpacity>
