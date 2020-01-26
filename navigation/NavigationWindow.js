@@ -73,7 +73,7 @@ const HowToScreenNav = createMaterialTopTabNavigator({
 },{
     tabBarPosition:"bottom",
     tabBarComponent: props => (
-        <View style={{flexDirection:'row',alignContent:'center',justifyContent:'center',marginBottom:5}}>
+        <View style={{flexDirection:'row',backgroundColor:Colors.accent,alignContent:'center',justifyContent:'center'}}>
             <Circle hollow={props.navigation.state.index===0}/>
             <Circle hollow={props.navigation.state.index===1}/>
             <Circle hollow={props.navigation.state.index===2}/>

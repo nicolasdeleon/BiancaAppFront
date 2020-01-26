@@ -1,12 +1,14 @@
-import React,{useState} from 'react'
-import {View,Text,StyleSheet,FlatList,StatusBar} from 'react-native'
+import React from 'react'
+import {View,StyleSheet,Image} from 'react-native'
 
 
 const HowToScreen = props => {
 
     return (
         <View style={styles.screen} >
-            <Text>HOW TO SCREEN 1</Text>
+            <Image 
+                style={styles.image} 
+                source={require('../../staticData/HowTo1.jpeg')}/>
         </View>
     )
 }
@@ -14,10 +16,17 @@ const HowToScreen = props => {
 const styles = StyleSheet.create({
     screen:{
         flex:1,
+        width:'100%',
+        height:'100%',
         alignItems:'center',
         justifyContent:'center',
-        backgroundColor:"white",
+        backgroundColor:"red",
     },
+    image:{
+        resizeMode:'stretch',
+        width:'100%',
+        height:'100%',
+    }
 })
 
 export default HowToScreen

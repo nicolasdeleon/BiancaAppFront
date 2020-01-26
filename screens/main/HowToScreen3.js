@@ -1,17 +1,14 @@
-import React,{useState} from 'react'
-import {View,Text,StyleSheet,FlatList,StatusBar} from 'react-native'
-
-import Colors from '../../constants/Colors'
-import STEPS from '../../staticData/comoFuncionaSteps'
-import Card from '../../components/Card'
+import React from 'react'
+import {View,StyleSheet,Image} from 'react-native'
 
 
 const HowToScreen3 = props => {
 
     return (
-
         <View style={styles.screen} >
-            <Text>HOW TO SCREEN 3</Text>
+            <Image 
+                style={styles.image} 
+                source={require('../../staticData/HowTo3.jpeg')}/>
         </View>
     )
 }
@@ -19,10 +16,17 @@ const HowToScreen3 = props => {
 const styles = StyleSheet.create({
     screen:{
         flex:1,
+        width:'100%',
+        height:'100%',
         alignItems:'center',
         justifyContent:'center',
-        backgroundColor:"white",
+        backgroundColor:"red",
     },
+    image:{
+        resizeMode:'stretch',
+        width:'100%',
+        height:'100%',
+    }
 })
 
 export default HowToScreen3
