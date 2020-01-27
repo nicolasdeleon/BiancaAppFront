@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "16083150051",
+    "firebase_url": "https://bianca-firebase.firebaseio.com",
+    "project_id": "bianca-firebase",
+    "storage_bucket": "bianca-firebase.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:16083150051:android:4be60cbf2317df238d11d6",
+        "android_client_info": {
+          "package_name": "bianca.bianca"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "16083150051-t2ssv3v3q3v91aqp0sj2bkqqo9vornl1.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBZx-hqZhsp1Kd_9ng_h9lK-aPre3MRza8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "16083150051-t2ssv3v3q3v91aqp0sj2bkqqo9vornl1.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
