@@ -44,7 +44,7 @@ const FeedbackFormScreen = props => {
             <Text style={styles.titleText}>Fluidez</Text>
             <AirbnbRating
             ratingCount={10}
-            reviews={['Keh','Soportable','Okok','Piola!','Excelente']}
+            reviews={['Keh','Soportable','Okok','Piola!','Buenísima']}
             size={18}
             selectedColor={Colors.primary}
             reviewColor={Colors.accent}

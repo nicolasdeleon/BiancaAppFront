@@ -79,6 +79,7 @@ const MainScreen = props => {
         if (status === 'granted'){
             notificationToken = await Notifications.getExpoPushTokenAsync()
         }
+        
         console.log("------------------------------DEBUG-------------------------------")+
         console.log(modalValidity)
         console.log(codeValue)
