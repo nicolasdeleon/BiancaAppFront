@@ -1,14 +1,12 @@
 import React from 'react'
 import {View,StyleSheet,Image} from 'react-native'
 
-
-const HowToScreen = props => {
-
+const HowToScreen2 = props => {
     return (
         <View style={styles.screen} >
             <Image 
-                style={styles.image} 
-                source={require('../../staticData/HowTo1.jpeg')}/>
+            style={styles.image}
+            source={require('../../staticData/HowTo2.jpeg')}/>
         </View>
     )
 }
@@ -20,7 +18,7 @@ const styles = StyleSheet.create({
         height:'100%',
         alignItems:'center',
         justifyContent:'center',
-        backgroundColor:"red",
+        backgroundColor:"white",
     },
     image:{
         resizeMode:'stretch',
@@ -29,4 +27,4 @@ const styles = StyleSheet.create({
     }
 })
 
-export default HowToScreen
+export default HowToScreen2

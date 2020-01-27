@@ -1,14 +1,12 @@
 import React from 'react'
 import {View,StyleSheet,Image} from 'react-native'
 
-
 const HowToScreen3 = props => {
-
     return (
         <View style={styles.screen} >
             <Image 
-                style={styles.image} 
-                source={require('../../staticData/HowTo3.jpeg')}/>
+            style={styles.image}
+            source={require('../../staticData/HowTo3.jpeg')}/>
         </View>
     )
 }
@@ -20,7 +18,7 @@ const styles = StyleSheet.create({
         height:'100%',
         alignItems:'center',
         justifyContent:'center',
-        backgroundColor:"red",
+        backgroundColor:"white",
     },
     image:{
         resizeMode:'stretch',
