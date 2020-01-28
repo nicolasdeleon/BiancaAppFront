@@ -152,8 +152,6 @@ const RegisterScreen = props => {
             formState.inputValues.password != "" &&
             formState.inputValues.password2 != ""
             ) {
-
-                //FALTA AGREGAR DATE!!!!
                 action = AuthActions.register(
                     formState.inputValues.email,
                     formState.inputValues.firstname,

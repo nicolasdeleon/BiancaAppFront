@@ -85,8 +85,10 @@ export const register = (email,firstname,lastname,instaaccount,date,password,pas
             console.log(resData['error_message'])
             throw new Error(resData['error_message'])
         }
+        // esta accion no esta guardando el token por ahora en reducers. Porque la idea es que valide
+        // la cuenta
         dispatch({type:REGISTER,token: resData['token'], userId: resData['email']})
-        saveDataToStorage(resData['token'],resData['email'])
+        // saveDataToStorage(resData['token'],resData['email'])
     }
 }
 //forgotPass
