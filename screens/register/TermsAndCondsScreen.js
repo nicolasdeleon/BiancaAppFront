@@ -27,7 +27,7 @@ const TermsAndCondsScreen = props => {
                     data={TermsAndConditions}
                     renderItem={renderTermPoint}
                     keyExtractor={item => item.id}
-                    style={{width:'100%'}}
+                    //style={{width:'90%'}}
                     />
                 </View>
             </LinearGradient>
@@ -50,11 +50,11 @@ const styles = StyleSheet.create({
         backgroundColor:"white",
     },
     authContainer:{
-        width:'90%',
+        width:'95%',
         maxHeight:'90%',
-        padding:15,
+        padding:5,
         borderColor:'#f5f5f5',
-        borderWidth:1,
+      //  borderWidth:1,
         elevation:3,
         backgroundColor:'white'
     },
