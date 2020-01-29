@@ -53,16 +53,16 @@ const styles = StyleSheet.create({
         backgroundColor:"white",
     },
     authContainer:{
-      //  width:'95%',
+        width:'90%',
         maxHeight:'90%',
         padding:5,
         borderColor:'#f5f5f5',
-      //  borderWidth:1,
-      //  elevation:3,
+        borderWidth:1,
+        elevation:3,
         backgroundColor:'white',
         marginHorizontal:20,
     },
-    cartItem: {
+    /*cartItem: {
         padding:10,
         backgroundColor:"white",
         flexDirection:'row',
@@ -72,7 +72,7 @@ const styles = StyleSheet.create({
     itemData:{
         flexDirection:'row',
         alignItems:'center',
-    },
+    },*/
     gradient:{
         width:'100%',
         height:'100%',
