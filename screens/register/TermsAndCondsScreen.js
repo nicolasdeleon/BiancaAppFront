@@ -10,21 +10,23 @@ const TermsAndCondsScreen = props => {
       //  console.log(item.item.textito)
         return(
                // <View style={{flexDirection:'row',justifyContent:'flex-start',alignContent:'justify',marginVertical:5, width:"90%"}}>
-                <View>
-                    <Text style={{fontFamily:'open-sans'}}>{item.item.title} </Text>
-                    <Text style={{fontFamily:'open-sans'}}>{item.item.textito}</Text>
-                </View>
+            <View> 
+                
+                <Text style={{fontFamily:'open-sans'}}>{item.item.title}</Text>
+                <Text style={{fontFamily:'open-sans'}}>{item.item.textito}</Text>
+                <Text>{"\n"}</Text>
+            </View>
         )
     }
 
     return (
         <View
-        behavior="padding"
-        keyboardVerticalOffset={50}
+        //behavior="padding"
+        //keyboardVerticalOffset={50}
         style={styles.screen}>
             <LinearGradient colors={[Colors.accent,Colors.dark]} style={styles.gradient}>
                 <View style={styles.authContainer}>
-                <FlatList 
+                <FlatList style = {{marginVertical:5}}
                     data={TermsAndConditions}
                     renderItem={renderTermPoint}
                     keyExtractor={item => item.id}
@@ -57,7 +59,8 @@ const styles = StyleSheet.create({
         borderColor:'#f5f5f5',
       //  borderWidth:1,
       //  elevation:3,
-        backgroundColor:'white'
+        backgroundColor:'white',
+        marginHorizontal:20,
     },
     cartItem: {
         padding:10,
