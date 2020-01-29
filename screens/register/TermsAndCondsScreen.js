@@ -7,10 +7,11 @@ import Colors from '../../constants/Colors'
 const TermsAndCondsScreen = props => {
 
     renderTermPoint = (item) => {
-        console.log(item.item.textito)
+      //  console.log(item.item.textito)
         return(
-                <View style={{flexDirection:'row',justifyContent:'flex-start',alignContent:'center',marginVertical:5,width:'90%'}}>
-                    <Text style={{fontFamily:'open-sans'}}>{item.item.id}. </Text>
+               // <View style={{flexDirection:'row',justifyContent:'flex-start',alignContent:'justify',marginVertical:5, width:"90%"}}>
+                <View>
+                    <Text style={{fontFamily:'open-sans'}}>{item.item.title} </Text>
                     <Text style={{fontFamily:'open-sans'}}>{item.item.textito}</Text>
                 </View>
         )
@@ -23,11 +24,11 @@ const TermsAndCondsScreen = props => {
         style={styles.screen}>
             <LinearGradient colors={[Colors.accent,Colors.dark]} style={styles.gradient}>
                 <View style={styles.authContainer}>
-                <FlatList
+                <FlatList 
                     data={TermsAndConditions}
                     renderItem={renderTermPoint}
                     keyExtractor={item => item.id}
-                    //style={{width:'90%'}}
+                    //style={{marginVertical:5}}
                     />
                 </View>
             </LinearGradient>
@@ -50,12 +51,12 @@ const styles = StyleSheet.create({
         backgroundColor:"white",
     },
     authContainer:{
-        width:'95%',
+      //  width:'95%',
         maxHeight:'90%',
         padding:5,
         borderColor:'#f5f5f5',
       //  borderWidth:1,
-        elevation:3,
+      //  elevation:3,
         backgroundColor:'white'
     },
     cartItem: {
