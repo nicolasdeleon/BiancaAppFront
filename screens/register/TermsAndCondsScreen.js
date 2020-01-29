@@ -4,6 +4,7 @@ import {LinearGradient} from 'expo-linear-gradient'
 import TermsAndConditions from '../../staticData/terms'
 import Colors from '../../constants/Colors'
 
+
 const TermsAndCondsScreen = props => {
 
     renderTermPoint = (item) => {
@@ -26,11 +27,11 @@ const TermsAndCondsScreen = props => {
         style={styles.screen}>
             <LinearGradient colors={[Colors.accent,Colors.dark]} style={styles.gradient}>
                 <View style={styles.authContainer}>
-                <FlatList style = {{marginVertical:5}}
+                <FlatList 
                     data={TermsAndConditions}
                     renderItem={renderTermPoint}
                     keyExtractor={item => item.id}
-                    //style={{marginVertical:5}}
+                   // style={{padding:5,marginBottom:5}}
                     />
                 </View>
             </LinearGradient>
@@ -61,6 +62,9 @@ const styles = StyleSheet.create({
         elevation:3,
         backgroundColor:'white',
         marginHorizontal:20,
+        paddingBottom:40,
+        marginBottom:20,
+        
     },
     /*cartItem: {
         padding:10,
