@@ -4,37 +4,33 @@ import {LinearGradient} from 'expo-linear-gradient'
 import TermsAndConditions from '../../staticData/terms'
 import Colors from '../../constants/Colors'
 
+
 const TermsAndCondsScreen = props => {
 
     renderTermPoint = (item) => {
-        console.log(item.item.textito)
         return(
-                <View style={{flexDirection:'row',justifyContent:'flex-start',alignContent:'center',marginVertical:5,width:'90%'}}>
-                    <Text style={{fontFamily:'open-sans'}}>{item.item.id}. </Text>
-                    <Text style={{fontFamily:'open-sans'}}>{item.item.textito}</Text>
-                </View>
+            <View style={{flex:1,margin:10,flexWrap:'wrap'}}> 
+                <Text style={{fontFamily:'open-sans-bold',fontSize:10}}>{item.item.title}</Text>
+                <Text style={{fontFamily:'open-sans',fontSize:7,flexWrap:'wrap',}}>{item.item.textito}</Text>
+            </View>
         )
     }
 
     return (
         <View
-        behavior="padding"
-        keyboardVerticalOffset={50}
         style={styles.screen}>
             <LinearGradient colors={[Colors.accent,Colors.dark]} style={styles.gradient}>
                 <View style={styles.authContainer}>
-                <FlatList
+                <FlatList 
                     data={TermsAndConditions}
                     renderItem={renderTermPoint}
                     keyExtractor={item => item.id}
-                    style={{width:'100%'}}
                     />
                 </View>
             </LinearGradient>
         </View>
     )
 }
-
 
 TermsAndCondsScreen.navigationOptions = (navData) => {
     return{
@@ -48,26 +44,18 @@ const styles = StyleSheet.create({
         alignItems:'center',
         justifyContent:'center',
         backgroundColor:"white",
+        width:'100%',
+        maxHeight:'100%',
     },
     authContainer:{
         width:'90%',
         maxHeight:'90%',
-        padding:15,
         borderColor:'#f5f5f5',
         borderWidth:1,
         elevation:3,
-        backgroundColor:'white'
-    },
-    cartItem: {
-        padding:10,
-        backgroundColor:"white",
-        flexDirection:'row',
-        justifyContent:'space-between',
+        backgroundColor:'white',
         marginHorizontal:20,
-    },
-    itemData:{
-        flexDirection:'row',
-        alignItems:'center',
+        flex:1,
     },
     gradient:{
         width:'100%',
@@ -76,7 +64,6 @@ const styles = StyleSheet.create({
         alignItems:'center',
     },
     buttonContainer:{
-        marginTop:10,
     }
 })
 
