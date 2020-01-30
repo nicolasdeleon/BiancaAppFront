@@ -8,22 +8,16 @@ import Colors from '../../constants/Colors'
 const TermsAndCondsScreen = props => {
 
     renderTermPoint = (item) => {
-      //  console.log(item.item.textito)
         return(
-               // <View style={{flexDirection:'row',justifyContent:'flex-start',alignContent:'justify',marginVertical:5, width:"90%"}}>
-            <View> 
-                
-                <Text style={{fontFamily:'open-sans'}}>{item.item.title}</Text>
+            <View style={{flex:1,margin:10}}> 
+                <Text style={{fontFamily:'open-sans-bold'}}>{item.item.title}</Text>
                 <Text style={{fontFamily:'open-sans'}}>{item.item.textito}</Text>
-                <Text>{"\n"}</Text>
             </View>
         )
     }
 
     return (
         <View
-        //behavior="padding"
-        //keyboardVerticalOffset={50}
         style={styles.screen}>
             <LinearGradient colors={[Colors.accent,Colors.dark]} style={styles.gradient}>
                 <View style={styles.authContainer}>
@@ -31,14 +25,12 @@ const TermsAndCondsScreen = props => {
                     data={TermsAndConditions}
                     renderItem={renderTermPoint}
                     keyExtractor={item => item.id}
-                   // style={{padding:5,marginBottom:5}}
                     />
                 </View>
             </LinearGradient>
         </View>
     )
 }
-
 
 TermsAndCondsScreen.navigationOptions = (navData) => {
     return{
@@ -52,31 +44,19 @@ const styles = StyleSheet.create({
         alignItems:'center',
         justifyContent:'center',
         backgroundColor:"white",
+        width:'100%',
+        maxHeight:'100%',
     },
     authContainer:{
         width:'90%',
         maxHeight:'90%',
-        padding:5,
         borderColor:'#f5f5f5',
         borderWidth:1,
         elevation:3,
         backgroundColor:'white',
         marginHorizontal:20,
-        paddingBottom:40,
-        marginBottom:20,
-        
+        flex:1,
     },
-    /*cartItem: {
-        padding:10,
-        backgroundColor:"white",
-        flexDirection:'row',
-        justifyContent:'space-between',
-        marginHorizontal:20,
-    },
-    itemData:{
-        flexDirection:'row',
-        alignItems:'center',
-    },*/
     gradient:{
         width:'100%',
         height:'100%',
@@ -84,7 +64,6 @@ const styles = StyleSheet.create({
         alignItems:'center',
     },
     buttonContainer:{
-        marginTop:10,
     }
 })
 
