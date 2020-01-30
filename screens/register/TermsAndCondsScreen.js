@@ -9,9 +9,9 @@ const TermsAndCondsScreen = props => {
 
     renderTermPoint = (item) => {
         return(
-            <View style={{flex:1,margin:10}}> 
-                <Text style={{fontFamily:'open-sans-bold'}}>{item.item.title}</Text>
-                <Text style={{fontFamily:'open-sans'}}>{item.item.textito}</Text>
+            <View style={{flex:1,margin:10,flexWrap:'wrap'}}> 
+                <Text style={{fontFamily:'open-sans-bold',fontSize:10}}>{item.item.title}</Text>
+                <Text style={{fontFamily:'open-sans',fontSize:7,flexWrap:'wrap',}}>{item.item.textito}</Text>
             </View>
         )
     }
