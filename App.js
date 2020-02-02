@@ -19,12 +19,12 @@ import MainStack from './navigation/NavigationWindow'
 
 //reudx configurations
 const rootReducer = combineReducers({
-  auth:authReducer,
-  events:eventsReducer,
-  user:userReducer
+  auth: authReducer,
+  events: eventsReducer,
+  user: userReducer
 })
 //applyMiddleware(ReduxThunk) es mi configuracion para poder mandar asybc requests desde mis actions
-const store = createStore(rootReducer,applyMiddleware(ReduxThunk))
+const store = createStore(rootReducer, applyMiddleware(ReduxThunk))
 
 const fetchFonts = () => {
   return Font.loadAsync({
@@ -36,7 +36,7 @@ const fetchFonts = () => {
 
 export default function App() {
   
-  const [isFontsLoaded,setIsFontsLoaded] = useState(false)
+  const [isFontsLoaded, setIsFontsLoaded] = useState(false)
 
   if(!isFontsLoaded){
     return <AppLoading startAsync={fetchFonts} onFinish={()=>{setIsFontsLoaded(true)}}/>
