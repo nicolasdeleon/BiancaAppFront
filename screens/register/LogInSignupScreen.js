@@ -133,9 +133,6 @@ const LogInSignupScreen = props => {
         keyboardVerticalOffset={70}
         style={styles.screen}>
             <LinearGradient colors={[Colors.accent,Colors.dark]} style={styles.gradient}>
-                <View style= {styles.activateAccountCointainer}>
-                    <Text style= {styles.activateAccountText}>{props.navigation.getParam('message')}</Text>
-                </View>
                 <View style={styles.authContainer}>
                     <ScrollView>
                         <Input

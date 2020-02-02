@@ -96,7 +96,7 @@ const RegisterScreen = props => {
                 instaaccount:false,
                 email:false,
                 date:false,
-                password:false,                
+                password:false,
                 password2:false
             },
              formIsValid: false 
@@ -112,7 +112,7 @@ const RegisterScreen = props => {
         })
     },[dispatchFormState])
     
-    const changeAcceptTerms= async () =>{
+    const changeAcceptTerms = async () =>{
         if (acceptTerms == true){
             setAcceptTerms(false)
         }
@@ -124,13 +124,8 @@ const RegisterScreen = props => {
 
     //LOGICA DE DISPATCH AUTH A SERVER
     dispatch = useDispatch()
-    
     const authHandler = async () =>{
         let action
-
-        //para log in los campos necesarios para el request son email y password
-        //fijarse en store/actions/auth --> signup(email,password){...}
-
         if (formState.inputValues.password != 
         formState.inputValues.password2 )
         {
@@ -175,9 +170,7 @@ const RegisterScreen = props => {
                     try{
                         await dispatch(action)
                         setIsLoading(false)
-                        props.navigation.navigate('singIn',{
-                            message: `Verifica tu cuenta en ${formState.inputValues.email} tu mail para ingresar!`
-                        })
+                        props.navigation.navigate('app')
                     }catch (err){
                         //tipicamente error de Invalid Credentials proveniente del servidor data
                         setError(err.message)
@@ -189,8 +182,7 @@ const RegisterScreen = props => {
                 }
             }else{
                 setError('Complete todos los datos requeridos.')
-            } 
-        
+            }
     }
 
     const getDataTest = ()=>{
@@ -225,10 +217,6 @@ const RegisterScreen = props => {
           console.warn('Cannot open date picker', message);
         }
       }
-
-    openIosDatePicker = async () => {
-        
-    }
 
     //Navegar a TermsAndCond 
     goToTermsAndConds = () =>{
