@@ -1,16 +1,14 @@
 import React from 'react'
-import {View,StyleSheet,} from 'react-native'
-import Colors from '../constants/Colors';
+import { View, StyleSheet} from 'react-native'
+import Colors from '../constants/Colors'
 
 const Circle = props =>{
-
     return (
         <View style={styles.circle}>
-            {!props.hollow && <View style={styles.shallow}></View>}
+            { !props.hollow && <View style={ styles.shallow }></View> }
         </View>
     )
 };
-
 
 const styles = StyleSheet.create({
     circle: {

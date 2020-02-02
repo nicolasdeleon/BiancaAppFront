@@ -4,8 +4,7 @@ import Colors from '../constants/Colors';
 import EventStatusIndicator from '../components/EventStatusIndicator'
 
 
-const Circle = props =>{
-
+const EventDetail = props =>{
     return (
         <View style={styles.screen}>
             {props.loading ? (<ActivityIndicator size='large' color={Colors.primary}/>) : 
@@ -62,68 +61,67 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center',
     },
-    detail:{
+    detail: {
         width: '100%',
         height: '80%',
         alignItems: 'center',
-    },    
-    eventTitleContainer:{
-        width:'80%',
-        marginTop:20,
-        marginBottom:10,
+    },
+    eventTitleContainer: {
+        width: '80%',
+        marginTop: 20,
+        marginBottom: 10,
         borderColor: Colors.primary,
         borderTopWidth: 2,
         borderLeftWidth: 2,
         borderTopLeftRadius: 20,
-        padding:10,
+        padding: 10,
         justifyContent: 'center',
         alignItems: 'flex-start',
     },
-    eventDescriptionContainer:{
-        width:'85%',
-        marginVertical:10,
-        marginLeft:'5%',
-        paddingLeft:10,
+    eventDescriptionContainer: {
+        width: '85%',
+        marginVertical: 10,
+        marginLeft: '5%',
+        paddingLeft: 10,
         justifyContent: 'center',
         alignItems: 'flex-start',
     },
-    eventStatusContainer:{
-        width:'85%',
-        height:'20%',
-        marginVertical:10,
-        marginLeft:'5%',
-        paddingLeft:10,
+    eventStatusContainer: {
+        width: '85%',
+        height: '20%',
+        marginVertical: 10,
+        marginLeft: '5%',
+        paddingLeft: 10,
         justifyContent: 'center',
         alignItems: 'flex-start',
     },
-    eventTitleText:{
-        textAlign:'center',
-        fontSize:24,
-        fontFamily:'open-sans-bold'
+    eventTitleText: {
+        textAlign: 'center',
+        fontSize: 24,
+        fontFamily: 'open-sans-bold'
     },
-    eventDescText:{
-        fontSize:14,
-        fontFamily:'open-sans'
+    eventDescText: {
+        fontSize: 14,
+        fontFamily: 'open-sans'
     },
-    eventStatusTitleText:{
-        textAlign:'center',
-        color:Colors.primary,
-        fontSize:20,
-        fontFamily:'open-sans-bold',
+    eventStatusTitleText: {
+        textAlign: 'center',
+        color: Colors.primary,
+        fontSize: 20,
+        fontFamily: 'open-sans-bold',
     },
-    button:{
-        height:'20%',
-        width:'100%',
-        justifyContent:'center',
-        alignItems:'center',
+    button: {
+        height: '20%',
+        width: '100%',
+        justifyContent: 'center',
+        alignItems: 'center',
     },
-    image:{
-        width:'80%',
-        height:'40%',
-        flex:1,
+    image: {
+        width: '80%',
+        height: '40%',
+        flex: 1,
     },
-
 });
 
-export default Circle
+export default EventDetail
 

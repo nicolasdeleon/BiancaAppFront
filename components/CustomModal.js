@@ -8,7 +8,7 @@ import {
     TouchableOpacity,
     View,
     Keyboard
-} from 'react-native';
+} from 'react-native'
 
 
 const CustomModal = props =>{
@@ -20,16 +20,26 @@ const CustomModal = props =>{
           onRequestClose={() => {
             props.onClose();
           }}>
-            <TouchableOpacity activeOpacity={1} onPressOut={()=>{props.onClose()}} style={styles.modal}>
+            <TouchableOpacity
+            activeOpacity={1}
+            onPressOut={ () => { props.onClose() } } 
+            style={styles.modal}>
                 <TouchableWithoutFeedback>
-                    <View style={styles.container}>
-                        <Text style={styles.title}>{props.title}</Text>
-                        {props.children}
-                        <View style={styles.buttonContainer}>
-                        <Button title={props.acceptButtonText} color="green" onPress={()=>{
-                            Keyboard.dismiss() 
-                            props.onSend()}}/>
-                        <Button title="Cancelar" color="red" onPress={()=>{props.onClose()}}/>
+                    <View style={ styles.container }>
+                        <Text style={ styles.title }>{ props.title }</Text>
+                        { props.children }
+                        <View style={ styles.buttonContainer }>
+                        <Button 
+                        title={ props.acceptButtonText }
+                        color="green"
+                        onPress={ () => {
+                            Keyboard.dismiss()
+                            props.onSend()
+                            }}/>
+                        <Button
+                        title="Cancelar"
+                        color="red"
+                        onPress={ () => { props.onClose() } }/>
                         </View>
                         {props.errorText && <View style={styles.errorContainer}>
                             <Text style={styles.errorText}>{props.errorText}</Text>
@@ -47,40 +57,41 @@ const styles = StyleSheet.create({
         flexDirection: 'column',
         justifyContent: 'center',
         alignItems: 'center',
-        paddingBottom:150,
+        paddingBottom: 150,
         backgroundColor: 'rgba(100,100,100, 0.4)',
     },
     container:{
-        width:260,
+        width: 260,
         height: 260,
-        backgroundColor:'white',
-        elevation:5,
-        padding:10,
-        alignItems:'center',
-        borderRadius:10,
-        overflow:'hidden',
-        backgroundColor:'#F5F5F5'
+        backgroundColor: 'white',
+        elevation: 5,
+        padding: 10,
+        alignItems: 'center',
+        borderRadius: 10,
+        overflow: 'hidden',
+        backgroundColor: '#F5F5F5'
     },
     title:{
-        fontFamily:'open-sans-bold',
-        fontSize:18,
-        marginVertical:10,
+        fontFamily: 'open-sans-bold',
+        fontSize: 18,
+        marginVertical: 10,
     },
     errorContainer:{
-        marginVertical:5,
+        marginVertical: 5,
     },
     errorText:{
-        fontFamily:'open-sans',
-        fontSize:13,
-        color:'red'
+        fontFamily: 'open-sans',
+        fontSize: 13,
+        color: 'red'
     },
     buttonContainer:{
-        width:'100%',
-        flexDirection:'row',
-        justifyContent:'space-around',
-        padding:10,
-        marginVertical:5
+        width: '100%',
+        flexDirection: 'row',
+        justifyContent: 'space-around',
+        padding: 10,
+        marginVertical: 5
     }
 })
+
 
 export default CustomModal

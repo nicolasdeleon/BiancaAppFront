@@ -68,11 +68,8 @@ const Input = props =>{
 
     const {onInputChange,id} = props
     useEffect(()=>{
-        console.log(inputState.touched)
         if (inputState.touched){
             onInputChange(id, inputState.value,inputState.isValid)
-            console.log(id, inputState.value,inputState.isValid)
-            console.log(inputState.isValid)    
         }
     },[inputState,onInputChange,id])
 
@@ -99,7 +96,6 @@ const Input = props =>{
     return (
     <View style={styles.formControl}>
         <Text style={styles.label}>{props.label}</Text>
-        
         <View style={{flexDirection: "row"}}>
             <TextInput
                 {...props} 
@@ -123,28 +119,29 @@ const Input = props =>{
 }
 
 const styles = StyleSheet.create({
-    formControl:{
-        width:'100%'
+    formControl: {
+        width: '100%'
     },
-    input:{
-        flex:1,
-        paddingHorizontal:2,
-        paddingVertical:5,
-        borderBottomColor:"#ccc",
-        borderBottomWidth:1,
+    input: {
+        flex: 1,
+        paddingHorizontal: 2,
+        paddingVertical: 5,
+        borderBottomColor: "#ccc",
+        borderBottomWidth: 1,
     },
-    label:{
-        fontFamily:'open-sans-bold',
-        marginVertical:8,
+    label: {
+        fontFamily: 'open-sans-bold',
+        marginVertical: 8,
     },
-    errorContainer:{
-        marginVertical:5,
+    errorContainer: {
+        marginVertical: 5,
     },
-    errorText:{
-        fontFamily:'open-sans',
-        fontSize:13,
-        color:'red'
+    errorText: {
+        fontFamily: 'open-sans',
+        fontSize: 13,
+        color: 'red'
     }
 })
+
 
 export default Input

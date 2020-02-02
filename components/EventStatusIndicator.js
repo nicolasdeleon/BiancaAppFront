@@ -1,12 +1,17 @@
-import React, { useState ,useEffect} from 'react'
-import {Text,View,StyleSheet,TouchableOpacity,Alert} from 'react-native'
+import React, { useState, useEffect} from 'react'
+import {
+    Text,
+    View,
+    StyleSheet,
+    TouchableOpacity,
+    Alert
+} from 'react-native'
 import QRButton from '../components/QRButton'
 import Colors from '../constants/Colors'
 
 
-
 const EventStatusIndicator = props => {
-    
+
     const [message,setMessage] = useState('')
     const [showButton,setShowButton] = useState(true)
     const [propButtonFlag,setPropButtonFlag] = useState(true)
@@ -19,7 +24,6 @@ const EventStatusIndicator = props => {
             return
         }
         if (event.status=="O" || event.status=="F"){
-            console.log("---------------------------------------DB----------------------------")
             for (i=0; i<contractList.length; i++){
                 contract = contractList[i]
                 //comparo por titulo QUE NO ES UNIQUE NO DEBERIA SER ASI pero por ahora lo dejo..
@@ -31,8 +35,7 @@ const EventStatusIndicator = props => {
                         case "2BA":
                             setMessage("Esperando Validar su Foto")
                             break;
-                        case "W":        borderRadius:20,
-
+                        case "W":
                             setMessage(`Felicitaciones, tu foto fue acreditada.\nMuestra ${contract.instaaccount} en mostrador` )
                             break;
                         case "F":
@@ -47,19 +50,16 @@ const EventStatusIndicator = props => {
             if (propButtonFlag && event.status=="F"){
                 setMessage("Este evento ya no acepta cupos")
                 setShowButton(false)
-                console.log("hola?")
             } else if (propButtonFlag){
                 setShowButton(true)
                 }
-
         } else if (event.status == "2BO"){
             setShowButton(false)
             setMessage("Este evento no ha arrancado")
         } else if (event.status == "C"){
             setShowButton(false)
             setMessage("Este evento esta cerrado")
-        } 
-
+        }
     }
 
     const EventStatusFunction = (event) => {
@@ -83,7 +83,7 @@ const EventStatusIndicator = props => {
         }else {
             Funcion(props.event,props.contractList)
         }
-    },[Funcion,props.event,props.contractList]) //por dependencia a dispatch solo se me llama una vez
+    },[Funcion,props.event,props.contractList])
 
 
     if(props.showEventStatus){
@@ -117,28 +117,28 @@ const EventStatusIndicator = props => {
 }
 
 const styles = StyleSheet.create({
-    screen:{
-        flex:1,
-        alignContent:'center',
-        justifyContent:'center'
+    screen: {
+        flex: 1,
+        alignContent: 'center',
+        justifyContent: 'center'
     }, 
-    container:{
-        alignContent:'center',
-        justifyContent:'center',
-        backgroundColor:Colors.primary,
-        padding:8,
-        borderRadius:10,
+    container: {
+        alignContent: 'center',
+        justifyContent: 'center',
+        backgroundColor: Colors.primary,
+        padding: 8,
+        borderRadius: 10,
     },
-    messageText:{
-        fontSize:14,
-        fontFamily:'open-sans'
+    messageText: {
+        fontSize: 14,
+        fontFamily: 'open-sans'
     },
-    infoText:{
-        fontSize:10,
-        fontFamily:'open-sans'
+    infoText: {
+        fontSize: 10,
+        fontFamily: 'open-sans'
     },
-    ingresarCodigoText:{
-        fontFamily:'open-sans'     
+    ingresarCodigoText: {
+        fontFamily: 'open-sans'
     }
 })
 

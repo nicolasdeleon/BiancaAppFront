@@ -5,18 +5,15 @@ const Card = props =>{
     return <View style= {{...styles.card,...props.style}}>{props.children}</View>
 };
 
-
 const styles = StyleSheet.create({
     card : {
-        //shadows solo trabajan en ios
-        shadowColor: 'black', //color de la sombra
-        shadowOffset: {width:0,height:10}, //que mucho se offsetea del container para el efecto 3d
-        shadowOpacity: 0.26, //que tan trasparente
-        shadowRadius: 6, //Que tan redondo
-        //elevation solo trabaja en andriod
-        elevation: 2,
+        shadowColor: 'black',
+        shadowOffset: {width:0,height:10},
+        shadowOpacity: 0.26,
+        shadowRadius: 6,
+        elevation: 2, // elevation is only android
         backgroundColor: 'white',
-        padding: 15, //para que no se me posen los botones en los ejes
+        padding: 15,
         borderRadius: 4,
         marginVertical:1,
         marginHorizontal:5,
