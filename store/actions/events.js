@@ -4,7 +4,7 @@ export const GET_ACTIVE_CONTRACTS = 'GET_ACTIVE_CONTRACTS'
 export const GET_ACTIVE_EVENTS = 'GET_ACTIVE_EVENTS'
 
 
-export const joinEvent = (userToken, eventCode,nToken) => {
+export const joinEvent = (userToken, eventCode, nToken) => {
     return async dispatch =>{
         const response = await fetch(
             'https://biancaapp-ndlc.herokuapp.com/api/eventos/adduser'
@@ -15,12 +15,10 @@ export const joinEvent = (userToken, eventCode,nToken) => {
                     'Authorization': `Token ${userToken}`
                 },
                 body: JSON.stringify({
-                    code:eventCode,
-                    notificationToken:nToken
+                    code: eventCode,
+                    notificationToken: nToken
                 })
             })
-            console.log('DONE SENDING JOIN EVENT REQUEST')
-            console.log(response.status)
             if(response.status>207){
                 const resData = await response.json()
                 if(resData['response'] === 'Error'){
@@ -32,17 +30,14 @@ export const joinEvent = (userToken, eventCode,nToken) => {
             }
             const resData = await response.json()
             if(resData['response'] === 'Error'){
-                // new Error('Something went wrong!')
-                console.log('lo siguiente:')
-                console.log(resData['error_message'])
                 throw new Error(resData['error_message'])
             }
-            dispatch({type:JOIN_EVENT,activeEvent: eventCode})
+            dispatch({ type:JOIN_EVENT, activeEvent: eventCode })
         }
 }
 
 export const getActiveEvents = () => {
-    return async (dispatch,getState) =>{
+    return async (dispatch, getState) => {
         const response = await fetch(
             'http://biancaapp-ndlc.herokuapp.com/api/eventos/all_events/'
             ,{
@@ -55,8 +50,6 @@ export const getActiveEvents = () => {
 
         if(response.status>207){
             const resData = await response.json()
-            console.log("RES DATA:::")
-            console.log(resData)            
             if(resData['response'] === 'Error'){
                 throw new Error(resData['error_message'])
             }
@@ -67,15 +60,17 @@ export const getActiveEvents = () => {
 
         const resData = await response.json()
         if(resData['response'] === 'Error'){
-            // new Error('Something went wrong!')
             throw new Error(resData['error_message'])
         }
-        dispatch({type:GET_ACTIVE_EVENTS,activeEventObjectList: resData['results']})
+        dispatch({
+            type: GET_ACTIVE_EVENTS,
+            activeEventObjectList: resData['results']
+        })
     }
 }
 
 export const getActiveContracts = () => {
-    return async (dispatch,getState) =>{
+    return async (dispatch, getState) =>{
         const response = await fetch(
             'http://biancaapp-ndlc.herokuapp.com/api/eventos/post_relations/'
             ,{
@@ -98,9 +93,11 @@ export const getActiveContracts = () => {
 
         const resData = await response.json()
         if(resData['response'] === 'Error'){
-            // new Error('Something went wrong!')
             throw new Error(resData['error_message'])
         }
-        dispatch({type:GET_ACTIVE_CONTRACTS,activePostRelationList: resData['results']})
+        dispatch({
+            type: GET_ACTIVE_CONTRACTS,
+            activePostRelationList: resData['results']
+        })
     }
 }

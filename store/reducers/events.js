@@ -1,4 +1,8 @@
-import{ JOIN_EVENT,GET_ACTIVE_CONTRACTS,GET_ACTIVE_EVENTS } from "../actions/events"
+import{
+    JOIN_EVENT,
+    GET_ACTIVE_CONTRACTS,
+    GET_ACTIVE_EVENTS
+} from "../actions/events"
 
 const initialState = {
     activeContracts : [],

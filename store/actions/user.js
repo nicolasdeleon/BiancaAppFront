@@ -11,27 +11,16 @@ export const getUserInfo = (Token) => {
                     'Authorization': `Token ${Token}`
                 }
             })
-        //Obtengo mi response
-        console.log("RESPONSE::::::")
-        console.log(response)
         if(response.status>207){
             const resData = await response.json()
             if(resData['response'] === 'Error'){
                 throw new Error(resData['error_message'])
             }
             else{
-                //ACA PUEDE CAER UNA 401 que no este authenticado super turbina
                 throw new Error('Conection error..')
             }
         }
         const resData = await response.json()
-        console.log(resData)
-        //aca no deberia entrar nunca porque mi response si es mala le asocio un 404
-        /*
-        if(resData['response'] === 'Error'){
-            throw new Error(resData['error_message'])
-        }
-        */
        dispatch({type:GET_USER_INFO,
         name: resData['full_name'],
         email: resData['email'],
@@ -40,9 +29,8 @@ export const getUserInfo = (Token) => {
     }
 }
 
-export const changeUserValues = (Token,emailChange,nameChange,instaChange) => {
+export const changeUserValues = (Token, emailChange, nameChange, instaChange) => {
     return async dispatch => {
-        console.log(instaChange)
         const response = await fetch(
            'https://biancaapp-ndlc.herokuapp.com/api/accounts/properties/update'
             ,{
@@ -52,9 +40,9 @@ export const changeUserValues = (Token,emailChange,nameChange,instaChange) => {
                     'Authorization': `Token ${Token}`
                 },
                 body: JSON.stringify({
-                    email:emailChange,
-                    full_name:nameChange,
-                    instaaccount:instaChange,
+                    email: emailChange,
+                    full_name: nameChange,
+                    instaaccount: instaChange,
                 })
             })
 
@@ -69,9 +57,6 @@ export const changeUserValues = (Token,emailChange,nameChange,instaChange) => {
         }
         const resData = await response.json()
         if(resData['response'] === 'Error'){
-            // new Error('Something went wrong!')
-            console.log('lo siguiente:')
-            console.log(resData['error_message'])
             throw new Error(resData['error_message'])
         }
 

@@ -1,11 +1,11 @@
-import { LOGIN, REGISTER,AUTHENTICATE,LOGOUT} from "../actions/auth" //forgotPass
+import { LOGIN, REGISTER, AUTHENTICATE, LOGOUT} from "../actions/auth" //forgotPass
 
 const initialState = {
     token: null,
     userId: null
 }
 
-export default (state = initialState,action) => {
+export default (state = initialState, action) => {
     switch(action.type){
         case AUTHENTICATE:
                 return {
@@ -27,6 +27,5 @@ export default (state = initialState,action) => {
         default:
             return state
     }
-
 }
 

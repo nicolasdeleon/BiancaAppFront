@@ -1,4 +1,4 @@
-import{ GET_USER_INFO,UPDATE_USER_INFO } from "../actions/user"
+import{ GET_USER_INFO, UPDATE_USER_INFO } from "../actions/user"
 
 const initialState = {
     name: 'X',
@@ -7,7 +7,7 @@ const initialState = {
     score: 3
 }
 
-export default (state=initialState,action)=>{
+export default (state=initialState, action) => {
     switch(action.type){
         case GET_USER_INFO:
             return {
@@ -17,9 +17,6 @@ export default (state=initialState,action)=>{
                 instaAccount: action.instaAccount
             }
         case UPDATE_USER_INFO:
-            console.log(action.name)
-            console.log(action.email)
-            console.log(action.instaAccount)    
             return {
                 ...state,
                 name: action.name,
@@ -29,5 +26,4 @@ export default (state=initialState,action)=>{
         default:
             return state
     }
-    
 }
