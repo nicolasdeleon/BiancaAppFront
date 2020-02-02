@@ -1,25 +1,31 @@
 import React from 'react'
-import {View, SafeAreaView, Button,Image, Text,StyleSheet,TouchableOpacity } from 'react-native'
+import {
+    View,
+    SafeAreaView,
+    Image,
+    Text,StyleSheet,
+    TouchableOpacity
+} from 'react-native'
 import { Ionicons } from '@expo/vector-icons'
 import {useDispatch} from 'react-redux'
 import * as authActions from '../store/actions/auth'
 
 //IMPORT NAVIGATOR STUFF
-import {createAppContainer,createSwitchNavigator} from 'react-navigation'
-import {createStackNavigator} from 'react-navigation-stack'
-import {createDrawerNavigator,DrawerNavigatorItems} from 'react-navigation-drawer'
-import {createMaterialBottomTabNavigator} from 'react-navigation-material-bottom-tabs'
-import { createMaterialTopTabNavigator } from 'react-navigation-tabs';
-//import {createBottomTabNavigator} from 'react-navigation-tabs'
+import { createAppContainer, createSwitchNavigator } from 'react-navigation'
+import { createStackNavigator } from 'react-navigation-stack'
+import { createDrawerNavigator } from 'react-navigation-drawer'
+import { createMaterialBottomTabNavigator } from 'react-navigation-material-bottom-tabs'
+import { createMaterialTopTabNavigator } from 'react-navigation-tabs'
 
+//CUSTOM COMPONENTS
 import CustomHeaderButton from '../components/HeaderButton'
 import Circle from '../components/Circle'
-import {HeaderButtons, Item} from 'react-navigation-header-buttons' //CREO QUE ME LA TENGO Q BAJAR
+import {HeaderButtons, Item} from 'react-navigation-header-buttons'
 
 
 //IMPORT CONSTANTS AND UTILS 
 import Colors from '../constants/Colors'
-import {FontAwesome,MaterialCommunityIcons} from '@expo/vector-icons'
+import { FontAwesome, MaterialCommunityIcons } from '@expo/vector-icons'
 
 
 //IMPORT SCREENS
@@ -55,7 +61,7 @@ const MainStack = createStackNavigator({
             fontFamily:'open-sans-bold' 
         },
         headerTintColor: "black",
-        headerTitle: "Eventos", //ESTO NO ANDA Y NO SE PORQQUE
+        headerTitle: "Eventos",
         headerRight:  <HeaderButtons HeaderButtonComponent={CustomHeaderButton}>
         <Item 
         title="Menu"
@@ -67,16 +73,21 @@ const MainStack = createStackNavigator({
 })
 
 const HowToScreenNav = createMaterialTopTabNavigator({
-    step_1:HowToScreen,
-    step_2:HowToScreen2,
-    step_3:HowToScreen3,
+    step_1: HowToScreen,
+    step_2: HowToScreen2,
+    step_3: HowToScreen3,
 },{
-    tabBarPosition:"bottom",
+    tabBarPosition: "bottom",
     tabBarComponent: props => (
-        <View style={{flexDirection:'row',backgroundColor:Colors.accent,alignContent:'center',justifyContent:'center'}}>
-            <Circle hollow={props.navigation.state.index===0}/>
-            <Circle hollow={props.navigation.state.index===1}/>
-            <Circle hollow={props.navigation.state.index===2}/>
+        <View style={{
+            flexDirection: 'row',
+            backgroundColor: Colors.accent,
+            alignContent:'center',
+            justifyContent:'center'
+            }}>
+            <Circle hollow={ props.navigation.state.index === 0 }/>
+            <Circle hollow={ props.navigation.state.index === 1 }/>
+            <Circle hollow={ props.navigation.state.index === 2 }/>
         </View>
       ),
 })
@@ -89,14 +100,14 @@ const HowToStack = createStackNavigator({
         drawerIcon: drawerConfig =>(<Ionicons name='md-list' size={23} color={drawerConfig.tintColor}/>),
     },
 
-    defaultNavigationOptions: ({navigation}) => ({
-        headerTitleStyle:{
-            fontFamily:'open-sans-bold'
+    defaultNavigationOptions: ({ navigation }) => ({
+        headerTitleStyle: {
+            fontFamily: 'open-sans-bold'
         },
-        headerStyle:{
+        headerStyle: {
             backgroundColor: Colors.accent
         },
-        headerBackTitleStyle:{
+        headerBackTitleStyle: {
             fontFamily:'open-sans-bold' 
         },
         headerTintColor: "black",
@@ -114,19 +125,19 @@ const HowToStack = createStackNavigator({
 const ProfileStack = createStackNavigator({
     Profile: ProfileScreen,
 },{
-    navigationOptions:{
+    navigationOptions: {
         drawerIcon: drawerConfig =>(<Ionicons name='md-list' size={23} color={drawerConfig.tintColor}/>),
     },
 
-    defaultNavigationOptions: ({navigation}) => ({
-        headerTitleStyle:{
-            fontFamily:'open-sans-bold'
+    defaultNavigationOptions: ({ navigation }) => ({
+        headerTitleStyle: {
+            fontFamily: 'open-sans-bold'
         },
-        headerStyle:{
+        headerStyle: {
             backgroundColor: Colors.accent
         },
-        headerBackTitleStyle:{
-            fontFamily:'open-sans-bold' 
+        headerBackTitleStyle: {
+            fontFamily: 'open-sans-bold' 
         },
         headerTintColor: "black",
         headerTitle: "Usuario",
@@ -146,40 +157,55 @@ const ProfileStack = createStackNavigator({
 const MainandProfile = createMaterialBottomTabNavigator({
     HowTo: {
         screen:HowToStack,
-            navigationOptions:{
-            tabBarColor:Colors.accent,
-            tabBarIcon:  (tabInfo) =>{
-                return(<MaterialCommunityIcons name='dog' size={25} color={tabInfo.tintColor}/>)
-                },
+        navigationOptions: {
+        tabBarColor: Colors.accent,
+            tabBarIcon:  ( tabInfo ) => {
+                return(
+                    <MaterialCommunityIcons 
+                    name = 'dog'
+                    size = {25}
+                    color = {tabInfo.tintColor}
+                    />
+                )},
         }
     },
     Events: {
-        screen:MainStack,
-            navigationOptions:{
-            tabBarColor:Colors.accent,
-            tabBarIcon:  (tabInfo) =>{
-                return(<FontAwesome name='tasks' size={25} color={tabInfo.tintColor}/>)
-                },
+        screen: MainStack,
+        navigationOptions: {
+            tabBarColor: Colors.accent,
+            tabBarIcon:  ( tabInfo ) => {
+                return(
+                    <FontAwesome 
+                    name = 'tasks'
+                    size = {25}
+                    color = { tabInfo.tintColor }
+                    />
+                )},
         }
     },
     Profile: {
         screen:ProfileStack,
         navigationOptions:{
             tabBarColor:Colors.primary,
-            tabBarIcon:  (tabInfo) =>{
-                return(<FontAwesome name='user-o' size={25} color={tabInfo.tintColor}/>)
-                },
+            tabBarIcon:  (tabInfo) => {
+                return(
+                    <FontAwesome
+                    name = 'user-o'
+                    size = {25}
+                    color = { tabInfo.tintColor }
+                    />
+                )},
         },
     }
 },{
         navigationOptions:{
 drawerIcon: drawerConfig =>(<Ionicons name='md-create' size={23} color={drawerConfig.tintColor}/>)
 },
-    labeled:false,
+    labeled: false,
     activeTintColor: "white",
-    shifting:false, //si tengo dos colores de tabBarColor distintos, al hacer shift queda el efecto lindo
+    shifting: false, //si tengo dos colores de tabBarColor distintos, al hacer shift queda el efecto lindo
     //si lo coloco en false me vuelve al color de tab default, para modificarlo:
-    barStyle:{
+    barStyle: {
         backgroundColor:Colors.accent
     }
 })
@@ -191,25 +217,23 @@ const FeedbackStack = createStackNavigator({
         drawerIcon: drawerConfig =>(<Ionicons name='md-list' size={23} color={drawerConfig.tintColor}/>),
     },
 
-    defaultNavigationOptions: ({navigation}) => ({
-
-        headerTitleStyle:{
+    defaultNavigationOptions: ({ navigation }) => ({
+        headerTitleStyle: {
             fontFamily:'open-sans-bold'
         },
-        headerStyle:{
+        headerStyle: {
             backgroundColor: Colors.accent
         },
-        headerBackTitleStyle:{
+        headerBackTitleStyle: {
             fontFamily:'open-sans-bold' 
         },
         headerTintColor: "black",
         headerTitle: "¡Dejanos tu Reseña!",
-        
         headerRight:  <HeaderButtons HeaderButtonComponent={CustomHeaderButton}>
         <Item 
         title="Menu"
         iconName="md-menu"
-        onPress={()=>{navigation.toggleDrawer()}}
+        onPress={ () => { navigation.toggleDrawer() } }
         />
         </HeaderButtons>,
     }),
@@ -217,45 +241,53 @@ const FeedbackStack = createStackNavigator({
 
 
 const MainProfileDrawer = createDrawerNavigator({
-    ok:MainandProfile,
-    feedback:FeedbackStack,
+    ok: MainandProfile,
+    feedback: FeedbackStack,
 },{
-    contentOptions:{
+    contentOptions: {
         activeTintColor: Colors.primary,
     },
-    drawerWidth:'50%',
-    hideStatusBar:true,
-    drawerPosition:'right',
-    contentComponent: props =>{
+    drawerWidth: '50%',
+    hideStatusBar: true,
+    drawerPosition: 'right',
+    contentComponent: props => {
         //ESTO ES COMO UN COMPONENTE COMUN Y CORRIENTE!
         const dispatch = useDispatch()
         return (
-            <View style={{backgroundColor:Colors.accent, height:'100%', width:'100%'}}>
+            <View style={{
+                backgroundColor: Colors.accent,
+                height:'100%',
+                width:'100%'
+                }}>
                 <SafeAreaView
-                    forceInset={{top:'always',horizontal:'never'}}
-                    >   
-                        <View style={{height:'35%',marginTop:10}}>
-                        <TouchableOpacity style={{flex:1}} onPress={()=>{props.navigation.navigate('ok')}}>
+                    forceInset={ { top: 'always', horizontal: 'never'} }> 
+                        <View style={ { height: '35%', marginTop: 10 } }>
+                        <TouchableOpacity 
+                        style={ { flex: 1 } } 
+                        onPress={ () => { props.navigation.navigate('ok') } }>
                         <Image 
-                            style={styles.image} 
-                            source={require('../staticData/BiancaLogo.png')}/>
+                            style={ styles.image } 
+                            source={ require('../staticData/BiancaLogo.png') }/>
                         </TouchableOpacity>
                         </View>
-
-                        <View style={styles.menuButtonContainer}>
-                            <TouchableOpacity  onPress={()=>{
+                        <View style={ styles.menuButtonContainer }>
+                            <TouchableOpacity  onPress={ ()=> {
                                 props.navigation.navigate('feedback')
                             }}>
-                                <Text style={styles.menuItemText}>Give us Feedback!</Text>
+                            <Text 
+                            style={ styles.menuItemText }>
+                                Give us Feedback!</Text>
                             </TouchableOpacity>
                         </View>
                         
-                        <View style={styles.menuButtonContainer}>
-                           <TouchableOpacity  onPress={()=>{
+                        <View style={ styles.menuButtonContainer }>
+                           <TouchableOpacity  onPress={ () => {
                                dispatch(authActions.logout())
                                 props.navigation.navigate('start')
                             }}>
-                                <Text style={styles.menuItemText}>Log Out</Text>
+                                <Text 
+                                style={ styles.menuItemText }>
+                                    Log Out</Text>
                             </TouchableOpacity>
                         </View>
                 </SafeAreaView>
@@ -273,45 +305,40 @@ const RegisterOrSignIn = createStackNavigator({
     termsAndConds: TermsAndCondsScreen,
 },
     
-{defaultNavigationOptions: ({navigation}) => ({
-
-    headerTitleStyle:{
-        fontFamily:'open-sans-bold'
+{defaultNavigationOptions: ({ navigation }) => ({
+    headerTitleStyle: {
+        fontFamily: 'open-sans-bold'
     },
-    headerStyle:{
+    headerStyle: {
         backgroundColor: Colors.primary
     }
 })})
 
-//Switch navigator permite que pueda tener screens que no pueden volver a la anterior.
-//utilizo para separar mi app de login-signup a Main
 const AppAndLoginSignup = createSwitchNavigator({
-    start:StartupScreen,
-    auth:RegisterOrSignIn,
-    app:MainProfileDrawer,
+    start: StartupScreen,
+    auth: RegisterOrSignIn,
+    app: MainProfileDrawer,
     })
 
-
 const styles = StyleSheet.create({
-    menuButtonContainer:{
-        margin:2,
-        alignContent:'center',
-        justifyContent:'center',
-        marginLeft:12,
-        marginVertical:7
+    menuButtonContainer: {
+        margin: 2,
+        alignContent: 'center',
+        justifyContent: 'center',
+        marginLeft: 12,
+        marginVertical: 7
     },
-    menuItemText:{
-        fontSize:18,
-        color:'white',
-        fontFamily:'open-sans-bold'
+    menuItemText: {
+        fontSize: 18,
+        color: 'white',
+        fontFamily: 'open-sans-bold'
     },
-    image:{
-        width:'100%',
-        height:'60%',
-        flex:1,
+    image: {
+        width: '100%',
+        height: '60%',
+        flex: 1,
     },
 })
-
 
 
 export default createAppContainer(AppAndLoginSignup)
