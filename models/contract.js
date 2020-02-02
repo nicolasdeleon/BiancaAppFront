@@ -1,5 +1,5 @@
 class Contract {
-    constructor(id, title, creationTime, status){
+    constructor(id, title, creationTime, status) {
         this.id = id,
         this.title = title,
         this.creationTime = creationTime,
