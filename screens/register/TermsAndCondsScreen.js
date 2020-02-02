@@ -1,12 +1,11 @@
 import React from 'react'
-import {View,Text,StyleSheet,FlatList} from 'react-native'
+import { View, Text, StyleSheet, FlatList} from 'react-native'
 import {LinearGradient} from 'expo-linear-gradient'
 import TermsAndConditions from '../../staticData/terms'
 import Colors from '../../constants/Colors'
 
 
 const TermsAndCondsScreen = props => {
-
     renderTermPoint = (item) => {
         return(
             <View style={{flex:1,margin:10,flexWrap:'wrap'}}> 
@@ -39,32 +38,30 @@ TermsAndCondsScreen.navigationOptions = (navData) => {
 }
 
 const styles = StyleSheet.create({
-    screen:{
-        flex:1,
-        alignItems:'center',
-        justifyContent:'center',
-        backgroundColor:"white",
-        width:'100%',
-        maxHeight:'100%',
+    screen: {
+        flex: 1,
+        alignItems: 'center',
+        justifyContent: 'center',
+        backgroundColor: "white",
+        width: '100%',
+        maxHeight: '100%',
     },
-    authContainer:{
-        width:'90%',
-        maxHeight:'90%',
-        borderColor:'#f5f5f5',
-        borderWidth:1,
-        elevation:3,
-        backgroundColor:'white',
-        marginHorizontal:20,
-        flex:1,
+    authContainer: {
+        width: '90%',
+        maxHeight: '90%',
+        borderColor: '#f5f5f5',
+        borderWidth: 1,
+        elevation: 3,
+        backgroundColor: 'white',
+        marginHorizontal: 20,
+        flex: 1,
     },
-    gradient:{
-        width:'100%',
-        height:'100%',
-        justifyContent:'center',
-        alignItems:'center',
+    gradient: {
+        width: '100%',
+        height: '100%',
+        justifyContent: 'center',
+        alignItems: 'center',
     },
-    buttonContainer:{
-    }
 })
 
 

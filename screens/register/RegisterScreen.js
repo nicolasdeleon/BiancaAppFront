@@ -1,5 +1,5 @@
 //imports from react and expo
-import React,{useState,useReducer,useCallback} from 'react'
+import React, { useState, useReducer, useCallback } from 'react'
 
 import {
     View,
@@ -33,18 +33,15 @@ function formatDate(date) {
       "Agosto", "Septiembre", "Octubre",
       "Noviembre", "Diciembre"
     ];
-  
+
     var day = date.getDate();
     var monthIndex = date.getMonth();
     var year = date.getFullYear();
-  
+
     return day + ' ' + monthNames[monthIndex] + ' ' + year;
   }
 
-//action type for form reducer
 const FORM_INPUT_UPDATE = 'FORM_INPUT_UPDATE'
-//form reducer se llama por changeInputHandler para actualizar el estado y validez
-//cada vez uqe se lo llama con FORM_INPUT_UPDATE. Retorna el estado actualizado
 const formReducer = (state, action) =>{
     if (action.type === FORM_INPUT_UPDATE){
         const updatedValues = {
@@ -66,20 +63,15 @@ const formReducer = (state, action) =>{
             formIsValid: updatedFormIsValid
         }
     }
-    return state //si no cayo en el if por alguna razon rara 
+    return state
 }
- 
+
 const RegisterScreen = props => {
 
-    //variables de estado de mi Screen
-    const [isLoading,setIsLoading] = useState(false) //para establecer algun load en async
-    const [error,setError] = useState(null) //errores de loading o de logeo/registro
+    const [isLoading,setIsLoading] = useState(false)
+    const [error,setError] = useState(null)
     const [showDatePickerIos,setShowDatePickerIos] = useState(false)
-    const [acceptTerms,setAcceptTerms] = useState(false) //checkbox terminos y condiciones
-
-    //useReducer toma mi formReducer para saber con que form actualizar mi formState
-    //inicializo formState con inputValues que es el valor en cada campo
-    //inputValidities que es la validez de cada campo, y la validez total del form
+    const [acceptTerms,setAcceptTerms] = useState(false)
     const [formState,dispatchFormState] = useReducer(formReducer,{
              inputValues: {
                 firstname:'',
@@ -87,9 +79,9 @@ const RegisterScreen = props => {
                 instaaccount:'',
                 email:'',
                 date: new Date(),
-                password:'',                
+                password:'',
                 password2:''
-             }, 
+             },
              inputValidities:{
                 firstname:false,
                 lastname:false,
@@ -101,17 +93,17 @@ const RegisterScreen = props => {
             },
              formIsValid: false 
              }
-         )//useReducer
+         )
 
     const inputChangeHandler = useCallback((InputIdentifier,inputValue,inputValidity) =>{
     dispatchFormState({
         type: FORM_INPUT_UPDATE,
         value: inputValue,
         isValid : inputValidity,
-        input: InputIdentifier //Esta es una key que voy a mapear en mis inputvalues
+        input: InputIdentifier
         })
     },[dispatchFormState])
-    
+
     const changeAcceptTerms = async () =>{
         if (acceptTerms == true){
             setAcceptTerms(false)
@@ -121,24 +113,20 @@ const RegisterScreen = props => {
         }
     }
 
-
-    //LOGICA DE DISPATCH AUTH A SERVER
     dispatch = useDispatch()
-    const authHandler = async () =>{
+    const authHandler = async () => {
         let action
-        if (formState.inputValues.password != 
+        if (formState.inputValues.password !=
         formState.inputValues.password2 )
         {
             setError('Las contraseñas deben coincidir')
         }
         else if (new Date().getFullYear() - formState.inputValues.date.getFullYear() <10)
         {
-            //Parseo medio choto de fechas si o si tiene que ser mayor a 10años
             setError('Ingrese una fecha de nacimiento válida')
         }else if(acceptTerms == false)
             setError("Debe aceptar los términos y condiciones.")
         else
-            // evito que vaya al back end si el usuario no presionó sobre los input
             if (formState.inputValues.email != "" && 
             formState.inputValues.firstname != "" &&
             formState.inputValues.lastname != "" &&
@@ -156,14 +144,6 @@ const RegisterScreen = props => {
                     formState.inputValues.password,
                     formState.inputValues.password2
                     )
-                console.log("REGISTERING form:.............")
-                console.log(formState.inputValues.email)
-                console.log(formState.inputValues.firstname)
-                console.log(formState.inputValues.lastname)
-                console.log(formState.inputValues.instaaccount)
-                console.log(formState.inputValues.date)
-                console.log(formState.inputValues.password)
-                console.log(formState.inputValues.password2)
                 if(formState.formIsValid){
                     setIsLoading(true)
                     setError(null)
@@ -172,28 +152,16 @@ const RegisterScreen = props => {
                         setIsLoading(false)
                         props.navigation.navigate('app')
                     }catch (err){
-                        //tipicamente error de Invalid Credentials proveniente del servidor data
                         setError(err.message)
                         setIsLoading(false)
                     }
                 }else{
-                    //si el form esta mal ni me gasto en mandar las credentials
                     setError('Credenciales inválidas.')
                 }
             }else{
                 setError('Complete todos los datos requeridos.')
             }
     }
-
-    const getDataTest = ()=>{
-        console.log('USUARIOS EN STORE:')
-        let dataToken = useSelector(state=>state.auth.token)
-        let datauserId = useSelector(state=>state.auth.userId)
-        console.log(dataToken)
-        console.log(datauserId)
-    }
-
-    getDataTest()
 
     ret2SignIn = () =>{
         props.navigation.pop()
@@ -202,26 +170,20 @@ const RegisterScreen = props => {
     openAndroidDatePicker = async () => {
         try {
           const {action, year, month, day} = await DatePickerAndroid.open({
-            //seteo date inicial: Por ahora para 
             date: formState.inputValues.date
           });
           if (action !== DatePickerAndroid.dismissedAction) {
-            // ESTO SE DISPARA CUANDO DA CLICK EN ACEPTAR
-            console.log(year,month,day)
             inputChangeHandler('date',new Date(year,month,day),true)
           } 
-          //else if (action !== DatePickerAndroid.dateSetAction) {
-            // ESTO SE DISPARA CUANDO ELIGE UNA FECHA DENTRO DEL CALENDARIO
-          //}
         } catch ({code, message}) {
           console.warn('Cannot open date picker', message);
         }
       }
 
-    //Navegar a TermsAndCond 
     goToTermsAndConds = () =>{
         props.navigation.navigate('termsAndConds')
     }
+
     return (
         <KeyboardAvoidingView
         behavior="padding"
@@ -285,14 +247,14 @@ const RegisterScreen = props => {
                                     }}
                                         mode = {'date'}
                                     />
-                                    </View>  
+                                    </View>
                             }
                             <TouchableOpacity onPress={()=>{
                                 if(Platform.OS === 'android' && Platform.Version>=21){
                                     openAndroidDatePicker()
                                 } else if(Platform.OS === 'ios'){
                                     setShowDatePickerIos(!showDatePickerIos)
-                                }    
+                                }
                             }}>
                                 <Text>Elegir fecha</Text>
                             </TouchableOpacity> 
@@ -326,19 +288,19 @@ const RegisterScreen = props => {
                             <CheckBox 
                             value={acceptTerms}
                             onValueChange={changeAcceptTerms}
-                            />    
+                            />
                             <TouchableOpacity onPress={goToTermsAndConds}>  
                                 <Text style={styles.termsandcond}> Acepto los Términos y Condiciones.</Text>
                             </TouchableOpacity>
-                        </View>       
+                        </View>
                         <View style={styles.buttonContainer}>
                             {isLoading ? (<ActivityIndicator size='small' color={Colors.primary}/>) : 
                             (<Button 
-                                title='Registrarse' 
-                                color={Colors.primary} 
+                                title='Registrarse'
+                                color={Colors.primary}
                                 onPress={authHandler}
                             />)}
-                            
+
                             {error && <Text style={{color:'red'}}>{error}</Text>}
                             </View>
                     </ScrollView>
@@ -349,57 +311,57 @@ const RegisterScreen = props => {
 }
 
 RegisterScreen.navigationOptions = (navData) => {
-    return{
+    return {
         headerTitle: 'Registrarse',
     }
 }
 
-
 const styles = StyleSheet.create({
-    screen:{
-        flex:1,
-        alignItems:'center',
-        justifyContent:'center'
+    screen: {
+        flex: 1,
+        alignItems: 'center',
+        justifyContent: 'center'
     },
-    authContainer:{
-        height:'90%',
-        width:'90%',
-        padding:15,
-        borderColor:'#f5f5f5',
-        borderWidth:1,
-        borderRadius:4,
-        elevation:3,
-        backgroundColor:'white'
+    authContainer: {
+        height: '90%',
+        width: '90%',
+        padding: 15,
+        borderColor: '#f5f5f5',
+        borderWidth: 1,
+        borderRadius: 4,
+        elevation: 3,
+        backgroundColor: 'white'
     },
     cartItem: {
-        padding:10,
-        backgroundColor:"white",
-        flexDirection:'row',
-        justifyContent:'space-between',
-        marginHorizontal:20,
+        padding: 10,
+        backgroundColor: "white",
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        marginHorizontal: 20,
     },
-    itemData:{
-        flexDirection:'row',
-        alignItems:'center',
+    itemData: {
+        flexDirection: 'row',
+        alignItems: 'center',
     },
-    gradient:{
-        width:'100%',
-        height:'100%',
-        justifyContent:'center',
-        alignItems:'center',
+    gradient: {
+        width: '100%',
+        height: '100%',
+        justifyContent: 'center',
+        alignItems: 'center',
     },
-    buttonContainer:{
-        marginTop:10,
+    buttonContainer: {
+        marginTop: 10,
     },
-    checkbox:{
+    checkbox: {
         flexDirection: "row",
-        alignItems:'center',
-        fontFamily:'open-sans'
+        alignItems: 'center',
+        fontFamily: 'open-sans'
     },
-    termsandcond:{
+    termsandcond: {
         textDecorationLine: 'underline',
-        fontFamily:'open-sans'
+        fontFamily: 'open-sans'
     },
 })
+
 
 export default RegisterScreen
