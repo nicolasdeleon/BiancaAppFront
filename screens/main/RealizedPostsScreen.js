@@ -1,5 +1,5 @@
 import React from 'react'
-import {View,Text,StyleSheet} from 'react-native'
+import { View, Text, StyleSheet } from 'react-native'
 
 const RealizedPostsScreen = props => {
     return (
@@ -10,10 +10,10 @@ const RealizedPostsScreen = props => {
 }
 
 const styles = StyleSheet.create({
-    screen:{
-        flex:1,
-        alignItems:'center',
-        alignContent:'center',
+    screen: {
+        flex: 1,
+        alignItems: 'center',
+        alignContent: 'center',
     }
 })
 
