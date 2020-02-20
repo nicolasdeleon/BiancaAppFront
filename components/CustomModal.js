@@ -7,9 +7,11 @@ import {
     StyleSheet, 
     TouchableOpacity,
     View,
+    ActivityIndicator,
     Keyboard
 } from 'react-native'
 
+import Colors from '../constants/Colors'
 
 const CustomModal = props =>{
     return (
@@ -20,6 +22,7 @@ const CustomModal = props =>{
           onRequestClose={() => {
             props.onClose();
           }}>
+            {!props.loading && 
             <TouchableOpacity
             activeOpacity={1}
             onPressOut={ () => { props.onClose() } } 
@@ -46,7 +49,8 @@ const CustomModal = props =>{
                         </View>}
                     </View>
                 </TouchableWithoutFeedback>
-            </TouchableOpacity> 
+            </TouchableOpacity>
+            }
           </Modal>
     )
 }

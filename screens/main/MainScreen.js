@@ -116,7 +116,7 @@ const MainScreen = props => {
                 title={"Inserte Código del Local"}
                 acceptButtonText={"Activar"}
                 errorText={error}
-                loading={isLoading}>        
+                loading={isLoading}>
                 <Input
                 maxLength={5}
                 min={5}
