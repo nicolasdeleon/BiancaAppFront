@@ -267,7 +267,7 @@ const MainProfileDrawer = createDrawerNavigator({
                         onPress={ () => { props.navigation.navigate('ok') } }>
                         <Image 
                             style={ styles.image } 
-                            source={ require('../staticData/BiancaLogo.png') }/>
+                            source={ require('../staticData/BiancaLogo.jpg') }/>
                         </TouchableOpacity>
                         </View>
                         <View style={ styles.menuButtonContainer }>

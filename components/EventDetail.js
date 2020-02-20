@@ -34,7 +34,7 @@ const EventDetail = props =>{
                         </View>
                         <Image 
                             style={styles.image} 
-                            source={require('../staticData/BiancaLogo.png')}/>
+                            source={require('../staticData/BiancaLogo.jpg')}/>
                     </View>
                     
                     <View style={styles.button}>
