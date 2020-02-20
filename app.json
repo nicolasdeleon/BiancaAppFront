@@ -10,9 +10,9 @@
     ],
     "version": "2.0.3",
     "orientation": "portrait",
-    "icon": "./staticData/BiancaLogo.png",
+    "icon": "./staticData/BiancaLogo.jpg",
     "splash": {
-      "image": "./staticData/BiancaLogo.png",
+      "image": "./staticData/BiancaLogo.jpg",
       "resizeMode": "contain",
       "backgroundColor": "#101f27"
     },

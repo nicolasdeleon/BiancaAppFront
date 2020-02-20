@@ -14,7 +14,9 @@ import {
     Platform,
     DatePickerIOS,
     CheckBox,
+    Switch,
 } from 'react-native'
+
 
 import {LinearGradient} from 'expo-linear-gradient'
 
@@ -285,10 +287,14 @@ const RegisterScreen = props => {
                             initialValue=''
                         />
                         <View style={styles.checkbox}>
-                            <CheckBox 
+                            {/*<CheckBox 
                             value={acceptTerms}
                             onValueChange={changeAcceptTerms}
-                            />
+                            /> 16/02*/}
+                            <Switch 
+                            value={acceptTerms}
+                            onValueChange={changeAcceptTerms}
+                            /> 
                             <TouchableOpacity onPress={goToTermsAndConds}>  
                                 <Text style={styles.termsandcond}> Acepto los Términos y Condiciones.</Text>
                             </TouchableOpacity>
