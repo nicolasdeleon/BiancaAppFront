@@ -13,8 +13,8 @@
     "icon": "./staticData/BiancaLogo.jpg",
     "splash": {
       "image": "./staticData/BiancaLogo.jpg",
-      "resizeMode": "contain",
-      "backgroundColor": "#101f27"
+      "resizeMode": "contain"//,
+      //"backgroundColor": "#101f27"
     },
     "updates": {
       "fallbackToCacheTimeout": 5000
