@@ -10,11 +10,11 @@
     ],
     "version": "2.0.3",
     "orientation": "portrait",
-    "icon": "./staticData/BiancaLogo.jpg",
+    "icon": "./staticData/BiancaLogo1024.png",
     "splash": {
-      "image": "./staticData/BiancaLogo.jpg",
-      "resizeMode": "contain"//,
-      //"backgroundColor": "#101f27"
+      "image": "./staticData/BiancaLogo.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#101f27"
     },
     "updates": {
       "fallbackToCacheTimeout": 5000
@@ -23,7 +23,9 @@
       "**/*"
     ],
     "ios": {
-      "supportsTablet": false
+      "supportsTablet": false,
+      "bundleIdentifier": "com.bianca",
+      "buildNumber": "1.0.0"
     },
     "android": {
       "package": "bianca.bianca",
