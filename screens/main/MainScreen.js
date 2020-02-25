@@ -102,7 +102,7 @@ const MainScreen = props => {
                 setIsLoading(false)
             }
         }else{
-            setError('Invalid form credentials')
+            setError('Código inválido')
         }
     }
 

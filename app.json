@@ -10,7 +10,7 @@
     ],
     "version": "2.0.3",
     "orientation": "portrait",
-    "icon": "./staticData/BiancaLogo.png",
+    "icon": "./staticData/BiancaLogo1024.png",
     "splash": {
       "image": "./staticData/BiancaLogo.png",
       "resizeMode": "contain",
@@ -23,7 +23,9 @@
       "**/*"
     ],
     "ios": {
-      "supportsTablet": false
+      "supportsTablet": false,
+      "bundleIdentifier": "com.bianca",
+      "buildNumber": "1.0.0"
     },
     "android": {
       "package": "bianca.bianca",
