@@ -84,12 +84,16 @@ const EventFeedScreen = props => {
         onRefresh={loadContracts}
         refreshing={isLoading}
         data={activeEvents} 
-        keyExtractor ={item=>item.id}
+        keyExtractor ={item=>String(item.pk)}
         renderItem={itemData => <EventItem
                         title={itemData.item.title}
-                        onSelect={()=>{props.navigation.navigate('productDetail',{
-                            eventId: itemData.item.id,
+                        status={itemData.item.status}
+                        onSelect={()=>{props.navigation.navigate('EventDetail',{
+                            eventId: itemData.item.pk,
+                            eventCode: itemData.item.code,
                             eventTitle: itemData.item.title,
+                            eventDescription: itemData.item.desc,
+                            eventStatus: itemData.item.status
                                     })}}
                         >
                         </EventItem> 
