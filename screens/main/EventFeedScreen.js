@@ -1,12 +1,18 @@
 import React, { useState, useCallback, useEffect} from 'react'
 import {
+    ActivityIndicator,
+    Text,
     View,
     StyleSheet,
+    FlatList,
 } from 'react-native'
 
 import { useSelector, useDispatch } from 'react-redux'
 import * as EventActions from '../../store/actions/events'
 import * as AuthActions from '../../store/actions/auth'
+
+import Colors from '../../constants/Colors'
+import EventItem from '../../components/EventItem'
 
 
 const EventFeedScreen = props => {
@@ -45,8 +51,50 @@ const EventFeedScreen = props => {
         props.navigation.navigate('start')
     }
 
+    if(error){
+        return(
+            <View style={{flex:1,justifyContent:'center',alignItems:'center'}}>
+                <Text>A ocurrido un error: {error}</Text>
+                <Button title="Intenar de Nuevo" onPress={loadContracts} color={Colors.primary}/>
+            </View>
+        )
+    }
+
+    if(isLoading){
+        return(
+            <View style={{flex:1,justifyContent:'center',alignItems:'center'}}>
+                <ActivityIndicator size='large' color={Colors.accent}/>
+            </View>
+        )
+    }
+
+    // Previsto por fallas en el servidor 
+    if(!isLoading && activeEvents.length === 0){
+        return(
+            <View style={{flex:1,justifyContent:'center',alignItems:'center'}}>
+                <Text>No se encontraron eventos!</Text>
+                <Text>Esto puede ser porque Bianca se encuentra bajo un proceso de mejora.</Text>
+                <Text>Intente nuevamente mas tarde.</Text>
+            </View>
+        )
+    }
+
     return (
-        <View></View>
+        <FlatList 
+        onRefresh={loadContracts}
+        refreshing={isLoading}
+        data={activeEvents} 
+        keyExtractor ={item=>item.id}
+        renderItem={itemData => <EventItem
+                        title={itemData.item.title}
+                        onSelect={()=>{props.navigation.navigate('productDetail',{
+                            eventId: itemData.item.id,
+                            eventTitle: itemData.item.title,
+                                    })}}
+                        >
+                        </EventItem> 
+                    }
+        /> // FlatList
     )
 }
 
