@@ -88,6 +88,7 @@ const EventFeedScreen = props => {
         renderItem={itemData => <EventItem
                         title={itemData.item.title}
                         status={itemData.item.status}
+                        image={itemData.item.image}
                         onSelect={()=>{props.navigation.navigate('EventDetail',{
                             eventId: itemData.item.pk,
                             eventCode: itemData.item.code,
