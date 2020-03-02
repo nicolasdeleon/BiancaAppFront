@@ -50,7 +50,7 @@ export const login = (email, password) => {
     }
 }
 
-export const register = (email, firstname, lastname, instaaccount, date, password, password2) => {
+export const register = (email, firstname, lastname, instaaccount, password, password2) => {
     return async dispatch => {
         const response = await fetch(
             'https://biancaapp-ndlc.herokuapp.com/api/accounts/register'
@@ -64,7 +64,7 @@ export const register = (email, firstname, lastname, instaaccount, date, passwor
                     first_name: firstname,
                     last_name: lastname,
                     instaaccount: instaaccount,
-                    birth_date: date,
+                    birth_date: null,
                     password: password,
                     password2: password2
                 })

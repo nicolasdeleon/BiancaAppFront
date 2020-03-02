@@ -9,11 +9,7 @@ import {
     ScrollView,
     Button,
     ActivityIndicator,
-    DatePickerAndroid,
     TouchableOpacity,
-    Platform,
-    DatePickerIOS,
-    CheckBox,
     Switch,
 } from 'react-native'
 
@@ -25,23 +21,9 @@ import Input from '../../components/Input'
 import Colors from '../../constants/Colors'
 
 //store and redux imports
-import {useDispatch,useSelector} from 'react-redux'
+import { useDispatch } from 'react-redux'
 import * as AuthActions from '../../store/actions/auth'
 
-function formatDate(date) {
-    var monthNames = [
-      "Enero", "Febrero", "Marzo",
-      "Abril", "Mayo", "Junio", "Julio",
-      "Agosto", "Septiembre", "Octubre",
-      "Noviembre", "Diciembre"
-    ];
-
-    var day = date.getDate();
-    var monthIndex = date.getMonth();
-    var year = date.getFullYear();
-
-    return day + ' ' + monthNames[monthIndex] + ' ' + year;
-  }
 
 const FORM_INPUT_UPDATE = 'FORM_INPUT_UPDATE'
 const formReducer = (state, action) =>{
@@ -72,7 +54,6 @@ const RegisterScreen = props => {
 
     const [isLoading,setIsLoading] = useState(false)
     const [error,setError] = useState(null)
-    const [showDatePickerIos,setShowDatePickerIos] = useState(false)
     const [acceptTerms,setAcceptTerms] = useState(false)
     const [formState,dispatchFormState] = useReducer(formReducer,{
              inputValues: {
@@ -80,7 +61,6 @@ const RegisterScreen = props => {
                 lastname:'',
                 instaaccount:'',
                 email:'',
-                date: new Date(),
                 password:'',
                 password2:''
              },
@@ -89,7 +69,6 @@ const RegisterScreen = props => {
                 lastname:false,
                 instaaccount:false,
                 email:false,
-                date:false,
                 password:false,
                 password2:false
             },
@@ -123,17 +102,14 @@ const RegisterScreen = props => {
         {
             setError('Las contraseñas deben coincidir')
         }
-        else if (new Date().getFullYear() - formState.inputValues.date.getFullYear() <10)
+        else if(acceptTerms == false)
         {
-            setError('Ingrese una fecha de nacimiento válida')
-        }else if(acceptTerms == false)
             setError("Debe aceptar los términos y condiciones.")
-        else
-            if (formState.inputValues.email != "" && 
+        }
+        else if (formState.inputValues.email != "" && 
             formState.inputValues.firstname != "" &&
             formState.inputValues.lastname != "" &&
             formState.inputValues.instaaccount!= "" &&
-            formState.inputValues.date!= "" &&
             formState.inputValues.password != "" &&
             formState.inputValues.password2 != ""
             ) {
@@ -142,7 +118,6 @@ const RegisterScreen = props => {
                     formState.inputValues.firstname,
                     formState.inputValues.lastname,
                     formState.inputValues.instaaccount,
-                    formState.inputValues.date.toJSON(),
                     formState.inputValues.password,
                     formState.inputValues.password2
                     )
@@ -168,19 +143,6 @@ const RegisterScreen = props => {
     ret2SignIn = () =>{
         props.navigation.pop()
     }
-
-    openAndroidDatePicker = async () => {
-        try {
-          const {action, year, month, day} = await DatePickerAndroid.open({
-            date: formState.inputValues.date
-          });
-          if (action !== DatePickerAndroid.dismissedAction) {
-            inputChangeHandler('date',new Date(year,month,day),true)
-          } 
-        } catch ({code, message}) {
-          console.warn('Cannot open date picker', message);
-        }
-      }
 
     goToTermsAndConds = () =>{
         props.navigation.navigate('termsAndConds')
@@ -235,33 +197,6 @@ const RegisterScreen = props => {
                             onInputChange={inputChangeHandler}
                             initialValue=''
                         />
-                        <View style={{width:'100%',marginVertical:4,}}>
-                            <Text style={{fontFamily:'open-sans-bold',marginVertical:2,}}>Fecha de nacimiento</Text>
-                            <Text style={{fontFamily:'open-sans',marginTop:6,marginBottom:4,textAlign:"left"}}>{formatDate(formState.inputValues.date)}</Text>
-                            <View style={{alignItems:"center",width:'100%',}}>
-                            {showDatePickerIos &&
-                                    <View style={{width:"100%",height:200}}>
-                                    <DatePickerIOS 
-                                        initialDate = {formState.inputValues.date}
-                                        date = {formState.inputValues.date}
-                                        onDateChange = {(newDate) =>{
-                                            inputChangeHandler('date',new Date(newDate),true)
-                                    }}
-                                        mode = {'date'}
-                                    />
-                                    </View>
-                            }
-                            <TouchableOpacity onPress={()=>{
-                                if(Platform.OS === 'android' && Platform.Version>=21){
-                                    openAndroidDatePicker()
-                                } else if(Platform.OS === 'ios'){
-                                    setShowDatePickerIos(!showDatePickerIos)
-                                }
-                            }}>
-                                <Text>Elegir fecha</Text>
-                            </TouchableOpacity> 
-                            </View>
-                        </View>
                         <Input
                             id='password'
                             label='Contraseña'
