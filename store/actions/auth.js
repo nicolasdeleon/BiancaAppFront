@@ -64,7 +64,7 @@ export const register = (email, firstname, lastname, instaaccount, date, passwor
                     first_name: firstname,
                     last_name: lastname,
                     instaaccount: instaaccount,
-                    birthDate: date,
+                    birth_date: date,
                     password: password,
                     password2: password2
                 })
