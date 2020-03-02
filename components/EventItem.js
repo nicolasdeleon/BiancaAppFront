@@ -20,7 +20,7 @@ const EventItem = props =>{
         <View>
             <TouchableCmp onPress={props.onSelect} useForeground>
                 <View style={styles.event}>
-                <Image style={styles.image} source={{uri:props.image}}/>
+                    <Image style={styles.image} source={{uri:props.image}}/>
                     <View style={styles.textContainer}>
                         <Text style={styles.title}>{props.title}</Text>
                         <Text style={styles.status}>{eventStatus}</Text>
@@ -36,6 +36,8 @@ const styles = StyleSheet.create({
     event:{
         elevation: 5,
         borderRadius: 10,
+        borderWidth: 1,
+        borderColor: "#888",
         backgroundColor: "white",
         margin: 20,
         height: 300,
@@ -43,7 +45,7 @@ const styles = StyleSheet.create({
     },
     image:{
         width:'100%',
-        height:'70%',
+        height:'75%',
     },
     title:{
         fontFamily:'open-sans-bold',
@@ -58,7 +60,7 @@ const styles = StyleSheet.create({
     textContainer:{
         alignItems:'center',
         justifyContent:'space-between',
-        height:'15%',
+        height:'25%',
         padding:10,
     }
 });
