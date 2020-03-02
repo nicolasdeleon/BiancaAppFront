@@ -28,7 +28,8 @@ const MainScreen = props => {
     const [modalValidity, setModalValidity] = useState(false)
     const [isLoading, setIsLoading] = useState(false)
     const userToken = useSelector( state => state.auth.token )
-    const activeEvents = useSelector( state => state.events.activeEvents )
+    const productId = props.navigation.getParam('eventId')
+    const selectedEvent = useSelector(state=>state.events.activeEvents.find(prod => prod.pk===productId))
     const activeContracts = useSelector( state => state.events.activeContracts )
     const dispatch = useDispatch()
 
@@ -128,18 +129,14 @@ const MainScreen = props => {
                 autoCapitalize={'characters'}
                 />
             </InsertCode>
-            {activeEvents[activeEvents.length-1] ? 
-                <EventDetail 
-                    loading = {isLoading}
-                    sentCode = {sentCode}
-                    insertCodeButton = {insertCodeButton}
-                    event = {activeEvents[activeEvents.length-1]}
-                    activeContracts = {activeContracts}
-                    loadContractsAndEvents = {loadContractsAndEvents}
-                    />
-                    :
-                (<ActivityIndicator size='large' color={Colors.primary}/>)
-            }
+            <EventDetail 
+                loading = {isLoading}
+                sentCode = {sentCode}
+                insertCodeButton = {insertCodeButton}
+                event = {selectedEvent}
+                activeContracts = {activeContracts}
+                loadContractsAndEvents = {loadContractsAndEvents}
+                />
         </View>
     )
 }

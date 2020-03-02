@@ -19,6 +19,7 @@ export default (state = initialState, action) => {
                 activeContracts: action.activePostRelationList
             }
         case GET_ACTIVE_EVENTS:
+            console.log(action.activeEventObjectList)
             return {
                 ...state,
                 activeEvents: action.activeEventObjectList

@@ -20,7 +20,7 @@ import { createMaterialTopTabNavigator } from 'react-navigation-tabs'
 //CUSTOM COMPONENTS
 import CustomHeaderButton from '../components/HeaderButton'
 import Circle from '../components/Circle'
-import {HeaderButtons, Item} from 'react-navigation-header-buttons'
+import { HeaderButtons, Item } from 'react-navigation-header-buttons'
 
 
 //IMPORT CONSTANTS AND UTILS 
@@ -29,7 +29,8 @@ import { FontAwesome, MaterialCommunityIcons } from '@expo/vector-icons'
 
 
 //IMPORT SCREENS
-import MainScreen from '../screens/main/MainScreen'
+import EventDetailScreen from '../screens/main/EventDetailScreen'
+import EventFeedScreen from '../screens/main/EventFeedScreen'
 import ProfileScreen from '../screens/main/ProfileScreen'
 import LogInSignupScreen from '../screens/register/LogInSignupScreen'
 import RegisterScreen from '../screens/register/RegisterScreen'
@@ -43,13 +44,13 @@ import TermsAndCondsScreen from '../screens/register/TermsAndCondsScreen'
 
 //CREATION OF NAVIGATION FLOW
 
-const MainStack = createStackNavigator({
-    Main: MainScreen,
-},{
+const EventNavigator = createStackNavigator({
+    EventFeed: EventFeedScreen,
+    EventDetail: EventDetailScreen,
+}, {
     navigationOptions:{
         drawerIcon: drawerConfig =>(<Ionicons name='md-list' size={23} color={drawerConfig.tintColor}/>),
     },
-
     defaultNavigationOptions: ({navigation}) => ({
         headerTitleStyle:{
             fontFamily:'open-sans-bold'
@@ -71,6 +72,7 @@ const MainStack = createStackNavigator({
         </HeaderButtons>,
     }),
 })
+
 
 const HowToScreenNav = createMaterialTopTabNavigator({
     step_1: HowToScreen,
@@ -122,6 +124,7 @@ const HowToStack = createStackNavigator({
     }),
 })
 
+
 const ProfileStack = createStackNavigator({
     Profile: ProfileScreen,
 },{
@@ -154,7 +157,7 @@ const ProfileStack = createStackNavigator({
 
 
 //materialBottomTab entre Main y perfil
-const MainandProfile = createMaterialBottomTabNavigator({
+const EventsandProfile = createMaterialBottomTabNavigator({
     HowTo: {
         screen:HowToStack,
         navigationOptions: {
@@ -170,7 +173,7 @@ const MainandProfile = createMaterialBottomTabNavigator({
         }
     },
     Events: {
-        screen: MainStack,
+        screen: EventNavigator,
         navigationOptions: {
             tabBarColor: Colors.accent,
             tabBarIcon:  ( tabInfo ) => {
@@ -241,7 +244,7 @@ const FeedbackStack = createStackNavigator({
 
 
 const MainProfileDrawer = createDrawerNavigator({
-    ok: MainandProfile,
+    ok: EventsandProfile,
     feedback: FeedbackStack,
 },{
     contentOptions: {
