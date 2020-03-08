@@ -77,8 +77,7 @@ const EventNavigator = createStackNavigator({
 const HowToScreenNav = createMaterialTopTabNavigator({
     step_1: HowToScreen,
     step_2: HowToScreen2,
-    step_3: HowToScreen3,    
-    event: EventFeedScreen,
+    step_3: HowToScreen3,
 },{
     tabBarPosition: "bottom",
     tabBarComponent: props => (
@@ -92,13 +91,12 @@ const HowToScreenNav = createMaterialTopTabNavigator({
             <Circle hollow={ props.navigation.state.index === 1 }/>
             <Circle hollow={ props.navigation.state.index === 2 }/>
         </View>
-        
       ),
 })
 
 
 const HowToStack = createStackNavigator({
-    HowTo: HowToScreenNav,     
+    HowTo: HowToScreenNav,
 },{
     navigationOptions:{
         drawerIcon: drawerConfig =>(<Ionicons name='md-list' size={23} color={drawerConfig.tintColor}/>),
@@ -203,6 +201,7 @@ const EventsandProfile = createMaterialBottomTabNavigator({
         },
     }
 },{
+        initialRouteName: 'Events',
         navigationOptions:{
 drawerIcon: drawerConfig =>(<Ionicons name='md-create' size={23} color={drawerConfig.tintColor}/>)
 },
