@@ -2,7 +2,6 @@ import React, { useState, useCallback, useEffect} from 'react'
 import {
     View,
     StyleSheet,
-    ActivityIndicator,
     StatusBar,
 } from 'react-native'
 
@@ -87,7 +86,7 @@ const MainScreen = props => {
             return
         }
         let action
-        action = EventActions.joinEvent(userToken,codeValue,notificationToken)
+        action = EventActions.joinEvent(userToken, codeValue, notificationToken)
 
         if(modalValidity){
             setIsLoading(true)
@@ -122,7 +121,6 @@ const MainScreen = props => {
                 maxLength={5}
                 min={5}
                 desiredLength={5} 
-                //initialValue ={"....."}
                 fontSize={24}
                 textAlign='center'
                 onInputChange={setCodeValueHandler}

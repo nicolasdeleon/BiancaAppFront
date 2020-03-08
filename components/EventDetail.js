@@ -16,10 +16,6 @@ const EventDetail = props =>{
                             <Text style={styles.eventTitleText}>{props.event.title}</Text>
                         </View>
 
-                        <View style={styles.eventDescriptionContainer}>
-                            <Text style={styles.eventDescText}>{props.event.desc}</Text>
-                        </View>
-
                         <View style={styles.eventStatusContainer}>
                             <Text style={styles.eventStatusTitleText} >Estado del evento:</Text>
                             <EventStatusIndicator
@@ -30,8 +26,12 @@ const EventDetail = props =>{
                                 contractList = {props.activeContracts}
                                 onLoadContractsAndEvents = {props.loadContractsAndEvents}
                             />
-
                         </View>
+
+                        <View style={styles.eventDescriptionContainer}>
+                            <Text style={styles.eventDescText}>{props.event.desc}</Text>
+                        </View>
+
                         <Image 
                             style={styles.image} 
                             source={require('../staticData/BiancaLogo.png')}/>
@@ -88,7 +88,7 @@ const styles = StyleSheet.create({
     },
     eventStatusContainer: {
         width: '85%',
-        height: '20%',
+        height: '15%',
         marginVertical: 10,
         marginLeft: '5%',
         paddingLeft: 10,
