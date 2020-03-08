@@ -76,11 +76,16 @@ const MainScreen = props => {
         setModalVisible(false)
     }
 
+    _handleNotification = () => {
+        loadContractsAndEvents()
+    }
+
     sendInsertCode = async () => {
         let notificationToken = null
         const { status } = await Permissions.getAsync(Permissions.NOTIFICATIONS)
         if (status === 'granted'){
             notificationToken = await Notifications.getExpoPushTokenAsync()
+            Notifications.addListener(_handleNotification);
         }
         if(!userToken){
             return
