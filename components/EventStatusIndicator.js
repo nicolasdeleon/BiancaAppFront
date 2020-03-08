@@ -102,7 +102,7 @@ const EventStatusIndicator = props => {
                 <View style={styles.container}>
                 <TouchableOpacity onPress={()=>{
                     Alert.alert(
-                        'A tener en cuenta:','- @Bianca lo seguira por instagram, corrobore que se encuentra bien la cuenta de Instagram en su perfil.\n- Si todavia no se le indicó que retire su premió, pruebe refrescando la app!\n- El proceso puede demorar unos minutos',
+                        'A tener en cuenta:','- @Biancaapp.ar lo seguira por instagram, corrobore que se encuentra bien la cuenta de Instagram en su perfil.\n- Si todavia no se le indicó que retire su premió, pruebe refrescando la app!\n- El proceso puede demorar unos minutos',
                         [{text:'Aceptar',style:'cancel',onPress: () => props.onLoadContractsAndEvents()}])
                     }}>  
                 <View style={styles.container}>
