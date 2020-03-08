@@ -122,7 +122,7 @@ const MainScreen = props => {
                 maxLength={5}
                 min={5}
                 desiredLength={5} 
-                initialValue ={"....."}
+                //initialValue ={"....."}
                 fontSize={24}
                 textAlign='center'
                 onInputChange={setCodeValueHandler}
