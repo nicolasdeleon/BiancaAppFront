@@ -2,7 +2,6 @@ import React, { useState, useCallback, useEffect} from 'react'
 import {
     View,
     StyleSheet,
-    ActivityIndicator,
     StatusBar,
 } from 'react-native'
 
@@ -77,17 +76,22 @@ const MainScreen = props => {
         setModalVisible(false)
     }
 
+    _handleNotification = () => {
+        loadContractsAndEvents()
+    }
+
     sendInsertCode = async () => {
         let notificationToken = null
         const { status } = await Permissions.getAsync(Permissions.NOTIFICATIONS)
         if (status === 'granted'){
             notificationToken = await Notifications.getExpoPushTokenAsync()
+            Notifications.addListener(_handleNotification);
         }
         if(!userToken){
             return
         }
         let action
-        action = EventActions.joinEvent(userToken,codeValue,notificationToken)
+        action = EventActions.joinEvent(userToken, codeValue, notificationToken)
 
         if(modalValidity){
             setIsLoading(true)
@@ -122,7 +126,6 @@ const MainScreen = props => {
                 maxLength={5}
                 min={5}
                 desiredLength={5} 
-                //initialValue ={"....."}
                 fontSize={24}
                 textAlign='center'
                 onInputChange={setCodeValueHandler}
