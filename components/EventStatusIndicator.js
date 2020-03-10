@@ -12,11 +12,11 @@ import Colors from '../constants/Colors'
 
 const EventStatusIndicator = props => {
 
-    const [message,setMessage] = useState('')
-    const [showButton,setShowButton] = useState(true)
-    const [propButtonFlag,setPropButtonFlag] = useState(true)
+    const [message, setMessage] = useState('')
+    const [showButton, setShowButton] = useState(true)
+    const [propButtonFlag, setPropButtonFlag] = useState(true)
 
-    const Funcion = (event,contractList)=>{
+    const Funcion = (event, contractList) => {
         setPropButtonFlag(true)
         if (event == null){
             setMessage("No hay eventos activos")
