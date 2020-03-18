@@ -56,21 +56,9 @@ const MainScreen = props => {
         }
     },[loadContractsAndEvents])
     
-    const setCodeValueHandler = useCallback((InputIdentifier,inputValue,inputValidity) =>{
-        setCodeValue(inputValue)
-        setModalValidity(inputValidity)
-        },[setCodeValueHandler, setCodeValue, setModalValidity, codeValue])
-
-    insertCodeButton = () => { 
-        setModalVisible(true)
-    }
     LogOutHandler = () => {
         dispatch(AuthActions.logout())
         props.navigation.navigate('start')
-    }
-    
-    closeInsertCode = () => {
-        setModalVisible(false)
     }
 
     _handleNotification = () => {
@@ -114,7 +102,7 @@ const MainScreen = props => {
             <EventDetail 
                 loading = {isLoading}
                 sentCode = {sentCode}
-                insertCodeButton = {insertCodeButton}
+                insertCodeButton = {()=>{}}
                 event = {selectedEvent}
                 activeContracts = {activeContracts}
                 loadContractsAndEvents = {loadContractsAndEvents}
@@ -151,7 +139,7 @@ const styles = StyleSheet.create({
 
 MainScreen.navigationOptions = navData => {
     return {
-        headerTitle: 'Eventos'
+        headerTitle: navData.navigation.getParam('eventTitle')
     }
 }
 
