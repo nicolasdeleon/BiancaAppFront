@@ -3,7 +3,19 @@ import {View,StyleSheet,Text,ActivityIndicator,Animated} from 'react-native'
 import { ProgressSteps, ProgressStep } from 'react-native-progress-steps';
 import Colors from '../constants/Colors';
 
-
+const useAnimation = ({ doAnimation, duration, easing, callback }) => {
+    const [animation, setAnimation] = useState(new Animated.Value(0));
+    
+    useEffect(() => {
+      Animated.timing(animation, {
+        toValue: doAnimation ? 1 : 0,
+        duration,
+        easing
+      }).start(() => {if(doAnimation)callback()}) ;
+    }, [doAnimation]);
+  
+    return animation;
+  }
 
 const EventDetail = props =>{
 
