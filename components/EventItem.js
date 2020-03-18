@@ -35,6 +35,7 @@ const EventItem = props =>{
             Animated.loop(
                 // Animation consists of a sequence of steps
                 Animated.sequence([
+                Animated.delay(2500),
                 // start rotation in one direction (only half the time is needed)
                 Animated.timing(animatedValue, {toValue: 1.0, duration: 150, easing: Easing.linear, useNativeDriver: true}),
                 // rotate in other direction, to minimum value (= twice the duration of above)
