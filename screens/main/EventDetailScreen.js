@@ -8,19 +8,16 @@ import {
 import { Notifications } from 'expo'
 import * as Permissions from 'expo-permissions'
 
-
 import { useSelector, useDispatch} from 'react-redux'
 import EventDetail from '../../components/EventDetail'
-import InsertCode from '../../components/CustomModal'
+
 import * as EventActions from '../../store/actions/events'
 import * as AuthActions from '../../store/actions/auth'
 
 import Colors from '../../constants/Colors'
-import Input from '../../components/Input'
 
 const MainScreen = props => {
 
-    const [modalVisible, setModalVisible] = useState(false)
     const [codeValue, setCodeValue] = useState('')
     const [error, setError] = useState()
     const [sentCode, setSentCode] = useState(false)
@@ -114,24 +111,6 @@ const MainScreen = props => {
     return (
         <View style={styles.screen} >
             <StatusBar backgroundColor={Colors.dark} barStyle={"light-content"} translucent={false}/>
-            <InsertCode
-                modalVisible={modalVisible} 
-                onClose={closeInsertCode}
-                onSend={sendInsertCode}
-                title={"Inserte Código del Local"}
-                acceptButtonText={"Activar"}
-                errorText={error}
-                loading={isLoading}>
-                <Input
-                maxLength={5}
-                min={5}
-                desiredLength={5} 
-                fontSize={24}
-                textAlign='center'
-                onInputChange={setCodeValueHandler}
-                autoCapitalize={'characters'}
-                />
-            </InsertCode>
             <EventDetail 
                 loading = {isLoading}
                 sentCode = {sentCode}
