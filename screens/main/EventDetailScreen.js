@@ -5,11 +5,13 @@ import {
     StatusBar,
 } from 'react-native'
 
+import { LinearGradient } from 'expo-linear-gradient'
+
 import { Notifications } from 'expo'
 import * as Permissions from 'expo-permissions'
 
 import { useSelector, useDispatch} from 'react-redux'
-import EventDetail from '../../components/EventDetail'
+import Welcome from '../steps/Welcome'
 
 import * as EventActions from '../../store/actions/events'
 import * as AuthActions from '../../store/actions/auth'
@@ -97,28 +99,28 @@ const MainScreen = props => {
     }
 
     return (
-        <View style={styles.screen} >
-            <StatusBar backgroundColor={Colors.dark} barStyle={"light-content"} translucent={false}/>
-            <EventDetail 
-                loading = {isLoading}
-                sentCode = {sentCode}
-                insertCodeButton = {()=>{}}
-                event = {selectedEvent}
-                activeContracts = {activeContracts}
-                loadContractsAndEvents = {loadContractsAndEvents}
-                />
+        <LinearGradient colors={['#141E30','#243B55']} start={[0,0]} end={[1,1]} style={styles.gradient}>
+        <View style={styles.screen}>
+            <Welcome eventTitle={props.navigation.getParam('eventTitle')}/>
         </View>
+        </LinearGradient>
     )
 }
 
+
 const styles = StyleSheet.create({
+    gradient:{
+        width:'100%',
+        height:'100%',
+        justifyContent:'center',
+        alignItems:'center',
+    },
     screen: {
         flex: 1,
         width: '100%',
         height: '100%',
         alignItems: 'center',
         justifyContent: 'center',
-        backgroundColor: "#FFFFFF",
     },
     title: {
         textAlign: 'center',
@@ -144,3 +146,14 @@ MainScreen.navigationOptions = navData => {
 }
 
 export default MainScreen
+
+/*
+<EventDetail 
+    loading = {isLoading}
+    sentCode = {sentCode}
+    insertCodeButton = {()=>{}}
+    event = {selectedEvent}
+    activeContracts = {activeContracts}
+    loadContractsAndEvents = {loadContractsAndEvents}
+    />
+*/

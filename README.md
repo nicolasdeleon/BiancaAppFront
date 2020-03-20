@@ -21,5 +21,7 @@ Para correr todo es necesario que se instalen librerias con el comando: expo ins
 - react-navigation-material-bottom-tabs
 - react-native-ratings
 - redux-thunk
+- expo-linear-gradient
+- react-native-really-awesome-button
 
 
