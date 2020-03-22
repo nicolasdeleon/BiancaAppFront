@@ -4,7 +4,7 @@ import {
     Easing,
     StyleSheet,
     Text,
-    TouchableOpacity,
+    Image,
     Animated
 } from 'react-native'
 
@@ -67,7 +67,8 @@ const WelcomeEvent = props =>{
     return (
         <Animated.View style={{...styles.screen, ...animateDesappear}}>
             <View style={styles.Container}>
-                <Animated.Text style={{...styles.textBienvenido,...animateEntryText}}>Bienvenido al evento</Animated.Text>
+            <Animated.Image style={{...styles.image, ...animateEntryText}} source={ require('../../staticData/dog.png') }/>
+            <Animated.Text style={{...styles.textBienvenido,...animateEntryText}}>Bienvenido al evento</Animated.Text>
                 <Animated.Text style={{...styles.textEventTitle,...animateEntryText}}>{props.eventTitle}</Animated.Text>
             </View>
             <Animated.View style={{...styles.Container,...animateEntryButton}}>
@@ -96,21 +97,29 @@ const styles = StyleSheet.create({
         justifyContent: 'space-evenly',
         alignItems: 'center',
     },
-    Container:{
+    Container: {
         justifyContent:'center',
         alignItems:'center',
+        width: '100%',
+        height: '40%'
     },
     textBienvenido: {
         fontSize: 24,
         fontFamily: 'open-sans-bold',
         textAlign: 'center',
-        color: 'white'
+        color: 'white',
+        marginVertical: 6,
     },
     textEventTitle: {
         fontSize: 26,
         fontFamily: 'open-sans-bold',
         textAlign: 'center',
         color: 'white'
+    },
+    image:{
+        width:'30%',
+        height:'30%',
+        resizeMode:"contain",
     },
 });
 
