@@ -12,11 +12,11 @@ import * as Permissions from 'expo-permissions'
 
 import { useSelector, useDispatch} from 'react-redux'
 import Welcome from '../steps/Welcome'
+import StorySubmission from '../steps/StorySubmission'
+
 
 import * as EventActions from '../../store/actions/events'
 import * as AuthActions from '../../store/actions/auth'
-
-import Colors from '../../constants/Colors'
 
 const MainScreen = props => {
 
@@ -98,10 +98,26 @@ const MainScreen = props => {
         }
     }
 
+    const [activeState, setActiveState] = useState([
+        true,
+        false,
+        false
+    ])
+
+    const initStorySubmission = () => {
+        setActiveState([false, true, false])
+    }
+
     return (
         <LinearGradient colors={['#141E30','#243B55']} start={[0,0]} end={[1,1]} style={styles.gradient}>
         <View style={styles.screen}>
-            <Welcome eventTitle={props.navigation.getParam('eventTitle')}/>
+
+            <Welcome 
+                eventTitle={props.navigation.getParam('eventTitle')}
+                next={initStorySubmission}
+                active={activeState[0]}/>
+
+            <StorySubmission  active={activeState[1]}/>
         </View>
         </LinearGradient>
     )

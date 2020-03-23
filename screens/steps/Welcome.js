@@ -3,13 +3,10 @@ import {
     View,
     Easing,
     StyleSheet,
-    Text,
-    Image,
     Animated
 } from 'react-native'
 
 import AwesomeButton from 'react-native-really-awesome-button';
-
 
 import useAnimation from '../../components/UseAnimaton'
 import Colors from '../../constants/Colors';
@@ -27,6 +24,11 @@ const WelcomeEvent = props =>{
             inputRange: [0, 1],
             outputRange: [0, 1]
         }),
+        transform : [
+            {
+                translateY: 40,
+            }
+        ],
     }
 
     const animateEntryButton = {
@@ -60,15 +62,15 @@ const WelcomeEvent = props =>{
     }
 
     const startDesappearAnimation = () => {
-        setDesappearAnimation(true)
         // HERE WITH A CALLBACK I NEED TO FORCE APPEARENCE OF NEXT SCREEN
+        props.next()
+        setDesappearAnimation(true)
     }
 
     return (
         <Animated.View style={{...styles.screen, ...animateDesappear}}>
             <View style={styles.Container}>
-            <Animated.Image style={{...styles.image, ...animateEntryText}} source={ require('../../staticData/dog.png') }/>
-            <Animated.Text style={{...styles.textBienvenido,...animateEntryText}}>Bienvenido al evento</Animated.Text>
+                <Animated.Text style={{...styles.textBienvenido,...animateEntryText}}>Bienvenido al evento</Animated.Text>
                 <Animated.Text style={{...styles.textEventTitle,...animateEntryText}}>{props.eventTitle}</Animated.Text>
             </View>
             <Animated.View style={{...styles.Container,...animateEntryButton}}>
@@ -96,6 +98,7 @@ const styles = StyleSheet.create({
         height: '100%',
         justifyContent: 'space-evenly',
         alignItems: 'center',
+        position: 'absolute'
     },
     Container: {
         justifyContent:'center',
