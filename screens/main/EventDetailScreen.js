@@ -15,6 +15,7 @@ import StoryWelcome from '../steps/StoryWelcome'
 import StorySubmission from '../steps/StorySubmission'
 import StoryValidation from '../steps/StoryValidation'
 import StoryChangeProduct from '../steps/StoryChangeProduct'
+import StoryFinit from '../steps/StoryFinit'
 
 
 import * as EventActions from '../../store/actions/events'
@@ -100,17 +101,18 @@ const MainScreen = props => {
         }
     }
 
-    const [state0, setState0] = useState(false)
+    const [state0, setState0] = useState(true)
     const [state1, setState1] = useState(false)
-    const [state2, setState2] = useState(true)
+    const [state2, setState2] = useState(false)
     const [state3, setState3] = useState(false)
-
+    const [state4, setState4] = useState(false)
 
     const initStorySubmission = () => {
         setState0(false)
         setState1(true)
         setState2(false)
         setState3(false)
+        setState4(false)
     }
 
     const initValidationScreen = () => {
@@ -118,14 +120,34 @@ const MainScreen = props => {
         setState1(false)
         setState2(true)
         setState3(false)
+        setState4(false)
+    }
+    const initFinitScreen = () => {
+        setState0(false)
+        setState1(false)
+        setState2(false)
+        setState3(false)
+        setState4(true)
     }
 
+    if(state4){
+        return (
+        <LinearGradient colors={['#141E30','#243B55']} start={[0,0]} end={[1,1]} style={styles.gradient}>
+        <View style={styles.screen}>
+            <StoryFinit
+            active={state4}
+            next={()=>{props.navigation.navigate('EventFeed')}}/>
+        </View>
+        </LinearGradient>
+        )
+    }
     if(state3){
         return (
         <LinearGradient colors={['#141E30','#243B55']} start={[0,0]} end={[1,1]} style={styles.gradient}>
         <View style={styles.screen}>
             <StoryChangeProduct
-            active={state3}/>
+            active={state3}
+            next={initFinitScreen}/>
         </View>
         </LinearGradient>
         )
@@ -149,8 +171,9 @@ const MainScreen = props => {
             next={initValidationScreen}/>
         </View>
         </LinearGradient>
-    )
+        )
     }
+    // state0
     return (
         <LinearGradient colors={['#141E30','#243B55']} start={[0,0]} end={[1,1]} style={styles.gradient}>
         <View style={styles.screen}>

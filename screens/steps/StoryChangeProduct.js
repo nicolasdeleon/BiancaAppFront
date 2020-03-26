@@ -22,7 +22,7 @@ const StorySubmission = props =>{
 
     const startDesappearAnimation = () => {
         // HERE WITH A CALLBACK I NEED TO FORCE APPEARENCE OF NEXT SCREEN
-        //props.next()
+        props.next()
     }
 
     const animateEntryScreen = { 
