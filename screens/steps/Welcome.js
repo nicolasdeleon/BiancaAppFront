@@ -14,10 +14,8 @@ import Colors from '../../constants/Colors';
 const WelcomeEvent = props =>{
 
     const [doAppearAnimaton, setAppearAnimaton] = useState(true)
-    const [doDesappearAnimation, setDesappearAnimation] = useState(false)
 
     const appearAnimaton = useAnimation({doAnimation: doAppearAnimaton, duration: 500, easing: Easing.linear, callback: ()=>{}, delay: 0})
-    const desappearAnimation = useAnimation({doAnimation: doDesappearAnimation, duration: 500, easing: Easing.linear, callback: ()=>{}, delay: 0})
 
     const animateEntryText = {
         opacity : appearAnimaton.interpolate({
@@ -46,29 +44,13 @@ const WelcomeEvent = props =>{
         ],
     }
 
-    const animateDesappear = {
-        opacity : desappearAnimation.interpolate({
-            inputRange: [0, 0.3, 1],
-            outputRange: [1, 0.15,0]
-        }),
-        transform : [
-            {
-                translateX: desappearAnimation.interpolate({
-                    inputRange: [0, 1],
-                    outputRange: [0, -300]
-                    })
-            }
-        ],
-    }
-
     const startDesappearAnimation = () => {
         // HERE WITH A CALLBACK I NEED TO FORCE APPEARENCE OF NEXT SCREEN
         props.next()
-        setDesappearAnimation(true)
     }
 
     return (
-        <Animated.View style={{...styles.screen, ...animateDesappear}}>
+        <View style={styles.screen}>
             <View style={styles.Container}>
                 <Animated.Text style={{...styles.textBienvenido,...animateEntryText}}>Bienvenido al evento</Animated.Text>
                 <Animated.Text style={{...styles.textEventTitle,...animateEntryText}}>{props.eventTitle}</Animated.Text>
@@ -87,7 +69,7 @@ const WelcomeEvent = props =>{
                     COMENZAR
                     </AwesomeButton>
             </Animated.View>
-        </Animated.View>
+        </View>
     )
 };
 
@@ -118,11 +100,6 @@ const styles = StyleSheet.create({
         fontFamily: 'open-sans-bold',
         textAlign: 'center',
         color: 'white'
-    },
-    image:{
-        width:'30%',
-        height:'30%',
-        resizeMode:"contain",
     },
 });
 

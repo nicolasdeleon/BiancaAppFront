@@ -17,20 +17,18 @@ import Colors from '../../constants/Colors';
 const StorySubmission = props =>{
 
     const [doAppearAnimaton, setAppearAnimaton] = useState(props.active)
-    const [doDesappearAnimation, setDesappearAnimation] = useState(false)
 
     const appearAnimaton = useAnimation({doAnimation: doAppearAnimaton, duration: 700, easing: Easing.bounce, callback: ()=>{}, delay: 700})
     const moveDogAnimation = useAnimation({doAnimation: doAppearAnimaton, duration: 700, easing: Easing.linear, callback: ()=>{}, delay: 100})
     const appearFirstBubble = useAnimation({doAnimation: doAppearAnimaton, duration: 700, easing: Easing.linear, callback: ()=>{}, delay: 1000})
-    const desappearAnimation = useAnimation({doAnimation: doDesappearAnimation, duration: 500, easing: Easing.linear, callback: ()=>{}, delay: 0})
 
     useEffect( () => {
         setAppearAnimaton(props.active)
     },[props])
 
     const startDesappearAnimation = () => {
-        setDesappearAnimation(true)
         // HERE WITH A CALLBACK I NEED TO FORCE APPEARENCE OF NEXT SCREEN
+        props.next()
     }
 
     const animateEntryButton = {
@@ -42,7 +40,7 @@ const StorySubmission = props =>{
             {
                 translateX: appearAnimaton.interpolate({
                     inputRange: [0, 0.85, 1],
-                    outputRange: [300, 50, 0]
+                    outputRange: [450, 50, 0]
                     }),
             }
         ],
@@ -53,7 +51,7 @@ const StorySubmission = props =>{
             {
                 translateY: moveDogAnimation.interpolate({
                     inputRange: [0, 1],
-                    outputRange: [-110, 20]
+                    outputRange: [-100, 20]
                     })
             }
         ],
@@ -64,7 +62,7 @@ const StorySubmission = props =>{
             {
             translateX: appearAnimaton.interpolate({
                 inputRange: [0, 0.85, 1],
-                outputRange: [300, 25, 0]
+                outputRange: [450, 25, 0]
                 })
                // translateY: 40,
             
@@ -77,10 +75,8 @@ const StorySubmission = props =>{
             {
             translateX: appearAnimaton.interpolate({
                 inputRange: [0, 0.85, 1],
-                outputRange: [300, 5, 0]
+                outputRange: [450, 5, 0]
                 })
-               // translateY: 40,
-            
             }
         ],
     }
@@ -92,8 +88,9 @@ const StorySubmission = props =>{
         }),
     }
 
+
     return (
-        <Animated.View style={{...styles.screen, }}>
+        <View style={styles.screen}>
             <View style={styles.Container}>
                 <Animated.Text style={{...styles.textPaso1,...animateEntryPaso1}}>Paso 1</Animated.Text>
                 <Animated.Text style={{...styles.textSubiTuHistoria,...animateEntryText}}>Subi tu historia a Instagram</Animated.Text>
@@ -103,21 +100,22 @@ const StorySubmission = props =>{
                     text={"Notificanos al subir tu historia"}/>
             </View>
             <Animated.View style={{...styles.ContainerButton,...animateEntryButton}}>
-            <AwesomeButton 
-                backgroundColor={Colors.primary}
-                borderRadius={140/2}
-                width={140}
-                height={140}
-                backgroundPlaceholder={'#010203'}
-                backgroundDarker={'#010203'}
-                onPress={(next) => {
-                    startDesappearAnimation()
-                    next()
-                }}>
-                YA SUBI MI FOTO
+                <AwesomeButton 
+                    backgroundColor={Colors.primary}
+                    borderRadius={140/2}
+                    width={140}
+                    height={140}
+                    disabled={!doAppearAnimaton}
+                    backgroundPlaceholder={'#010203'}
+                    backgroundDarker={'#010203'}
+                    onPress={(next) => {
+                        startDesappearAnimation()
+                        next()
+                    }}>
+                    YA SUBI MI FOTO
                 </AwesomeButton>
-        </Animated.View>
-        </Animated.View>
+            </Animated.View>
+        </View>
     )
 };
 
@@ -163,4 +161,3 @@ const styles = StyleSheet.create({
 });
 
 export default StorySubmission
-

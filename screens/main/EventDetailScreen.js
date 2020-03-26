@@ -13,6 +13,7 @@ import * as Permissions from 'expo-permissions'
 import { useSelector, useDispatch} from 'react-redux'
 import Welcome from '../steps/Welcome'
 import StorySubmission from '../steps/StorySubmission'
+import StoryValidation from '../steps/StoryValidation'
 
 
 import * as EventActions from '../../store/actions/events'
@@ -98,26 +99,50 @@ const MainScreen = props => {
         }
     }
 
-    const [activeState, setActiveState] = useState([
-        true,
-        false,
-        false
-    ])
+    const [state0, setState0] = useState(true)
+    const [state1, setState1] = useState(false)
+    const [state2, setState2] = useState(false)
 
     const initStorySubmission = () => {
-        setActiveState([false, true, false])
+        setState0(false)
+        setState1(true)
+        setState2(false)
     }
 
+    const initValidationScreen = () => {
+        setState0(false)
+        setState1(false)
+        setState2(true)
+    }
+    if(state2){
+        return (
+        <LinearGradient colors={['#141E30','#243B55']} start={[0,0]} end={[1,1]} style={styles.gradient}>
+        <View style={styles.screen}>
+            <StoryValidation
+            active={state2}
+            next={initValidationScreen}/>
+        </View>
+        </LinearGradient>
+        )
+    }
+    if (state1){
+        return(
+        <LinearGradient colors={['#141E30','#243B55']} start={[0,0]} end={[1,1]} style={styles.gradient}>
+        <View style={styles.screen}>
+            <StorySubmission
+            active={state1}
+            next={initValidationScreen}/>
+        </View>
+        </LinearGradient>
+    )
+    }
     return (
         <LinearGradient colors={['#141E30','#243B55']} start={[0,0]} end={[1,1]} style={styles.gradient}>
         <View style={styles.screen}>
-
             <Welcome 
                 eventTitle={props.navigation.getParam('eventTitle')}
                 next={initStorySubmission}
-                active={activeState[0]}/>
-
-            <StorySubmission  active={activeState[1]}/>
+                active={state0}/>
         </View>
         </LinearGradient>
     )
