@@ -45,7 +45,7 @@ const StorySubmission = props =>{
                     <BubbleText
                         style={{fontSize:15, alignSelf:'flex-start'}}
                         textStyle={{fontSize: 14}}
-                        text={"Activá las notificaciones para resivir un aviso de validación"}/>
+                        text={"Activá las notificaciones para recibir un aviso de validación"}/>
                 </View>
             </Animated.View>
             <Animated.Text style={styles.textActivarNot}>Activar Notificaciones</Animated.Text>
