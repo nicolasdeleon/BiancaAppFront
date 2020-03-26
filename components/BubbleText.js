@@ -8,8 +8,8 @@ import {
 
 const BubbleText = props =>{
     return (
-        <Animated.View style={{...styles.container,...props.style}}>
-            <Text style={styles.text}>{props.text}</Text>
+        <Animated.View style={{...styles.container, ...props.style}}>
+            <Text style={{...styles.text, ...props.textStyle}}>{props.text}</Text>
         </Animated.View>
     )
 };
@@ -29,7 +29,6 @@ const styles = StyleSheet.create({
         width: '80%', 
     },
     text: {
-        fontSize: 18,
         fontFamily: 'open-sans',
         marginLeft: 3,
     }

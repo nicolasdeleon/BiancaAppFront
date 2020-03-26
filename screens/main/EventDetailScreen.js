@@ -11,9 +11,10 @@ import { Notifications } from 'expo'
 import * as Permissions from 'expo-permissions'
 
 import { useSelector, useDispatch} from 'react-redux'
-import Welcome from '../steps/Welcome'
+import StoryWelcome from '../steps/StoryWelcome'
 import StorySubmission from '../steps/StorySubmission'
 import StoryValidation from '../steps/StoryValidation'
+import StoryChangeProduct from '../steps/StoryChangeProduct'
 
 
 import * as EventActions from '../../store/actions/events'
@@ -99,28 +100,42 @@ const MainScreen = props => {
         }
     }
 
-    const [state0, setState0] = useState(true)
+    const [state0, setState0] = useState(false)
     const [state1, setState1] = useState(false)
-    const [state2, setState2] = useState(false)
+    const [state2, setState2] = useState(true)
+    const [state3, setState3] = useState(false)
+
 
     const initStorySubmission = () => {
         setState0(false)
         setState1(true)
         setState2(false)
+        setState3(false)
     }
 
     const initValidationScreen = () => {
         setState0(false)
         setState1(false)
         setState2(true)
+        setState3(false)
+    }
+
+    if(state3){
+        return (
+        <LinearGradient colors={['#141E30','#243B55']} start={[0,0]} end={[1,1]} style={styles.gradient}>
+        <View style={styles.screen}>
+            <StoryChangeProduct
+            active={state3}/>
+        </View>
+        </LinearGradient>
+        )
     }
     if(state2){
         return (
         <LinearGradient colors={['#141E30','#243B55']} start={[0,0]} end={[1,1]} style={styles.gradient}>
         <View style={styles.screen}>
             <StoryValidation
-            active={state2}
-            next={initValidationScreen}/>
+            active={state2}/>
         </View>
         </LinearGradient>
         )
@@ -139,7 +154,7 @@ const MainScreen = props => {
     return (
         <LinearGradient colors={['#141E30','#243B55']} start={[0,0]} end={[1,1]} style={styles.gradient}>
         <View style={styles.screen}>
-            <Welcome 
+            <StoryWelcome 
                 eventTitle={props.navigation.getParam('eventTitle')}
                 next={initStorySubmission}
                 active={state0}/>

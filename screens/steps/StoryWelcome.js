@@ -11,9 +11,9 @@ import AwesomeButton from 'react-native-really-awesome-button';
 import useAnimation from '../../components/UseAnimaton'
 import Colors from '../../constants/Colors';
 
-const WelcomeEvent = props =>{
+const StoryWelcome = props =>{
 
-    const [doAppearAnimaton, setAppearAnimaton] = useState(true)
+    const [doAppearAnimaton, setAppearAnimaton] = useState(props.active)
 
     const appearAnimaton = useAnimation({doAnimation: doAppearAnimaton, duration: 500, easing: Easing.linear, callback: ()=>{}, delay: 0})
 
@@ -103,5 +103,4 @@ const styles = StyleSheet.create({
     },
 });
 
-export default WelcomeEvent
-
+export default StoryWelcome

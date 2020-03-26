@@ -20,11 +20,6 @@ const StorySubmission = props =>{
 
     const appearAnimaton = useAnimation({doAnimation: doAppearAnimaton, duration: 700, easing: Easing.linear, callback: ()=>{}, delay: 0})
 
-
-    useEffect( () => {
-        setAppearAnimaton(props.active)
-    },[props])
-
     const startDesappearAnimation = () => {
         // HERE WITH A CALLBACK I NEED TO FORCE APPEARENCE OF NEXT SCREEN
         //props.next()
@@ -39,7 +34,21 @@ const StorySubmission = props =>{
 
     return (
         <Animated.View style={{...styles.screen, ...animateEntryScreen}}>
-            <Text>STORY VALIDATION</Text>
+            <Animated.Text style={styles.textEstamosValidando}>Estamos validando tu historia en Instagram</Animated.Text>
+            <Animated.Text style={styles.textUnMomento}>Un momento por favor...</Animated.Text>
+            <Animated.View style={styles.proTipContainer}>
+                <Animated.Image style={{...styles.image}} source={ require('../../staticData/dog.png') }/>
+                <View>
+                    <View style={{marginLeft:4}}>
+                        <Text style={styles.textPropTip}>Pro tip</Text>
+                    </View>
+                    <BubbleText
+                        style={{fontSize:15, alignSelf:'flex-start'}}
+                        textStyle={{fontSize: 14}}
+                        text={"Activá las notificaciones para resivir un aviso de validación"}/>
+                </View>
+            </Animated.View>
+            <Animated.Text style={styles.textActivarNot}>Activar Notificaciones</Animated.Text>
         </Animated.View>
     )
 };
@@ -66,24 +75,43 @@ const styles = StyleSheet.create({
         width: '100%',
         height: '40%'
     },
-    textPaso1: {
-        fontSize: 24,
+    textEstamosValidando: {
+        fontSize: 20,
         fontFamily: 'open-sans-bold',
         textAlign: 'center',
-        color: 'white',
-        marginVertical: 6,
     },
-    textSubiTuHistoria: {
-        fontSize: 26,
-        fontFamily: 'open-sans-bold',
+    textUnMomento: {
+        fontSize: 20,
+        fontFamily: 'open-sans',
         textAlign: 'center',
-        color: 'white'
+    },
+    textPropTip: {
+        fontFamily: 'open-sans-bold',
+        marginLeft: 12
     },
     image:{
         width:'30%',
         height:'30%',
-        resizeMode:"contain",
+        resizeMode: 'contain',
+        marginRight: 5,
+        alignSelf:'flex-end',
+        transform : [
+            { rotate: '-12deg' },
+            { translateY: 25 },
+            { translateX: 8 }
+        ],
     },
+    proTipContainer:{
+        width: '90%',
+        alignItems: 'center',
+        alignContent: 'center'
+    },
+    textActivarNot: {
+        fontSize: 16,
+        color: 'white',
+        textDecorationLine: 'underline',
+        fontFamily: 'open-sans'
+    }
 });
 
 export default StorySubmission

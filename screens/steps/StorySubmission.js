@@ -22,10 +22,6 @@ const StorySubmission = props =>{
     const moveDogAnimation = useAnimation({doAnimation: doAppearAnimaton, duration: 700, easing: Easing.linear, callback: ()=>{}, delay: 100})
     const appearFirstBubble = useAnimation({doAnimation: doAppearAnimaton, duration: 700, easing: Easing.linear, callback: ()=>{}, delay: 1000})
 
-    useEffect( () => {
-        setAppearAnimaton(props.active)
-    },[props])
-
     const startDesappearAnimation = () => {
         // HERE WITH A CALLBACK I NEED TO FORCE APPEARENCE OF NEXT SCREEN
         props.next()
@@ -64,8 +60,6 @@ const StorySubmission = props =>{
                 inputRange: [0, 0.85, 1],
                 outputRange: [450, 25, 0]
                 })
-               // translateY: 40,
-            
             }
         ],
     }
@@ -97,6 +91,7 @@ const StorySubmission = props =>{
                 <Animated.Image style={{...styles.image, ...animateEntryImage}} source={ require('../../staticData/dog.png') }/>
                 <BubbleText
                     style={{marginVertical:25, ...animateFirstBubble}}
+                    textStyle={{fontSize: 18}}
                     text={"Notificanos al subir tu historia"}/>
             </View>
             <Animated.View style={{...styles.ContainerButton,...animateEntryButton}}>
