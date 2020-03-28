@@ -76,7 +76,6 @@ const ForgotPasswordScreen = props => {
             formState.inputValues.email,
             )
         if(formState.formIsValid){
-            console.log(formState.formIsValid)
             setIsLoading(true)
             setError(null)
             try{

@@ -24,7 +24,6 @@ import * as AuthActions from '../../store/actions/auth'
 const MainScreen = props => {
 
     const [error, setError] = useState()
-    const [sentCode, setSentCode] = useState(false)
     const [isLoading, setIsLoading] = useState(false)
     const userToken = useSelector( state => state.auth.token )
     const productId = props.navigation.getParam('eventId')
@@ -32,32 +31,39 @@ const MainScreen = props => {
     const activeContracts = useSelector( state => state.events.activeContracts )
     const dispatch = useDispatch()
 
-    // FUNCTION THAT LOADS CONTRACTS AND EVENTS
-    const loadContractsAndEvents = useCallback(async () =>{
+
+    const checkUserEventState = useCallback(async () =>{
         setIsLoading(true)
         setError(null)
         try {
+            /* TODO: Get particular event and contract would be more effective */
             await dispatch(EventActions.getActiveEvents())
             await dispatch(EventActions.getActiveContracts(userToken))
         } catch (err){
             setError(err.message)
         }
         setIsLoading(false)
+        /* 
+            TODO:
+            Check if user state in event with the event and contract loaded indexing with pk
+            update user state with the correct function EJ: initWinnerScreen()
+        */
+
     },[dispatch, setIsLoading, setError])
 
     // FUNTION THAT fRUNS LOAD CONTRACTS AND EVENTS
     useEffect( () => {
-            loadContractsAndEvents()
-    },[dispatch, loadContractsAndEvents])
+            // checkUserEventState()
+    },[dispatch, checkUserEventState])
 
     useEffect( () => {
         const willFocusSub = props.navigation.addListener('willFocus',()=>{
-            loadContractsAndEvents() 
+            // checkUserEventState() 
         })
         return () => {
             willFocusSub.remove()
         }
-    },[loadContractsAndEvents])
+    },[checkUserEventState])
     
     LogOutHandler = () => {
         dispatch(AuthActions.logout())
@@ -65,7 +71,7 @@ const MainScreen = props => {
     }
 
     _handleNotification = () => {
-        loadContractsAndEvents()
+        // checkUserEventState()
     }
 
     joinEvent = async () => {
@@ -88,9 +94,10 @@ const MainScreen = props => {
         try{
             await dispatch(action)
             setIsLoading(false)
-            //loadContractsAndEvents()
+            // checkUserEventState()
         }catch (err){
             setError(err.message)
+            console.log(err)
             setIsLoading(false)
         }
 
@@ -118,7 +125,20 @@ const MainScreen = props => {
         setState3(false)
         setState4(false)
     }
+
+    const initWinnerScreen = () => {
+        setState0(false)
+        setState1(false)
+        setState2(true)
+        setState3(false)
+        setState4(false)
+    }
+
     const initFinitScreen = () => {
+        /* 
+            TODO:
+            Llamado a la api para colocar al usuario en finalizado
+        */
         setState0(false)
         setState1(false)
         setState2(false)
@@ -221,14 +241,3 @@ MainScreen.navigationOptions = navData => {
 }
 
 export default MainScreen
-
-/*
-<EventDetail 
-    loading = {isLoading}
-    sentCode = {sentCode}
-    insertCodeButton = {()=>{}}
-    event = {selectedEvent}
-    activeContracts = {activeContracts}
-    loadContractsAndEvents = {loadContractsAndEvents}
-    />
-*/
