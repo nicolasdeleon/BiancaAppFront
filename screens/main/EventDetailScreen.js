@@ -23,10 +23,8 @@ import * as AuthActions from '../../store/actions/auth'
 
 const MainScreen = props => {
 
-    const [codeValue, setCodeValue] = useState('')
     const [error, setError] = useState()
     const [sentCode, setSentCode] = useState(false)
-    const [modalValidity, setModalValidity] = useState(false)
     const [isLoading, setIsLoading] = useState(false)
     const userToken = useSelector( state => state.auth.token )
     const productId = props.navigation.getParam('eventId')
@@ -47,7 +45,7 @@ const MainScreen = props => {
         setIsLoading(false)
     },[dispatch, setIsLoading, setError])
 
-    // FUNTION THAT RUNS LOAD CONTRACTS AND EVENTS
+    // FUNTION THAT fRUNS LOAD CONTRACTS AND EVENTS
     useEffect( () => {
             loadContractsAndEvents()
     },[dispatch, loadContractsAndEvents])
@@ -70,7 +68,7 @@ const MainScreen = props => {
         loadContractsAndEvents()
     }
 
-    sendInsertCode = async () => {
+    joinEvent = async () => {
         let notificationToken = null
         const { status } = await Permissions.getAsync(Permissions.NOTIFICATIONS)
         if (status === 'granted'){
@@ -80,25 +78,22 @@ const MainScreen = props => {
         if(!userToken){
             return
         }
-        let action
-        action = EventActions.joinEvent(userToken, codeValue, notificationToken)
 
-        if(modalValidity){
-            setIsLoading(true)
-            setError(null)
-            try{
-                await dispatch(action)
-                setIsLoading(false)
-                setSentCode(true)
-                closeInsertCode()
-                loadContractsAndEvents()
-            }catch (err){
-                setError(err.message)
-                setIsLoading(false)
-            }
-        }else{
-            setError('Código inválido')
+        let action
+        action = EventActions.joinEvent(userToken, selectedEvent.pk, notificationToken)
+
+        setIsLoading(true)
+        setError(null)
+
+        try{
+            await dispatch(action)
+            setIsLoading(false)
+            //loadContractsAndEvents()
+        }catch (err){
+            setError(err.message)
+            setIsLoading(false)
         }
+
     }
 
     const [state0, setState0] = useState(true)
@@ -116,6 +111,7 @@ const MainScreen = props => {
     }
 
     const initValidationScreen = () => {
+        joinEvent()
         setState0(false)
         setState1(false)
         setState2(true)
