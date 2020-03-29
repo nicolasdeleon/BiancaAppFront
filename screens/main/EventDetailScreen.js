@@ -29,19 +29,27 @@ const MainScreen = props => {
     const productId = props.navigation.getParam('eventId')
     const selectedEvent = useSelector(state=>state.events.activeEvents.find(prod => prod.pk===productId))
     const activeContracts = useSelector( state => state.events.activeContracts )
+    const postr_status = useSelector( state => state.events.status_postr )
     const dispatch = useDispatch()
 
 
     const checkUserEventState = useCallback(async () =>{
         setIsLoading(true)
         setError(null)
+       
         try {
             /* TODO: Get particular event and contract would be more effective */
-            await dispatch(EventActions.getActiveEvents())
-            await dispatch(EventActions.getActiveContracts(userToken))
+            //await dispatch(EventActions.getActiveEvents())
+            //await dispatch(EventActions.getActiveContracts(userToken))
+            //const { status } = await Permissions.getAsync(Permissions.NOTIFICATIONS)EventActions.joinEvent(userToken, selectedEvent.pk, notificationToken)
+            dispatch(EventActions.getEvenReltState(userToken,productId))
+           //await  dispatch(EventActions.getEvenReltState(userToken,productId))
         } catch (err){
+            console.log('*************************************************************1' )
+            console.log(err.message)
             setError(err.message)
         }
+
         setIsLoading(false)
         /* 
             TODO:
@@ -53,7 +61,7 @@ const MainScreen = props => {
 
     // FUNTION THAT fRUNS LOAD CONTRACTS AND EVENTS
     useEffect( () => {
-            // checkUserEventState()
+             checkUserEventState()
     },[dispatch, checkUserEventState])
 
     useEffect( () => {
@@ -84,8 +92,9 @@ const MainScreen = props => {
         if(!userToken){
             return
         }
-
-        let action
+        
+        if (postr_status === "2BA") {
+            let action
         action = EventActions.joinEvent(userToken, selectedEvent.pk, notificationToken)
 
         setIsLoading(true)
@@ -94,13 +103,15 @@ const MainScreen = props => {
         try{
             await dispatch(action)
             setIsLoading(false)
-            // checkUserEventState()
+            //checkUserEventState()
         }catch (err){
             setError(err.message)
             console.log(err)
             setIsLoading(false)
         }
 
+        }
+        
     }
 
     finEvent = async () => {
@@ -113,7 +124,7 @@ const MainScreen = props => {
         if(!userToken){
             return
         }
-
+        
         let action
         action = EventActions.finEvent(userToken, selectedEvent.pk, notificationToken)
 
@@ -139,15 +150,29 @@ const MainScreen = props => {
     const [state4, setState4] = useState(false)
 
     const initStorySubmission = () => {
-        setState0(false)
-        setState1(true)
-        setState2(false)
-        setState3(false)
-        setState4(false)
+        checkUserEventState()
+       
+        if (postr_status === "2BA") {
+            setState0(false)
+            setState1(true)
+            setState2(false)
+            setState3(false)
+            setState4(false)
+        } else if (postr_status === "W") {
+            setState0(false)
+            setState1(false)
+            setState2(false)
+            setState3(true)
+            setState4(false)
+        }
+        
+      
     }
 
     const initValidationScreen = () => {
+        console.log("estado de tatus en initValid " +postr_status)
         joinEvent()
+        
         setState0(false)
         setState1(false)
         setState2(true)
@@ -164,10 +189,7 @@ const MainScreen = props => {
     }
 
     const initFinitScreen = () => {
-        /* 
-            TODO:
-            Llamado a la api para colocar al usuario en finalizado
-        */
+        finEvent()
         setState0(false)
         setState1(false)
         setState2(false)
@@ -186,7 +208,7 @@ const MainScreen = props => {
         </LinearGradient>
         )
     }
-    if(state3){
+    if(state3 || postr_status === "W"){
         return (
         <LinearGradient colors={['#141E30','#243B55']} start={[0,0]} end={[1,1]} style={styles.gradient}>
         <View style={styles.screen}>
@@ -197,7 +219,7 @@ const MainScreen = props => {
         </LinearGradient>
         )
     }
-    if(state2){
+    if(state2 ){
         return (
         <LinearGradient colors={['#141E30','#243B55']} start={[0,0]} end={[1,1]} style={styles.gradient}>
         <View style={styles.screen}>
@@ -218,7 +240,7 @@ const MainScreen = props => {
         </LinearGradient>
         )
     }
-    // state0
+    if (postr_status != "W"){
     return (
         <LinearGradient colors={['#141E30','#243B55']} start={[0,0]} end={[1,1]} style={styles.gradient}>
         <View style={styles.screen}>
@@ -228,7 +250,8 @@ const MainScreen = props => {
                 active={state0}/>
         </View>
         </LinearGradient>
-    )
+     )
+    }
 }
 
 

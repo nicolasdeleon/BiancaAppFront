@@ -55,8 +55,8 @@ const EventFeedScreen = props => {
     if(error){
         return(
             <View style={{flex:1,justifyContent:'center',alignItems:'center'}}>
-                <Text>A ocurrido un error: {error}</Text>
-                <Button title="Intenar de Nuevo" onPress={loadContracts} color={Colors.primary}/>
+                <Text>Ha ocurrido un error: {error}</Text>
+                <Button title="Intentar de Nuevo" onPress={loadContracts} color={Colors.primary}/>
             </View>
         )
     }
