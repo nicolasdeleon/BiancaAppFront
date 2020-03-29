@@ -103,6 +103,35 @@ const MainScreen = props => {
 
     }
 
+    finEvent = async () => {
+        let notificationToken = null
+        const { status } = await Permissions.getAsync(Permissions.NOTIFICATIONS)
+        if (status === 'granted'){
+            notificationToken = await Notifications.getExpoPushTokenAsync()
+            Notifications.addListener(_handleNotification);
+        }
+        if(!userToken){
+            return
+        }
+
+        let action
+        action = EventActions.finEvent(userToken, selectedEvent.pk, notificationToken)
+
+        setIsLoading(true)
+        setError(null)
+
+        try{
+            await dispatch(action)
+            setIsLoading(false)
+            // checkUserEventState()
+        }catch (err){
+            setError(err.message)
+            console.log(err)
+            setIsLoading(false)
+        }
+
+    }
+
     const [state0, setState0] = useState(true)
     const [state1, setState1] = useState(false)
     const [state2, setState2] = useState(false)
