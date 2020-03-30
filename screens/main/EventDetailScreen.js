@@ -2,7 +2,7 @@ import React, { useState, useCallback, useEffect} from 'react'
 import {
     View,
     StyleSheet,
-    StatusBar,
+    ActivityIndicator,
 } from 'react-native'
 
 import { LinearGradient } from 'expo-linear-gradient'
@@ -17,6 +17,7 @@ import StoryValidation from '../steps/StoryValidation'
 import StoryChangeProduct from '../steps/StoryChangeProduct'
 import StoryFinit from '../steps/StoryFinit'
 
+import Colors from '../../constants/Colors'
 
 import * as EventActions from '../../store/actions/events'
 import * as AuthActions from '../../store/actions/auth'
@@ -24,54 +25,102 @@ import * as AuthActions from '../../store/actions/auth'
 const MainScreen = props => {
 
     const [error, setError] = useState()
-    const [isLoading, setIsLoading] = useState(false)
+    const [isLoading, setIsLoading] = useState(true)
     const userToken = useSelector( state => state.auth.token )
     const productId = props.navigation.getParam('eventId')
     const selectedEvent = useSelector(state=>state.events.activeEvents.find(prod => prod.pk===productId))
-    const activeContracts = useSelector( state => state.events.activeContracts )
-    const postr_status = useSelector( state => state.events.status_postr )
+    const contractStatus = useSelector( state => state.events.contractStatus )
     const dispatch = useDispatch()
 
+    const [state0, setState0] = useState(false)
+    const [state1, setState1] = useState(false)
+    const [state2, setState2] = useState(false)
+    const [state3, setState3] = useState(false)
+    const [state4, setState4] = useState(false)
 
-    const checkUserEventState = useCallback(async () =>{
+    const initStorySubmission = () => {
+        updateUserEventState()
+        setState0(false)
+        setState1(true)
+        setState2(false)
+        setState3(false)
+        setState4(false)
+    }
+
+    const initValidationScreen = () => {
+        setState0(false)
+        setState1(false)
+        setState2(true)
+        setState3(false)
+        setState4(false)
+    }
+
+    const initWinnerScreen = () => {
+        setState0(false)
+        setState1(false)
+        setState2(false)
+        setState3(true)
+        setState4(false)
+    }
+
+    const initFinitScreen = () => {
+        setState0(false)
+        setState1(false)
+        setState2(false)
+        setState3(false)
+        setState4(true)
+    }
+
+
+    const updateUserEventState = useCallback(async () => {
         setIsLoading(true)
         setError(null)
+
+        let action = EventActions.getEvenReltState(userToken, productId)
        
         try {
-            /* TODO: Get particular event and contract would be more effective */
-            //await dispatch(EventActions.getActiveEvents())
-            //await dispatch(EventActions.getActiveContracts(userToken))
-            //const { status } = await Permissions.getAsync(Permissions.NOTIFICATIONS)EventActions.joinEvent(userToken, selectedEvent.pk, notificationToken)
-            dispatch(EventActions.getEvenReltState(userToken,productId))
-           //await  dispatch(EventActions.getEvenReltState(userToken,productId))
+
+            await dispatch(action)
         } catch (err){
-            console.log('*************************************************************1' )
-            console.log(err.message)
             setError(err.message)
         }
 
-        setIsLoading(false)
-        /* 
-            TODO:
-            Check if user state in event with the event and contract loaded indexing with pk
-            update user state with the correct function EJ: initWinnerScreen()
-        */
+        console.log(contractStatus)
+        /* Posible states: 2BA W F R */
+        if(contractStatus === "2BA") {
+            initValidationScreen()
+        }
+        else if(contractStatus === "W") {
+            console.log("is winner?")
+            initWinnerScreen()
+        }
+        else if(contractStatus === "F") {
+            initFinitScreen()
+        } else if(contractStatus == "N" ) {
+            // Lo mando al estado inicial
+            setState0(true)
+            setState2(false)
+            setState3(false)
+            setState4(false)
+        }
 
-    },[dispatch, setIsLoading, setError])
+        setIsLoading(false)
+
+    },[dispatch, setIsLoading, setError, contractStatus,])
 
     // FUNTION THAT fRUNS LOAD CONTRACTS AND EVENTS
-    useEffect( () => {
-             checkUserEventState()
-    },[dispatch, checkUserEventState])
+   useEffect( () => {
+             updateUserEventState()
+    },[dispatch, updateUserEventState])
 
     useEffect( () => {
         const willFocusSub = props.navigation.addListener('willFocus',()=>{
-            // checkUserEventState() 
+            updateUserEventState() 
         })
         return () => {
             willFocusSub.remove()
         }
-    },[checkUserEventState])
+    },[updateUserEventState])
     
     LogOutHandler = () => {
         dispatch(AuthActions.logout())
@@ -79,7 +128,7 @@ const MainScreen = props => {
     }
 
     _handleNotification = () => {
-        // checkUserEventState()
+        updateUserEventState()
     }
 
     joinEvent = async () => {
@@ -92,110 +141,37 @@ const MainScreen = props => {
         if(!userToken){
             return
         }
-        
-        if (postr_status === "2BA") {
-            let action
+
+        let action
         action = EventActions.joinEvent(userToken, selectedEvent.pk, notificationToken)
 
-        setIsLoading(true)
         setError(null)
 
         try{
             await dispatch(action)
-            setIsLoading(false)
-            //checkUserEventState()
+            //updateUserEventState()
         }catch (err){
             setError(err.message)
             console.log(err)
-            setIsLoading(false)
         }
-
-        }
-        
     }
 
     finEvent = async () => {
-        let notificationToken = null
-        const { status } = await Permissions.getAsync(Permissions.NOTIFICATIONS)
-        if (status === 'granted'){
-            notificationToken = await Notifications.getExpoPushTokenAsync()
-            Notifications.addListener(_handleNotification);
-        }
-        if(!userToken){
-            return
-        }
-        
-        let action
-        action = EventActions.finEvent(userToken, selectedEvent.pk, notificationToken)
 
-        setIsLoading(true)
+        let action
+        action = EventActions.finEvent(userToken, selectedEvent.pk)
+
         setError(null)
 
         try{
             await dispatch(action)
-            setIsLoading(false)
-            // checkUserEventState()
+            //updateUserEventState()
         }catch (err){
             setError(err.message)
             console.log(err)
-            setIsLoading(false)
         }
-
     }
 
-    const [state0, setState0] = useState(true)
-    const [state1, setState1] = useState(false)
-    const [state2, setState2] = useState(false)
-    const [state3, setState3] = useState(false)
-    const [state4, setState4] = useState(false)
-
-    const initStorySubmission = () => {
-        checkUserEventState()
-       
-        if (postr_status === "2BA") {
-            setState0(false)
-            setState1(true)
-            setState2(false)
-            setState3(false)
-            setState4(false)
-        } else if (postr_status === "W") {
-            setState0(false)
-            setState1(false)
-            setState2(false)
-            setState3(true)
-            setState4(false)
-        }
-        
-      
-    }
-
-    const initValidationScreen = () => {
-        console.log("estado de tatus en initValid " +postr_status)
-        joinEvent()
-        
-        setState0(false)
-        setState1(false)
-        setState2(true)
-        setState3(false)
-        setState4(false)
-    }
-
-    const initWinnerScreen = () => {
-        setState0(false)
-        setState1(false)
-        setState2(true)
-        setState3(false)
-        setState4(false)
-    }
-
-    const initFinitScreen = () => {
-        finEvent()
-        setState0(false)
-        setState1(false)
-        setState2(false)
-        setState3(false)
-        setState4(true)
-    }
 
     if(state4){
         return (
@@ -208,18 +184,20 @@ const MainScreen = props => {
         </LinearGradient>
         )
     }
-    if(state3 || postr_status === "W"){
+    if(state3){
         return (
         <LinearGradient colors={['#141E30','#243B55']} start={[0,0]} end={[1,1]} style={styles.gradient}>
         <View style={styles.screen}>
             <StoryChangeProduct
             active={state3}
-            next={initFinitScreen}/>
+            next={ () => {
+                finEvent()
+                initFinitScreen()}}/>
         </View>
         </LinearGradient>
         )
     }
-    if(state2 ){
+    if(state2){
         return (
         <LinearGradient colors={['#141E30','#243B55']} start={[0,0]} end={[1,1]} style={styles.gradient}>
         <View style={styles.screen}>
@@ -231,27 +209,40 @@ const MainScreen = props => {
     }
     if (state1){
         return(
-        <LinearGradient colors={['#141E30','#243B55']} start={[0,0]} end={[1,1]} style={styles.gradient}>
+        <LinearGradient colors={['#141E30', '#243B55']} start={[0,0]} end={[1,1]} style={styles.gradient}>
         <View style={styles.screen}>
             <StorySubmission
             active={state1}
-            next={initValidationScreen}/>
+            next={ () => {
+                joinEvent()
+                initValidationScreen()
+            }}
+            />
         </View>
         </LinearGradient>
         )
     }
-    if (postr_status != "W"){
-    return (
-        <LinearGradient colors={['#141E30','#243B55']} start={[0,0]} end={[1,1]} style={styles.gradient}>
-        <View style={styles.screen}>
-            <StoryWelcome 
-                eventTitle={props.navigation.getParam('eventTitle')}
-                next={initStorySubmission}
-                active={state0}/>
-        </View>
-        </LinearGradient>
-     )
+    if(state0) {
+        return (
+            <LinearGradient colors={['#141E30', '#243B55']} start={[0,0]} end={[1,1]} style={styles.gradient}>
+            <View style={styles.screen}>
+                <StoryWelcome 
+                    eventTitle={props.navigation.getParam('eventTitle')}
+                    next={ () => {
+                        initStorySubmission()
+                        setState1(true)
+                    }}
+                    active={state0}/>
+            </View>
+            </LinearGradient>
+            )
     }
+
+    return(
+        <View style={{flex:1,justifyContent:'center',alignItems:'center'}}>
+            <ActivityIndicator size='large' color={Colors.accent}/>
+        </View>
+    )
 }
 
 
