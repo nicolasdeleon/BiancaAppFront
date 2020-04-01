@@ -15,18 +15,34 @@ import * as AuthActions from '../../store/actions/auth'
 import Colors from '../../constants/Colors'
 import EventItem from '../../components/EventItem'
 
+const status2Array = (status) => {
+    if (status == "2BA") { 
+        return [false, false, true, false, false]
+    }
+    else if (status == "W") {
+        return [false, false, false, true, false]
+    }
+    else if (status == "F") {
+        return [false, false, false, false, true]
+    }
+    else return[false, false, false, false, false]
+}
 
 const EventFeedScreen = props => {
 
     const [error, setError] = useState()
     const [isLoading, setIsLoading] = useState(false)
     const activeEvents = useSelector( state => state.events.activeEvents )
+    const userToken = useSelector( state => state.auth.token )
+    const activeContracts = useSelector( state => state.events.activeContracts )
+    const userStateInSelectedEvent = useState()
     const dispatch = useDispatch()
 
     const loadContracts = useCallback(async () =>{
         setIsLoading(true)
         setError(null)
         try {
+            await dispatch(EventActions.getActiveContracts())
             await dispatch(EventActions.getActiveEvents())
         } catch (err){
             setError(err.message)
@@ -55,8 +71,8 @@ const EventFeedScreen = props => {
     if(error){
         return(
             <View style={{flex:1,justifyContent:'center',alignItems:'center'}}>
-                <Text>A ocurrido un error: {error}</Text>
-                <Button title="Intenar de Nuevo" onPress={loadContracts} color={Colors.primary}/>
+                <Text>Ha ocurrido un error: {error}</Text>
+                <Button title="Intentar de Nuevo" onPress={loadContracts} color={Colors.primary}/>
             </View>
         )
     }
@@ -90,9 +106,23 @@ const EventFeedScreen = props => {
                         title={itemData.item.title}
                         status={itemData.item.status}
                         image={itemData.item.image}
-                        onSelect={()=>{props.navigation.navigate('EventDetail',{
+                        onSelect={ async () => {
+                            let s = 'N'
+                            if (activeContracts.length != 0) {
+                                console.log("activeContracts : "+ activeContracts)
+                                for (i = 0; i<activeContracts.length; i++) {
+                                    console.log("activeContract id : " + activeContracts[i].eventId)
+                                    if (activeContracts[i].eventId == itemData.item.pk){
+                                        s = activeContracts[i].status
+                                    }
+                                }
+                                console.log("Dentro del for:" + s)
+                            } 
+                            console.log("Fuera del for:" + s)
+                            dispatch(EventActions.setEventRealState(s))
+                            props.navigation.navigate('EventDetail',{
+                            currentStatus: status2Array(s),
                             eventId: itemData.item.pk,
-                            eventCode: itemData.item.code,
                             eventTitle: itemData.item.title,
                             eventDescription: itemData.item.desc,
                             eventStatus: itemData.item.status
