@@ -32,14 +32,13 @@ const MainScreen = props => {
     const contractStatus = useSelector( state => state.events.contractStatus )
     const dispatch = useDispatch()
 
-    const [state0, setState0] = useState(false)
-    const [state1, setState1] = useState(false)
-    const [state2, setState2] = useState(false)
-    const [state3, setState3] = useState(false)
-    const [state4, setState4] = useState(false)
+    const [state0, setState0] = useState(props.navigation.getParam('currentStatus')[0])
+    const [state1, setState1] = useState(props.navigation.getParam('currentStatus')[1])
+    const [state2, setState2] = useState(props.navigation.getParam('currentStatus')[2])
+    const [state3, setState3] = useState(props.navigation.getParam('currentStatus')[3])
+    const [state4, setState4] = useState(props.navigation.getParam('currentStatus')[4])
 
     const initStorySubmission = () => {
-        updateUserEventState()
         setState0(false)
         setState1(true)
         setState2(false)
@@ -85,13 +84,10 @@ const MainScreen = props => {
             setError(err.message)
         }
 
-        console.log(contractStatus)
-        /* Posible states: 2BA W F R */
         if(contractStatus === "2BA") {
             initValidationScreen()
         }
         else if(contractStatus === "W") {
-            console.log("is winner?")
             initWinnerScreen()
         }
         else if(contractStatus === "F") {
@@ -152,7 +148,6 @@ const MainScreen = props => {
             //updateUserEventState()
         }catch (err){
             setError(err.message)
-            console.log(err)
         }
     }
 
@@ -168,7 +163,6 @@ const MainScreen = props => {
             //updateUserEventState()
         }catch (err){
             setError(err.message)
-            console.log(err)
         }
     }
 
@@ -229,6 +223,7 @@ const MainScreen = props => {
                 <StoryWelcome 
                     eventTitle={props.navigation.getParam('eventTitle')}
                     next={ () => {
+                        updateUserEventState()
                         initStorySubmission()
                         setState1(true)
                     }}

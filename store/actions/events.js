@@ -52,7 +52,6 @@ export const getEvenReltState = (userToken, EventPk) => {
                  
                 })
             })
-            console.log(response.status)
 
         if(response.status>207){
             const resData = await response.json()
@@ -65,11 +64,17 @@ export const getEvenReltState = (userToken, EventPk) => {
         }
 
         const resData = await response.json()
-        console.log(resData['status'])
         dispatch({
             type: GET_EVENT_REL_STATUS,
             contractStatus: resData['status']
         })
+    }
+}
+
+export const setEventRealState = (status) => {
+    return {
+        type: GET_EVENT_REL_STATUS,
+        contractStatus: status
     }
 }
 
@@ -130,7 +135,6 @@ export const getActiveEvents = () => {
 
         const resData = await response.json()
         if(resData['response'] === 'Error'){
-            console.log(resData['error_message'])
             throw new Error(resData['error_message'])
         }
         dispatch({
