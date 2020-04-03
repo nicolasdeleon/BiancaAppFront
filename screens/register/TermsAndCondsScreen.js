@@ -32,7 +32,7 @@ const TermsAndCondsScreen = props => {
 }
 
 TermsAndCondsScreen.navigationOptions = (navData) => {
-    return{
+    return {
         headerTitle: 'Términos y Condiciones'
     }
 }

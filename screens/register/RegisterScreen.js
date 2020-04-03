@@ -149,105 +149,100 @@ const RegisterScreen = props => {
     }
 
     return (
-        <KeyboardAvoidingView
-        behavior="padding"
-        keyboardVerticalOffset={70}
-        style={styles.screen}>
-            <LinearGradient colors={[Colors.accent,Colors.dark]} style={styles.gradient}>
-                <View style={styles.authContainer}>
-                    <ScrollView>
-                        <Input
-                            id='firstname'
-                            label='Nombre'
-                            keyboardType='default'
-                            required
-                            autoCapitalize="none"
-                            errorText="Ingrese nombre válido."
-                            onInputChange={inputChangeHandler}
-                            initialValue=''
-                        />
-                        <Input
-                            id='lastname'
-                            label='Apellido'
-                            keyboardType='default'
-                            required
-                            autoCapitalize="none"
-                            errorText="Ingrese apellido válido."
-                            onInputChange={inputChangeHandler}
-                            initialValue=''
-                        />
-                        <Input
-                            id='instaaccount'
-                            label='Usuario Instagram (no es necesario que contenga @)'
-                            keyboardType='default'
-                            required
-                            autoCapitalize="none"
-                            errorText="Ingrese un instagram válido."
-                            onInputChange={inputChangeHandler}
-                            initialValue=''
-                        />
-                        <Input
-                            id='email'
-                            label='E-Mail'
-                            keyboardType='email-address'
-                            required
-                            email
-                            autoCapitalize="none"
-                            errorText="Ingrese un e-mail válido."
-                            onInputChange={inputChangeHandler}
-                            initialValue=''
-                        />
-                        <Input
-                            id='password'
-                            label='Contraseña'
-                            keyboardType='default'
-                            required
-                            secureTextEntry
-                            minLength={5}
-                            autoCapitalize="none"
-                            errorText="Ingrese una contraseña válida mínimo 5 caracteres."
-                            onInputChange={inputChangeHandler}
-                            initialValue=''
-                        />
-                        <Input
-                            id='password2'
-                            label='Confirmar Contraseña'
-                            keyboardType='default'
-                            required
-                            secureTextEntry
-                            minLength={5}
-                            autoCapitalize="none"
-                            errorText="Ingrese una contraseña válida mínimo 5 caracteres."
-                            onInputChange={inputChangeHandler}
-                            initialValue=''
-                        />
-                        <View style={styles.checkbox}>
-                            {/*<CheckBox 
-                            value={acceptTerms}
-                            onValueChange={changeAcceptTerms}
-                            /> 16/02*/}
-                            <Switch 
-                            value={acceptTerms}
-                            onValueChange={changeAcceptTerms}
-                            /> 
-                            <TouchableOpacity onPress={goToTermsAndConds}>  
-                                <Text style={styles.termsandcond}> Acepto los Términos y Condiciones.</Text>
-                            </TouchableOpacity>
-                        </View>
-                        <View style={styles.buttonContainer}>
-                            {isLoading ? (<ActivityIndicator size='small' color={Colors.primary}/>) : 
-                            (<Button 
-                                title='Registrarse'
-                                color={Colors.primary}
-                                onPress={authHandler}
-                            />)}
+        <LinearGradient colors={[Colors.accent,Colors.dark]} style={styles.gradient}>
+            <View style={styles.authContainer}>
+                <ScrollView>
+                    <Input
+                        id='firstname'
+                        label='Nombre'
+                        keyboardType='default'
+                        required
+                        autoCapitalize="none"
+                        errorText="Ingrese nombre válido."
+                        onInputChange={inputChangeHandler}
+                        initialValue=''
+                    />
+                    <Input
+                        id='lastname'
+                        label='Apellido'
+                        keyboardType='default'
+                        required
+                        autoCapitalize="none"
+                        errorText="Ingrese apellido válido."
+                        onInputChange={inputChangeHandler}
+                        initialValue=''
+                    />
+                    <Input
+                        id='instaaccount'
+                        label='Usuario Instagram (no es necesario que contenga @)'
+                        keyboardType='default'
+                        required
+                        autoCapitalize="none"
+                        errorText="Ingrese un instagram válido."
+                        onInputChange={inputChangeHandler}
+                        initialValue=''
+                    />
+                    <Input
+                        id='email'
+                        label='E-Mail'
+                        keyboardType='email-address'
+                        required
+                        email
+                        autoCapitalize="none"
+                        errorText="Ingrese un e-mail válido."
+                        onInputChange={inputChangeHandler}
+                        initialValue=''
+                    />
+                    <Input
+                        id='password'
+                        label='Contraseña'
+                        keyboardType='default'
+                        required
+                        secureTextEntry
+                        minLength={5}
+                        autoCapitalize="none"
+                        errorText="Ingrese una contraseña válida mínimo 5 caracteres."
+                        onInputChange={inputChangeHandler}
+                        initialValue=''
+                    />
+                    <Input
+                        id='password2'
+                        label='Confirmar Contraseña'
+                        keyboardType='default'
+                        required
+                        secureTextEntry
+                        minLength={5}
+                        autoCapitalize="none"
+                        errorText="Ingrese una contraseña válida mínimo 5 caracteres."
+                        onInputChange={inputChangeHandler}
+                        initialValue=''
+                    />
+                    <View style={styles.checkbox}>
+                        {/*<CheckBox 
+                        value={acceptTerms}
+                        onValueChange={changeAcceptTerms}
+                        /> 16/02*/}
+                        <Switch 
+                        value={acceptTerms}
+                        onValueChange={changeAcceptTerms}
+                        /> 
+                        <TouchableOpacity onPress={goToTermsAndConds}>  
+                            <Text style={styles.termsandcond}> Acepto los Términos y Condiciones.</Text>
+                        </TouchableOpacity>
+                    </View>
+                    <View style={styles.buttonContainer}>
+                        {isLoading ? (<ActivityIndicator size='small' color={Colors.primary}/>) : 
+                        (<Button 
+                            title='Registrarse'
+                            color={Colors.primary}
+                            onPress={authHandler}
+                        />)}
 
-                            {error && <Text style={{color:'red'}}>{error}</Text>}
-                            </View>
-                    </ScrollView>
-                </View>
-            </LinearGradient>
-        </KeyboardAvoidingView>
+                        {error && <Text style={{color:'red'}}>{error}</Text>}
+                        </View>
+                </ScrollView>
+            </View>
+        </LinearGradient>
     )
 }
 
