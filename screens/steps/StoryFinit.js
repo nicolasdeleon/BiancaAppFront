@@ -6,7 +6,8 @@ import {
     Animated,
     Text,
     TouchableOpacity,
-    Linking
+    Linking,
+    Platform
 } from 'react-native'
 
 import AwesomeButton from 'react-native-really-awesome-button';
@@ -17,7 +18,6 @@ import Colors from '../../constants/Colors';
 const StoryWelcome = props =>{
 
     const [doAppearAnimaton, setAppearAnimaton] = useState(props.active)
-    const [url, setUrl] = useState("https://google.com")
     const appearAnimaton = useAnimation({doAnimation: doAppearAnimaton, duration: 500, easing: Easing.linear, callback: ()=>{}, delay: 0})
 
     const startDesappearAnimation = () => {
@@ -26,13 +26,17 @@ const StoryWelcome = props =>{
     }
 
     const RateUs = useCallback(async () => {
+        var url = ''
+        if(Platform.OS === 'android'){
+            url = 'https://play.google.com/store/apps/details?id=bianca.bianca'
+        }
         const supported = await Linking.canOpenURL(url);
         if (supported) {
             await Linking.openURL(url);
           } else {
-            Alert.alert('Ups! No se pudo abir');
+            // Alert.alert('Ups! No se pudo abir');
           }
-    }, [url])
+    }, [])
 
     return (
         <View style={styles.screen}>

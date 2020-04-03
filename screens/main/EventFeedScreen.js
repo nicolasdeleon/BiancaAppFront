@@ -106,19 +106,15 @@ const EventFeedScreen = props => {
                         title={itemData.item.title}
                         status={itemData.item.status}
                         image={itemData.item.image}
-                        onSelect={ async () => {
+                        onSelect={() => {
                             let s = 'N'
                             if (activeContracts.length != 0) {
-                                console.log("activeContracts : "+ activeContracts)
                                 for (i = 0; i<activeContracts.length; i++) {
-                                    console.log("activeContract id : " + activeContracts[i].eventId)
                                     if (activeContracts[i].eventId == itemData.item.pk){
                                         s = activeContracts[i].status
                                     }
                                 }
-                                console.log("Dentro del for:" + s)
                             } 
-                            console.log("Fuera del for:" + s)
                             dispatch(EventActions.setEventRealState(s))
                             props.navigation.navigate('EventDetail',{
                             currentStatus: status2Array(s),
@@ -130,7 +126,7 @@ const EventFeedScreen = props => {
                         >
                         </EventItem> 
                     }
-        /> // FlatList
+        />
     )
 }
 
