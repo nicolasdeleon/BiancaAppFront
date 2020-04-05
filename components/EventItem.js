@@ -11,6 +11,8 @@ import {
     Image
 } from 'react-native'
 
+import Colors from '../constants/Colors'
+
 const STATUS_TABLE = {
     '2BO': 'Todavia no ha comenzado',
     'O': 'Evento abierto. Inscribete, publicá y ganá!',
@@ -21,7 +23,7 @@ const STATUS_TABLE = {
 const EventItem = props =>{
 
     const [disabled, setDisabled] = useState(false)
-    const [textContainerColor, setTextContainerColor] = useState("#90EE90")
+    const [textContainerColor, setTextContainerColor] = useState(Colors.greenActiveEvent)
 
     let TouchableCmp = TouchableOpacity;
     if(Platform.OS === 'android' && Platform.Version>=21) {

@@ -1,10 +1,12 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useCallback } from 'react'
 import {
     View,
     Easing,
     StyleSheet,
     Text,
     Image,
+    TouchableOpacity,
+    Linking,
     Animated
 } from 'react-native'
 
@@ -77,6 +79,15 @@ const StorySubmission = props =>{
         }),
     }
 
+    const OpenInstagram = useCallback(async () => {
+        var url = 'https://www.instagram.com/'
+        const supported = await Linking.canOpenURL(url);
+        if (supported) {
+            await Linking.openURL(url);
+          } else {
+            // Alert.alert('Ups! No se pudo abir');
+          }
+    }, [])
 
     return (
         <View style={styles.screen}>
@@ -85,9 +96,9 @@ const StorySubmission = props =>{
                 <Animated.Text style={{...styles.textSubiTuHistoria,...animateEntryText}}>Subi tu historia a Instagram</Animated.Text>
                 <Animated.Image style={{...styles.image, ...animateEntryImage}} source={ require('../../staticData/dog.png') }/>
                 <BubbleText
-                    style={{marginVertical:25, ...animateFirstBubble}}
-                    textStyle={{fontSize: 18}}
-                    text={"Notificanos al subir tu historia"}/>
+                  style={{fontSize:15, alignSelf:'flex-start', ...animateFirstBubble}}
+                  textStyle={{fontSize: 14}}
+                  text={"Notificanos al subir tu historia"}/>
             </View>
             <Animated.View style={{...styles.ContainerButton,...animateEntryButton}}>
                 <AwesomeButton 
@@ -104,6 +115,10 @@ const StorySubmission = props =>{
                     }}>
                     YA SUBI MI FOTO
                 </AwesomeButton>
+                <TouchableOpacity
+                  onPress={OpenInstagram}>
+                    <Text style={{...styles.Instagram, marginTop: 40}}>Abrir Instagram</Text>
+                </TouchableOpacity>
             </Animated.View>
         </View>
     )
@@ -155,6 +170,13 @@ const styles = StyleSheet.create({
             { translateX: 8 }
         ],
     },
+    Instagram: {
+        fontSize: 20,
+        fontFamily: 'open-sans',
+        textAlign: 'center',
+        textDecorationLine: 'underline',
+        color: 'white'
+    }
 });
 
 export default StorySubmission
