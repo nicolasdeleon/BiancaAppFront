@@ -33,7 +33,6 @@ const EventItem = props =>{
         if(!(props.status === 'O')){
             setDisabled(true);
             setTextContainerColor("#6B6B6B")
-            console.log("KE")
         }
     },[props.status])
 
