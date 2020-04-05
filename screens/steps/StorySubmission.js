@@ -18,12 +18,11 @@ const StorySubmission = props =>{
 
     const [doAppearAnimaton, setAppearAnimaton] = useState(props.active)
 
-    const appearAnimaton = useAnimation({doAnimation: doAppearAnimaton, duration: 700, easing: Easing.bounce, callback: ()=>{}, delay: 700})
+    const appearAnimaton = useAnimation({doAnimation: doAppearAnimaton, duration: 700, easing: Easing.bounce, callback: ()=>{}, delay: 300})
     const moveDogAnimation = useAnimation({doAnimation: doAppearAnimaton, duration: 700, easing: Easing.linear, callback: ()=>{}, delay: 100})
-    const appearFirstBubble = useAnimation({doAnimation: doAppearAnimaton, duration: 700, easing: Easing.linear, callback: ()=>{}, delay: 1000})
+    const appearFirstBubble = useAnimation({doAnimation: doAppearAnimaton, duration: 700, easing: Easing.linear, callback: ()=>{}, delay: 700})
 
     const startDesappearAnimation = () => {
-        // HERE WITH A CALLBACK I NEED TO FORCE APPEARENCE OF NEXT SCREEN
         props.next()
     }
 
@@ -43,14 +42,10 @@ const StorySubmission = props =>{
     }
 
     const animateEntryImage = {
-        transform : [
-            {
-                translateY: moveDogAnimation.interpolate({
-                    inputRange: [0, 1],
-                    outputRange: [-100, 20]
-                    })
-            }
-        ],
+        opacity : moveDogAnimation.interpolate({
+            inputRange: [0, 0.5, 1],
+            outputRange: [0, 0.85, 1]
+        })
     }
 
     const animateEntryText = {
@@ -151,7 +146,14 @@ const styles = StyleSheet.create({
     image:{
         width:'30%',
         height:'30%',
-        resizeMode:"contain",
+        resizeMode: 'contain',
+        marginRight: 5,
+        alignSelf:'flex-end',
+        transform : [
+            { rotate: '-12deg' },
+            { translateY: 25 },
+            { translateX: 8 }
+        ],
     },
 });
 

@@ -169,7 +169,10 @@ const MainScreen = props => {
 
     if(state4){
         return (
-        <LinearGradient colors={['#141E30','#243B55']} start={[0,0]} end={[1,1]} style={styles.gradient}>
+        <LinearGradient
+          colors={[Colors.accentGradientDark, Colors.accentGradientLight]}
+          start={[0,0]} end={[1,1]}
+          style={styles.gradient}>
         <View style={styles.screen}>
             <StoryFinit
             active={state4}
@@ -180,7 +183,10 @@ const MainScreen = props => {
     }
     if(state3){
         return (
-        <LinearGradient colors={['#141E30','#243B55']} start={[0,0]} end={[1,1]} style={styles.gradient}>
+        <LinearGradient
+          colors={[Colors.greenGradientDark,Colors.greenGradientLight]}
+          start={[0,0]} end={[1,1]}
+          style={styles.gradient}>
         <View style={styles.screen}>
             <StoryChangeProduct
             active={state3}
@@ -193,7 +199,10 @@ const MainScreen = props => {
     }
     if(state2){
         return (
-        <LinearGradient colors={['#141E30','#243B55']} start={[0,0]} end={[1,1]} style={styles.gradient}>
+        <LinearGradient
+          colors={[Colors.primaryGradientDark, Colors.primaryGradientLight]}
+          start={[0,0]} end={[1,1]}
+          style={styles.gradient}>
         <View style={styles.screen}>
             <StoryValidation
             active={state2}/>
@@ -203,7 +212,10 @@ const MainScreen = props => {
     }
     if (state1){
         return(
-        <LinearGradient colors={['#141E30', '#243B55']} start={[0,0]} end={[1,1]} style={styles.gradient}>
+        <LinearGradient
+          colors={[Colors.accentGradientDark, Colors.accentGradientLight]}
+          start={[0,0]} end={[1,1]}
+          style={styles.gradient}>
         <View style={styles.screen}>
             <StorySubmission
             active={state1}
@@ -218,7 +230,10 @@ const MainScreen = props => {
     }
     if(state0) {
         return (
-            <LinearGradient colors={['#141E30', '#243B55']} start={[0,0]} end={[1,1]} style={styles.gradient}>
+            <LinearGradient
+              colors={[Colors.accentGradientDark, Colors.accentGradientLight]}
+              start={[0,0]} end={[1,1]}
+              style={styles.gradient}>
             <View style={styles.screen}>
                 <StoryWelcome 
                     eventTitle={props.navigation.getParam('eventTitle')}

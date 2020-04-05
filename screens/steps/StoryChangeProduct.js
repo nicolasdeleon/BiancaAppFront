@@ -66,7 +66,6 @@ const styles = StyleSheet.create({
         justifyContent: 'space-around',
         alignItems: 'center',
         position: 'absolute',
-        backgroundColor: 'green'
     },
     textFelicidades: {
         fontSize: 26,

@@ -18,12 +18,7 @@ const StorySubmission = props =>{
 
     const [doAppearAnimaton, setAppearAnimaton] = useState(props.active)
 
-    const appearAnimaton = useAnimation({doAnimation: doAppearAnimaton, duration: 700, easing: Easing.linear, callback: ()=>{}, delay: 0})
-
-    const startDesappearAnimation = () => {
-        // HERE WITH A CALLBACK I NEED TO FORCE APPEARENCE OF NEXT SCREEN
-        //props.next()
-    }
+    const appearAnimaton = useAnimation({doAnimation: doAppearAnimaton, duration: 400, easing: Easing.linear, callback: ()=>{}, delay: 0})
 
     const animateEntryScreen = { 
         opacity: appearAnimaton.interpolate({
@@ -61,7 +56,6 @@ const styles = StyleSheet.create({
         justifyContent: 'space-evenly',
         alignItems: 'center',
         position: 'absolute',
-        backgroundColor: Colors.primary
     },
     Container: {
         justifyContent:'center',
