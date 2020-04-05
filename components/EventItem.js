@@ -1,5 +1,15 @@
 import React, { useState, useEffect } from 'react'
-import {Animated, View,StyleSheet,Text,Easing,Platform,TouchableOpacity,TouchableNativeFeedback,ActivityIndicator,Image} from 'react-native'
+import { 
+    Animated, 
+    View,
+    StyleSheet,
+    Text,
+    Easing,
+    Platform,
+    TouchableOpacity,
+    TouchableNativeFeedback,
+    Image
+} from 'react-native'
 
 const STATUS_TABLE = {
     '2BO': 'Todavia no ha comenzado',
@@ -14,12 +24,12 @@ const EventItem = props =>{
     const [textContainerColor, setTextContainerColor] = useState("#90EE90")
 
     let TouchableCmp = TouchableOpacity;
-    if(Platform.OS === 'android' && Platform.Version>=21){
+    if(Platform.OS === 'android' && Platform.Version>=21) {
         TouchableCmp = TouchableNativeFeedback
     }
     let eventStatus = STATUS_TABLE[props.status]
 
-    useEffect(()=>{
+    useEffect( () => {
         if(!(props.status === 'O')){
             setDisabled(true);
             setTextContainerColor("#6B6B6B")
@@ -29,6 +39,7 @@ const EventItem = props =>{
 
       const [animatedValue, setAnimatedValue] = useState(new Animated.Value(0))
     
+      /* UNCOMMENT THIS FOR DESIRED TWIK EFFECT IN CARD
       useEffect(()=>{
         // A loop is needed for continuous animation
         if(props.status === 'O'){
@@ -45,7 +56,7 @@ const EventItem = props =>{
                 ])
             ).start();
         }
-    },[])
+    },[]) */
 
 
     return (
@@ -84,23 +95,23 @@ const styles = StyleSheet.create({
         overflow: 'hidden',
     },
     image:{
-        width:'100%',
-        height:'75%',
+        width: '100%',
+        height: '75%',
     },
     title:{
-        fontFamily:'open-sans-bold',
-        fontSize:18,
-        marginVertical:4,
+        fontFamily: 'open-sans-bold',
+        fontSize: 18,
+        marginVertical: 4,
     },
     status:{
-        fontFamily:'open-sans',
-        fontSize:14,
+        fontFamily: 'open-sans',
+        fontSize: 14,
     },
     textContainer:{
-        alignItems:'center',
-        justifyContent:'space-between',
-        height:'25%',
-        padding:10,
+        alignItems: 'center',
+        justifyContent: 'space-between',
+        height: '25%',
+        padding: 10,
     },
     overlay: {
         flex: 1,
