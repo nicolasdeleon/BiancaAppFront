@@ -190,6 +190,7 @@ const MainScreen = props => {
         <View style={styles.screen}>
             <StoryChangeProduct
             active={state3}
+            eventType={props.navigation.getParam('eventType')}
             next={ () => {
                 finEvent()
                 initFinitScreen()}}/>

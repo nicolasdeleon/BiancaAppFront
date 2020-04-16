@@ -118,6 +118,7 @@ const EventFeedScreen = props => {
                             dispatch(EventActions.setEventRealState(s))
                             props.navigation.navigate('EventDetail',{
                             currentStatus: status2Array(s),
+                            eventType: 2,
                             eventId: itemData.item.pk,
                             eventTitle: itemData.item.title,
                             eventDescription: itemData.item.desc,
