@@ -110,11 +110,11 @@ const EventFeedScreen = props => {
                             let s = 'N'
                             if (activeContracts.length != 0) {
                                 for (i = 0; i<activeContracts.length; i++) {
-                                    if (activeContracts[i].eventId == itemData.item.pk){
-                                        s = activeContracts[i].status
+                                    if (activeContracts[i].event.pk == itemData.item.pk){
+                                        s = activeContracts[i].event.status
                                     }
                                 }
-                            } 
+                            }
                             dispatch(EventActions.setEventRealState(s))
                             props.navigation.navigate('EventDetail',{
                             currentStatus: status2Array(s),
