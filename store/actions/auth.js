@@ -61,19 +61,27 @@ export const register = (email, firstname, lastname, instaaccount, password, pas
                 },
                 body: JSON.stringify({
                     email: email,
+                    instaAccount: instaaccount,
+                    password: password,
+                    password2: password2,
                     first_name: firstname,
                     last_name: lastname,
-                    instaaccount: instaaccount,
-                    birth_date: null,
-                    password: password,
-                    password2: password2
+                    role: "1",
                 })
             }
         )
+        console.log ("response")
+        console.log (response)
+        console.log (response)
         if(response.status>207){
             throw new Error(response.status)
         }
         const resData = await response.json()
+
+
+        console.log ("resData")
+        console.log (resData)
+
         if(resData['response'] === 'Error'){
             throw new Error(resData['error_message'])
         }

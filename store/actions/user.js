@@ -11,6 +11,9 @@ export const getUserInfo = (Token) => {
                     'Authorization': `Token ${Token}`
                 }
             })
+            
+        console.log(Token)
+        console.log(response)
         if(response.status>207){
             const resData = await response.json()
             if(resData['response'] === 'Error'){
@@ -24,7 +27,7 @@ export const getUserInfo = (Token) => {
        dispatch({type:GET_USER_INFO,
         name: resData['full_name'],
         email: resData['email'],
-        instaAccount: resData['instaaccount']})
+        instaAccount: resData['instaAccount']})
 
     }
 }
