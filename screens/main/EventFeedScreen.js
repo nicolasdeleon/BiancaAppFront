@@ -14,6 +14,7 @@ import * as AuthActions from '../../store/actions/auth'
 
 import Colors from '../../constants/Colors'
 import EventItem from '../../components/EventItem'
+import ErrorComponent from '../../components/ErrorComponent'
 
 const status2Array = (status) => {
     if (status == "2BA") { 
@@ -88,11 +89,7 @@ const EventFeedScreen = props => {
     // Previsto por fallas en el servidor 
     if(!isLoading && activeEvents.length === 0){
         return(
-            <View style={{flex:1,justifyContent:'center',alignItems:'center'}}>
-                <Text>No se encontraron eventos!</Text>
-                <Text>Esto puede ser porque Bianca se encuentra bajo un proceso de mejora.</Text>
-                <Text>Intente nuevamente mas tarde.</Text>
-            </View>
+            <ErrorComponent/>
         )
     }
 
