@@ -27,7 +27,10 @@ const StoryWelcome = props =>{
 
     const RateUs = useCallback(async () => {
         var url = ''
-        if(Platform.OS === 'android'){
+        if(Platform.OS === 'android') {
+            url = 'https://play.google.com/store/apps/details?id=bianca.bianca'
+        }
+        else if (Platform.OS === 'ios') {
             url = 'https://play.google.com/store/apps/details?id=bianca.bianca'
         }
         const supported = await Linking.canOpenURL(url);

@@ -6,10 +6,10 @@ export const FIN_EVENT = 'FIN_EVENT'
 export const GET_EVENT_REL_STATUS = 'GET_EVENT_REL_STATUS'
 
 
-export const finEvent  = (userToken, EventPk) => {
+export const finEvent  = (userToken, EventPk, data="") => {
     return async dispatch =>{
         const response = await fetch(
-            'https://biancaapp-ndlc.herokuapp.com/api/eventos/finEvent/'
+            'https://biancaapp-ndlc.herokuapp.com/api/eventos/finalize_event/'
             ,{
                 method:'POST',
                 headers:{
@@ -18,6 +18,7 @@ export const finEvent  = (userToken, EventPk) => {
                 },
                 body: JSON.stringify({
                     pk: EventPk,
+                    data4Company: data
                 })
             })
             if(response.status>207){
@@ -147,7 +148,7 @@ export const getActiveEvents = () => {
 export const getActiveContracts = () => {
     return async (dispatch, getState) =>{
         const response = await fetch(
-            'http://biancaapp-ndlc.herokuapp.com/api/eventos/post_relations/'
+            'http://biancaapp-ndlc.herokuapp.com/api/eventos/active_contracts/'
             ,{
                 method:'GET',
                 headers:{
@@ -155,7 +156,7 @@ export const getActiveContracts = () => {
                     'Authorization': `Token ${getState().auth.token}`
                 },
             })
-
+            console.log(response)
         if(response.status>207){
             const resData = await response.json()
             if(resData['response'] === 'Error'){
@@ -165,6 +166,7 @@ export const getActiveContracts = () => {
                 throw new Error('Conection error..')
             }
         }
+
 
         const resData = await response.json()
         if(resData['response'] === 'Error'){
