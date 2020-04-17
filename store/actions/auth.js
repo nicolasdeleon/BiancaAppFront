@@ -70,17 +70,10 @@ export const register = (email, firstname, lastname, instaaccount, password, pas
                 })
             }
         )
-        console.log ("response")
-        console.log (response)
-        console.log (response)
         if(response.status>207){
             throw new Error(response.status)
         }
         const resData = await response.json()
-
-
-        console.log ("resData")
-        console.log (resData)
 
         if(resData['response'] === 'Error'){
             throw new Error(resData['error_message'])

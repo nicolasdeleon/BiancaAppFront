@@ -45,7 +45,7 @@ export const changeUserValues = (Token, emailChange, nameChange, instaChange) =>
                 body: JSON.stringify({
                     email: emailChange,
                     full_name: nameChange,
-                    instaaccount: instaChange,
+                    instaAccount: instaChange,
                 })
             })
 
