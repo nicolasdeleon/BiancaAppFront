@@ -192,8 +192,10 @@ const EventsandProfile = createMaterialBottomTabNavigator({
             tabBarColor:Colors.primary,
             tabBarIcon:  (tabInfo) => {
                 return(
-                    <FontAwesome
-                    name = 'user-o'
+                    <
+                    Ionicons
+                    //name = 'user-o'
+                    name = 'md-settings'
                     size = {25}
                     color = { tabInfo.tintColor }
                     />

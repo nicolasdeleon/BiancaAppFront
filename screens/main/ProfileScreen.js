@@ -131,36 +131,16 @@ const ProfileScreen = props => {
                         }
                     </TouchableOpacity>
                 </View>
-                {instaInfoToggle &&
-                    <View style={{alignContent:'center',alignItems:'center'}}>                            
-                        <Text
-                        style={{color:Colors.accent,fontFamily:'open-sans',fontSize:18,textAlign:'center'}}
-                        >Tenga presente que mediante esta cuenta de instagram Bianca 
-                            <Text style={{fontFamily:'open-sans-bold'}}> valida las publicaciones</Text>, verifique que
-                            <Text style={{fontFamily:'open-sans-bold'}}> coincida con la de su cuenta en Instagram!</Text>
-                            <Text style={{fontFamily:'open-sans'}}>No es necesario que contenga el @.</Text></Text>
-                        <TouchableOpacity
-                        onPress={()=>openModalHandler('Instagram Account',userData.instaAccount)} 
-                        style={{margin:4}}><Text style={{color:'green'}}>Edit</Text></TouchableOpacity>
-                    </View>
-                }
-            </View>
-            <View style={styles.userPropsContainer}>
-                <View style={styles.textContainer}>
-                    <FontAwesome name='user-o' size={25} color={Colors.accent}/>
-                    {isLoading ? 
-                        (<ActivityIndicator size='large' color={Colors.primary}/>) 
-                        :
-                        <Text style={styles.instaAccount}> {userData.name} </Text>
-                    }
-                </View>
-                <View style={styles.textContainer}>
-                    <FontAwesome name='envelope-square' size={25} color={Colors.accent}/>
-                    {isLoading ? 
-                        (<ActivityIndicator size='large' color={Colors.primary}/>) 
-                        :
-                        <Text style={styles.instaAccount}> {userData.email} </Text>
-                    }
+                <View style={{alignContent:'center',alignItems:'center'}}>                            
+                    <Text
+                    style={{color:Colors.accent,fontFamily:'open-sans',fontSize:18,textAlign:'center'}}
+                    >Tenga presente que mediante esta cuenta de instagram Bianca 
+                        <Text style={{fontFamily:'open-sans-bold'}}> valida las publicaciones</Text>, verifique que
+                        <Text style={{fontFamily:'open-sans-bold'}}> coincida con la de su cuenta en Instagram!</Text>
+                        <Text style={{fontFamily:'open-sans'}}>No es necesario que contenga el @.</Text></Text>
+                    <TouchableOpacity
+                    onPress={()=>openModalHandler('Instagram Account',userData.instaAccount)} 
+                    style={{margin:4}}><Text style={{color:'green'}}>Edit</Text></TouchableOpacity>
                 </View>
                 <Text>{error}</Text>
             </View>
