@@ -8,5 +8,6 @@ export default {
     primaryGradientLight: "#FFD248",
     greenGradientDark: "#56AB2F",
     greenGradientLight: "#9EC66B",
-    greenActiveEvent: "#00b140"
+    greenActiveEvent: "#00b140",
+    silver: '#C0C0C0'
 }

@@ -145,22 +145,20 @@ const MainScreen = props => {
 
         try{
             await dispatch(action)
-            //updateUserEventState()
         }catch (err){
             setError(err.message)
         }
     }
 
-    finEvent = async () => {
+    finEvent = async (userData) => {
 
         let action
-        action = EventActions.finEvent(userToken, selectedEvent.pk)
+        action = EventActions.finEvent(userToken, selectedEvent.pk, userData)
 
         setError(null)
 
         try{
             await dispatch(action)
-            //updateUserEventState()
         }catch (err){
             setError(err.message)
         }
@@ -176,6 +174,8 @@ const MainScreen = props => {
         <View style={styles.screen}>
             <StoryFinit
             active={state4}
+            eventType={props.navigation.getParam('eventType')}
+            data4company={props.navigation.getParam('data4company')}
             next={()=>{props.navigation.navigate('EventFeed')}}/>
         </View>
         </LinearGradient>
@@ -189,10 +189,11 @@ const MainScreen = props => {
           style={styles.gradient}>
         <View style={styles.screen}>
             <StoryChangeProduct
+            exchangeDetails={props.navigation.getParam('benefitDescription')}
             active={state3}
             eventType={props.navigation.getParam('eventType')}
-            next={ () => {
-                finEvent()
+            next={ (userData) => {
+                finEvent(userData)
                 initFinitScreen()}}/>
         </View>
         </LinearGradient>
@@ -219,6 +220,7 @@ const MainScreen = props => {
           style={styles.gradient}>
         <View style={styles.screen}>
             <StorySubmission
+            description={props.navigation.getParam('eventDescription')}
             active={state1}
             next={ () => {
                 joinEvent()

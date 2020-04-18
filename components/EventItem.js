@@ -15,7 +15,7 @@ import Colors from '../constants/Colors'
 
 const STATUS_TABLE = {
     '2BO': 'Todavia no ha comenzado',
-    'O': 'Evento abierto. Inscribete, publicá y ganá!',
+    'O': 'Evento abierto. Publicá en Instagram y ganá!',
     'F': 'Evento ha finalizado',
     'C': 'Evento cerrado'
 }

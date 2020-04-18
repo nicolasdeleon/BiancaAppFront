@@ -62,16 +62,16 @@ const Input = props =>{
 
     const lostFocusHandler = () => {
         dispatch({
-            type:INPUT_BLUR,
+            type: INPUT_BLUR,
         })
     }
 
-    const {onInputChange,id} = props
+    const {onInputChange, id} = props
     useEffect(()=>{
         if (inputState.touched){
             onInputChange(id, inputState.value,inputState.isValid)
         }
-    },[inputState,onInputChange,id])
+    },[inputState, onInputChange, id])
 
     useEffect(()=>{
         if(props.desiredLength == inputState.value.length){

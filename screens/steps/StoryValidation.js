@@ -43,7 +43,6 @@ const StorySubmission = props =>{
                         text={"Activá las notificaciones para recibir un aviso de validación"}/>
                 </View>
             </Animated.View>
-            <Animated.Text style={styles.textActivarNot}>Activar Notificaciones</Animated.Text>
         </Animated.View>
     )
 };

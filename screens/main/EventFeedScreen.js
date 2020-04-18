@@ -105,21 +105,29 @@ const EventFeedScreen = props => {
                         image={itemData.item.image}
                         onSelect={() => {
                             let s = 'N'
+                            let benefitDescription = ''
+                            let data4company = ''
+                            // let eventType
                             if (activeContracts.length != 0) {
                                 for (i = 0; i<activeContracts.length; i++) {
                                     if (activeContracts[i].event.pk == itemData.item.pk){
                                         s = activeContracts[i].event.status
+                                        benefitDescription = activeContracts[i].event.benefitDescription
+                                        eventType = activeContracts[i].event.eventType
+                                        data4company = activeContracts[i].data4Company
                                     }
                                 }
                             }
                             dispatch(EventActions.setEventRealState(s))
                             props.navigation.navigate('EventDetail',{
                             currentStatus: status2Array(s),
-                            eventType: 2,
+                            benefitDescription: benefitDescription,
+                            eventType: eventType,
                             eventId: itemData.item.pk,
                             eventTitle: itemData.item.title,
-                            eventDescription: itemData.item.desc,
-                            eventStatus: itemData.item.status
+                            eventDescription: itemData.item.description,
+                            eventStatus: itemData.item.status,
+                            data4company: data4company
                                     })}}
                         >
                         </EventItem> 

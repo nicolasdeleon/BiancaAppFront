@@ -120,16 +120,12 @@ const ProfileScreen = props => {
             <View style={styles.titleContainer}>
                 <Text style={styles.title}>Bienvenido a Bianca!</Text>
                 <View style={styles.textContainer}>
-                    <TouchableOpacity 
-                    style={{flex:1,alignContent:'center',justifyContent:'center',flexDirection:'row'}}
-                    onPress={()=>{setInstaInfoToggle(!instaInfoToggle)}}>
-                        <FontAwesome name='instagram' size={25} color={Colors.accent}/>
-                        {isLoading ? 
-                            (<ActivityIndicator size='large' color={Colors.primary}/>) 
-                            : 
-                            <Text style={styles.instaAccount}> {userData.instaAccount} </Text>
-                        }
-                    </TouchableOpacity>
+                    <FontAwesome name='instagram' size={25} color={Colors.accent}/>
+                    {isLoading ? 
+                        (<ActivityIndicator size='large' color={Colors.primary}/>) 
+                        : 
+                        <Text style={styles.instaAccount}> {userData.instaAccount} </Text>
+                    }
                 </View>
                 <View style={{alignContent:'center',alignItems:'center'}}>                            
                     <Text
@@ -140,7 +136,7 @@ const ProfileScreen = props => {
                         <Text style={{fontFamily:'open-sans'}}>No es necesario que contenga el @.</Text></Text>
                     <TouchableOpacity
                     onPress={()=>openModalHandler('Instagram Account',userData.instaAccount)} 
-                    style={{margin:4}}><Text style={{color:'green'}}>Edit</Text></TouchableOpacity>
+                    style={{marginTop:7}}><Text style={{color:'green'}}>Editar</Text></TouchableOpacity>
                 </View>
                 <Text>{error}</Text>
             </View>

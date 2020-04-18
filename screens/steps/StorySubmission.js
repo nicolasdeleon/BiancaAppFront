@@ -23,6 +23,7 @@ const StorySubmission = props =>{
     const appearAnimaton = useAnimation({doAnimation: doAppearAnimaton, duration: 700, easing: Easing.bounce, callback: ()=>{}, delay: 300})
     const moveDogAnimation = useAnimation({doAnimation: doAppearAnimaton, duration: 700, easing: Easing.linear, callback: ()=>{}, delay: 100})
     const appearFirstBubble = useAnimation({doAnimation: doAppearAnimaton, duration: 700, easing: Easing.linear, callback: ()=>{}, delay: 700})
+    const appearSecondBubble = useAnimation({doAnimation: doAppearAnimaton, duration: 700, easing: Easing.linear, callback: ()=>{}, delay: 900})
 
     const startDesappearAnimation = () => {
         props.next()
@@ -79,14 +80,18 @@ const StorySubmission = props =>{
         }),
     }
 
+    const animateSecondBubble = {
+        opacity: appearSecondBubble.interpolate({
+            inputRange: [0, 0.5, 1],
+            outputRange: [0, 0.85, 1]
+        }),
+    }
+
     const OpenInstagram = useCallback(async () => {
         var url = 'https://www.instagram.com/'
         const supported = await Linking.canOpenURL(url);
-        if (supported) {
+        if (supported)
             await Linking.openURL(url);
-          } else {
-            // Alert.alert('Ups! No se pudo abir');
-          }
     }, [])
 
     return (
@@ -95,12 +100,18 @@ const StorySubmission = props =>{
                 <Animated.Text style={{...styles.textPaso1,...animateEntryPaso1}}>Paso 1</Animated.Text>
                 <Animated.Text style={{...styles.textSubiTuHistoria,...animateEntryText}}>Subi tu historia a Instagram</Animated.Text>
                 <Animated.Image style={{...styles.image, ...animateEntryImage}} source={ require('../../staticData/dog.png') }/>
-                <BubbleText
-                  style={{fontSize:15, alignSelf:'flex-start', ...animateFirstBubble}}
-                  textStyle={{fontSize: 14}}
-                  text={"Notificanos al subir tu historia"}/>
+                <View style={styles.bubbleContainer}>
+                    <BubbleText
+                    style={{fontSize:15, alignSelf:'flex-start', ...animateFirstBubble}}
+                    textStyle={{fontSize: 14}}
+                    text={props.description}/>
+                    <BubbleText
+                    style={{fontSize:15, alignSelf:'flex-start', ...animateSecondBubble}}
+                    textStyle={{fontSize: 14}}
+                    text={"¡Notificanos al subir tu historia!"}/>
+                </View>
             </View>
-            <Animated.View style={{...styles.ContainerButton,...animateEntryButton}}>
+            <Animated.View style={{height:'18%', ...styles.ContainerButton,...animateEntryButton}}>
                 <AwesomeButton 
                     backgroundColor={Colors.primary}
                     borderRadius={140/2}
@@ -117,7 +128,7 @@ const StorySubmission = props =>{
                 </AwesomeButton>
                 <TouchableOpacity
                   onPress={OpenInstagram}>
-                    <Text style={{...styles.Instagram, marginTop: 40}}>Abrir Instagram</Text>
+                    <Text style={{...styles.Instagram, marginTop: 20}}>Abrir Instagram</Text>
                 </TouchableOpacity>
             </Animated.View>
         </View>
@@ -140,10 +151,10 @@ const styles = StyleSheet.create({
         height: '40%'
     },
     ContainerButton: {
-        justifyContent:'center',
+        justifyContent:'flex-end',
         alignItems:'center',
         width: '100%',
-        height: '40%'
+        height: '40%',
     },
     textPaso1: {
         fontSize: 24,
@@ -176,6 +187,12 @@ const styles = StyleSheet.create({
         textAlign: 'center',
         textDecorationLine: 'underline',
         color: 'white'
+    },
+    bubbleContainer: {
+        height: '45%',
+        marginHorizontal: 5,
+        padding: 4,
+        alignSelf: 'flex-start'
     }
 });
 

@@ -11,9 +11,6 @@ export const getUserInfo = (Token) => {
                     'Authorization': `Token ${Token}`
                 }
             })
-            
-        console.log(Token)
-        console.log(response)
         if(response.status>207){
             const resData = await response.json()
             if(resData['response'] === 'Error'){

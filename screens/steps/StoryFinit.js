@@ -41,6 +41,19 @@ const StoryWelcome = props =>{
           }
     }, [])
 
+
+    function DataCheck() {
+        return (
+            <View style={styles.datacheckContainer}>
+                <Text style={styles.beneficioEntregadoText}>
+                El beneficio de wabi será entregado a: {'\n'}
+                <Text style={{color:Colors.primary, fontSize:22}}>{props.data4company}</Text>
+                </Text>
+                <Text style={styles.ponganseEnContacto}>pongase en contacto con support@biancaapp.com por cualquier duda</Text>
+            </View>
+        )
+    }
+
     return (
         <View style={styles.screen}>
             <View style={styles.Container}>
@@ -53,6 +66,7 @@ const StoryWelcome = props =>{
                     <Text style={{...styles.textCalificanos}}>Calificar en App Store y Play Store!</Text>
                 </TouchableOpacity>
             </Animated.View>
+            {props.eventType === 'B' && <DataCheck/>}
             <Animated.View style={{...styles.Container}}>
                 <AwesomeButton 
                     backgroundColor={Colors.primary}
@@ -64,7 +78,7 @@ const StoryWelcome = props =>{
                         startDesappearAnimation()
                         next()
                     }}>
-                    BUSCA OTROS EVENTOS!
+                    BUSCA OTROS EVENTOS
                 </AwesomeButton>
         </Animated.View>
         </View>
@@ -81,8 +95,8 @@ const styles = StyleSheet.create({
         position: 'absolute'
     },
     Container: {
-        justifyContent:'center',
-        alignItems:'center',
+        justifyContent: 'center',
+        alignItems: 'center',
         width: '80%',
         height: '40%'
     },
@@ -111,6 +125,26 @@ const styles = StyleSheet.create({
         textAlign: 'center',
         textDecorationLine: 'underline',
         color: 'white'
+    },
+    datacheckContainer: {
+        height: '20%',
+        width: '95%',
+        alignContent: 'center',
+        justifyContent: 'center'
+    },
+    beneficioEntregadoText: {
+        color: 'white',
+        fontSize: 18,
+        textAlign: 'center',
+        fontFamily: 'open-sans',
+        margin: 4,
+    },
+    ponganseEnContacto: {
+        color: Colors.silver,
+        textAlign: 'center',
+        fontSize: 10,
+        fontFamily: 'open-sans',
+        margin: 4,
     }
 });
 
