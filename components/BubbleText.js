@@ -17,16 +17,17 @@ const BubbleText = props =>{
 const styles = StyleSheet.create({
     container : {
         shadowColor: 'black',
-        shadowOffset: {width:0,height:10},
+        shadowOffset: { width: 0, height: 10},
         shadowOpacity: 0.26,
         shadowRadius: 6,
         elevation: 2, // elevation is only android
         backgroundColor: 'white',
         borderRadius: 20,
         padding: 8,
-        marginVertical:1,
-        marginHorizontal:5,
+        marginVertical: 1,
+        marginHorizontal: 5,
         width: '80%', 
+        marginVertical: 5
     },
     text: {
         fontFamily: 'open-sans',

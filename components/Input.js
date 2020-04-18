@@ -62,16 +62,16 @@ const Input = props =>{
 
     const lostFocusHandler = () => {
         dispatch({
-            type:INPUT_BLUR,
+            type: INPUT_BLUR,
         })
     }
 
-    const {onInputChange,id} = props
+    const {onInputChange, id} = props
     useEffect(()=>{
         if (inputState.touched){
             onInputChange(id, inputState.value,inputState.isValid)
         }
-    },[inputState,onInputChange,id])
+    },[inputState, onInputChange, id])
 
     useEffect(()=>{
         if(props.desiredLength == inputState.value.length){
@@ -99,7 +99,7 @@ const Input = props =>{
         <View style={{flexDirection: "row"}}>
             <TextInput
                 {...props} 
-                style={styles.input}
+                style={{...styles.input, ...props.style}}
                 secureTextEntry = {secureTextPassword}
                 value= {inputState.value}
                 onChangeText={textChangeHandler}
@@ -128,6 +128,7 @@ const styles = StyleSheet.create({
         paddingVertical: 5,
         borderBottomColor: "#ccc",
         borderBottomWidth: 1,
+        fontFamily: 'open-sans'
     },
     label: {
         fontFamily: 'open-sans-bold',

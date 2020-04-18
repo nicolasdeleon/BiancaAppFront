@@ -156,7 +156,6 @@ export const getActiveContracts = () => {
                     'Authorization': `Token ${getState().auth.token}`
                 },
             })
-            console.log(response)
         if(response.status>207){
             const resData = await response.json()
             if(resData['response'] === 'Error'){

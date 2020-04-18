@@ -18,12 +18,7 @@ const StorySubmission = props =>{
 
     const [doAppearAnimaton, setAppearAnimaton] = useState(props.active)
 
-    const appearAnimaton = useAnimation({doAnimation: doAppearAnimaton, duration: 700, easing: Easing.linear, callback: ()=>{}, delay: 0})
-
-    const startDesappearAnimation = () => {
-        // HERE WITH A CALLBACK I NEED TO FORCE APPEARENCE OF NEXT SCREEN
-        //props.next()
-    }
+    const appearAnimaton = useAnimation({doAnimation: doAppearAnimaton, duration: 400, easing: Easing.linear, callback: ()=>{}, delay: 0})
 
     const animateEntryScreen = { 
         opacity: appearAnimaton.interpolate({
@@ -48,7 +43,6 @@ const StorySubmission = props =>{
                         text={"Activá las notificaciones para recibir un aviso de validación"}/>
                 </View>
             </Animated.View>
-            <Animated.Text style={styles.textActivarNot}>Activar Notificaciones</Animated.Text>
         </Animated.View>
     )
 };
@@ -61,7 +55,6 @@ const styles = StyleSheet.create({
         justifyContent: 'space-evenly',
         alignItems: 'center',
         position: 'absolute',
-        backgroundColor: Colors.primary
     },
     Container: {
         justifyContent:'center',

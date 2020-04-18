@@ -1,10 +1,12 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useCallback } from 'react'
 import {
     View,
     Easing,
     StyleSheet,
     Text,
     Image,
+    TouchableOpacity,
+    Linking,
     Animated
 } from 'react-native'
 
@@ -18,12 +20,12 @@ const StorySubmission = props =>{
 
     const [doAppearAnimaton, setAppearAnimaton] = useState(props.active)
 
-    const appearAnimaton = useAnimation({doAnimation: doAppearAnimaton, duration: 700, easing: Easing.bounce, callback: ()=>{}, delay: 700})
+    const appearAnimaton = useAnimation({doAnimation: doAppearAnimaton, duration: 700, easing: Easing.bounce, callback: ()=>{}, delay: 300})
     const moveDogAnimation = useAnimation({doAnimation: doAppearAnimaton, duration: 700, easing: Easing.linear, callback: ()=>{}, delay: 100})
-    const appearFirstBubble = useAnimation({doAnimation: doAppearAnimaton, duration: 700, easing: Easing.linear, callback: ()=>{}, delay: 1000})
+    const appearFirstBubble = useAnimation({doAnimation: doAppearAnimaton, duration: 700, easing: Easing.linear, callback: ()=>{}, delay: 700})
+    const appearSecondBubble = useAnimation({doAnimation: doAppearAnimaton, duration: 700, easing: Easing.linear, callback: ()=>{}, delay: 900})
 
     const startDesappearAnimation = () => {
-        // HERE WITH A CALLBACK I NEED TO FORCE APPEARENCE OF NEXT SCREEN
         props.next()
     }
 
@@ -43,14 +45,10 @@ const StorySubmission = props =>{
     }
 
     const animateEntryImage = {
-        transform : [
-            {
-                translateY: moveDogAnimation.interpolate({
-                    inputRange: [0, 1],
-                    outputRange: [-100, 20]
-                    })
-            }
-        ],
+        opacity : moveDogAnimation.interpolate({
+            inputRange: [0, 0.5, 1],
+            outputRange: [0, 0.85, 1]
+        })
     }
 
     const animateEntryText = {
@@ -82,6 +80,19 @@ const StorySubmission = props =>{
         }),
     }
 
+    const animateSecondBubble = {
+        opacity: appearSecondBubble.interpolate({
+            inputRange: [0, 0.5, 1],
+            outputRange: [0, 0.85, 1]
+        }),
+    }
+
+    const OpenInstagram = useCallback(async () => {
+        var url = 'https://www.instagram.com/'
+        const supported = await Linking.canOpenURL(url);
+        if (supported)
+            await Linking.openURL(url);
+    }, [])
 
     return (
         <View style={styles.screen}>
@@ -89,12 +100,18 @@ const StorySubmission = props =>{
                 <Animated.Text style={{...styles.textPaso1,...animateEntryPaso1}}>Paso 1</Animated.Text>
                 <Animated.Text style={{...styles.textSubiTuHistoria,...animateEntryText}}>Subi tu historia a Instagram</Animated.Text>
                 <Animated.Image style={{...styles.image, ...animateEntryImage}} source={ require('../../staticData/dog.png') }/>
-                <BubbleText
-                    style={{marginVertical:25, ...animateFirstBubble}}
-                    textStyle={{fontSize: 18}}
-                    text={"Notificanos al subir tu historia"}/>
+                <View style={styles.bubbleContainer}>
+                    <BubbleText
+                    style={{fontSize:15, alignSelf:'flex-start', ...animateFirstBubble}}
+                    textStyle={{fontSize: 14}}
+                    text={props.description}/>
+                    <BubbleText
+                    style={{fontSize:15, alignSelf:'flex-start', ...animateSecondBubble}}
+                    textStyle={{fontSize: 14}}
+                    text={"¡Notificanos al subir tu historia!"}/>
+                </View>
             </View>
-            <Animated.View style={{...styles.ContainerButton,...animateEntryButton}}>
+            <Animated.View style={{height:'18%', ...styles.ContainerButton,...animateEntryButton}}>
                 <AwesomeButton 
                     backgroundColor={Colors.primary}
                     borderRadius={140/2}
@@ -109,6 +126,10 @@ const StorySubmission = props =>{
                     }}>
                     YA SUBI MI FOTO
                 </AwesomeButton>
+                <TouchableOpacity
+                  onPress={OpenInstagram}>
+                    <Text style={{...styles.Instagram, marginTop: 20}}>Abrir Instagram</Text>
+                </TouchableOpacity>
             </Animated.View>
         </View>
     )
@@ -130,10 +151,10 @@ const styles = StyleSheet.create({
         height: '40%'
     },
     ContainerButton: {
-        justifyContent:'center',
+        justifyContent:'flex-end',
         alignItems:'center',
         width: '100%',
-        height: '40%'
+        height: '40%',
     },
     textPaso1: {
         fontSize: 24,
@@ -151,8 +172,28 @@ const styles = StyleSheet.create({
     image:{
         width:'30%',
         height:'30%',
-        resizeMode:"contain",
+        resizeMode: 'contain',
+        marginRight: 5,
+        alignSelf:'flex-end',
+        transform : [
+            { rotate: '-12deg' },
+            { translateY: 25 },
+            { translateX: 8 }
+        ],
     },
+    Instagram: {
+        fontSize: 20,
+        fontFamily: 'open-sans',
+        textAlign: 'center',
+        textDecorationLine: 'underline',
+        color: 'white'
+    },
+    bubbleContainer: {
+        height: '45%',
+        marginHorizontal: 5,
+        padding: 4,
+        alignSelf: 'flex-start'
+    }
 });
 
 export default StorySubmission

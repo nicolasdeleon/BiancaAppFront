@@ -145,22 +145,20 @@ const MainScreen = props => {
 
         try{
             await dispatch(action)
-            //updateUserEventState()
         }catch (err){
             setError(err.message)
         }
     }
 
-    finEvent = async () => {
+    finEvent = async (userData) => {
 
         let action
-        action = EventActions.finEvent(userToken, selectedEvent.pk)
+        action = EventActions.finEvent(userToken, selectedEvent.pk, userData)
 
         setError(null)
 
         try{
             await dispatch(action)
-            //updateUserEventState()
         }catch (err){
             setError(err.message)
         }
@@ -169,10 +167,15 @@ const MainScreen = props => {
 
     if(state4){
         return (
-        <LinearGradient colors={['#141E30','#243B55']} start={[0,0]} end={[1,1]} style={styles.gradient}>
+        <LinearGradient
+          colors={[Colors.accentGradientDark, Colors.accentGradientLight]}
+          start={[0,0]} end={[1,1]}
+          style={styles.gradient}>
         <View style={styles.screen}>
             <StoryFinit
             active={state4}
+            eventType={props.navigation.getParam('eventType')}
+            data4company={props.navigation.getParam('data4company')}
             next={()=>{props.navigation.navigate('EventFeed')}}/>
         </View>
         </LinearGradient>
@@ -180,12 +183,17 @@ const MainScreen = props => {
     }
     if(state3){
         return (
-        <LinearGradient colors={['#141E30','#243B55']} start={[0,0]} end={[1,1]} style={styles.gradient}>
+        <LinearGradient
+          colors={[Colors.greenGradientDark,Colors.greenGradientLight]}
+          start={[0,0]} end={[1,1]}
+          style={styles.gradient}>
         <View style={styles.screen}>
             <StoryChangeProduct
+            exchangeDetails={props.navigation.getParam('benefitDescription')}
             active={state3}
-            next={ () => {
-                finEvent()
+            eventType={props.navigation.getParam('eventType')}
+            next={ (userData) => {
+                finEvent(userData)
                 initFinitScreen()}}/>
         </View>
         </LinearGradient>
@@ -193,7 +201,10 @@ const MainScreen = props => {
     }
     if(state2){
         return (
-        <LinearGradient colors={['#141E30','#243B55']} start={[0,0]} end={[1,1]} style={styles.gradient}>
+        <LinearGradient
+          colors={[Colors.primaryGradientDark, Colors.primaryGradientLight]}
+          start={[0,0]} end={[1,1]}
+          style={styles.gradient}>
         <View style={styles.screen}>
             <StoryValidation
             active={state2}/>
@@ -203,9 +214,13 @@ const MainScreen = props => {
     }
     if (state1){
         return(
-        <LinearGradient colors={['#141E30', '#243B55']} start={[0,0]} end={[1,1]} style={styles.gradient}>
+        <LinearGradient
+          colors={[Colors.accentGradientDark, Colors.accentGradientLight]}
+          start={[0,0]} end={[1,1]}
+          style={styles.gradient}>
         <View style={styles.screen}>
             <StorySubmission
+            description={props.navigation.getParam('eventDescription')}
             active={state1}
             next={ () => {
                 joinEvent()
@@ -218,7 +233,10 @@ const MainScreen = props => {
     }
     if(state0) {
         return (
-            <LinearGradient colors={['#141E30', '#243B55']} start={[0,0]} end={[1,1]} style={styles.gradient}>
+            <LinearGradient
+              colors={[Colors.accentGradientDark, Colors.accentGradientLight]}
+              start={[0,0]} end={[1,1]}
+              style={styles.gradient}>
             <View style={styles.screen}>
                 <StoryWelcome 
                     eventTitle={props.navigation.getParam('eventTitle')}

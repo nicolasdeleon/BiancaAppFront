@@ -16,7 +16,7 @@ import Input from '../../components/Input'
 import Colors from '../../constants/Colors'
 
 //store and redux imports
-import {useDispatch,useSelector} from 'react-redux'
+import {useDispatch} from 'react-redux'
 import * as AuthActions from '../../store/actions/auth'
 
 
