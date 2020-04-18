@@ -1,11 +1,14 @@
-import React, { useState, useCallback, useEffect } from 'react'
+import React, { useState, useCallback, useEffect,useReducer } from 'react'
 import {
     View,
     Text,
     StyleSheet,
     ActivityIndicator,
-    TouchableOpacity
+    TouchableOpacity,
+    ScrollView,
+    Button,
 } from 'react-native'
+
 
 import {useSelector, useDispatch} from 'react-redux'
 import * as userActions from '../../store/actions/user'
@@ -16,6 +19,8 @@ import Colors from '../../constants/Colors'
 import EditModal from '../../components/CustomModal'
 import Input from '../../components/Input'
 
+import * as AuthActions from '../../store/actions/auth'
+
 const ProfileScreen = props => {
 
     const [isLoading, setIsLoading] = useState(false)
@@ -25,7 +30,9 @@ const ProfileScreen = props => {
     const [modalValidity, setModalValidity] = useState(false)
     const [modalValue, setModalValue] = useState('')
     const [changingField, setChangingField] = useState('')
-    
+    const [changePassToggle,setChangePassTogle] = useState(false)    
+    const [messageOK,setmessageOK] = useState()
+
     //REDUX
     const dispatch = useDispatch()
     const userData = useSelector(state=>state.user)
@@ -58,6 +65,7 @@ const ProfileScreen = props => {
         },[setEditValueHandler, setModalValue])
 
         const openModalHandler = (valueTitle, actualValue) => {
+        setError(null)
         setModalValue(actualValue)
         setChangingField(valueTitle)
         setModalVisible(true)
@@ -91,6 +99,108 @@ const ProfileScreen = props => {
                 setError('Invalid form credentials')
             }
     }
+//action type for form reducer
+const FORM_INPUT_UPDATE = 'FORM_INPUT_UPDATE'
+//form reducer se llama por changeInputHandler para actualizar el estado y validez
+//cada vez uqe se lo llama con FORM_INPUT_UPDATE. Retorna el estado actualizado
+const formReducer = (state, action) =>{
+    if (action.type === FORM_INPUT_UPDATE){
+        const updatedValues = {
+            ...state.inputValues,
+            [action.input]: action.value
+        }
+        const updatedValidities={
+            ...state.inputValidities,
+            [action.input]: action.isValid
+        }
+        let updatedFormIsValid = true
+        for (const key in updatedValidities){
+            updatedFormIsValid = updatedFormIsValid && updatedValidities[key]
+        }
+        return{
+            ...state,
+            inputValues: updatedValues,
+            inputValidities: updatedValidities,
+            formIsValid: updatedFormIsValid
+        }
+    }
+    return state 
+}
+
+const [formState,dispatchFormState] = useReducer(formReducer,{
+    inputValues:{
+        token:userToken,
+        old_password:false,
+        password:false,
+        password2:false
+    },
+     formIsValid: false 
+     }
+ )//useReducer
+
+    const goToChangePassword = async () =>{
+        let action
+
+        console.log("change pass")
+        console.log(formState.inputValues.old_password)
+        console.log(formState.inputValues.password)
+        console.log(formState.inputValues.password2)
+
+        if (formState.inputValues.old_password == "" ||
+        formState.inputValues.password == "" ||
+        formState.inputValues.password2 == "") {
+            if(changePassToggle==false)
+                setChangePassTogle(true)
+            else
+                setError('Debe completar todos los campos.')
+        }else
+
+        if (formState.inputValues.password != 
+        formState.inputValues.password2 )
+            setError('Las nuevas contraseñas deben coincidir.')
+        else if(formState.inputValues.old_password!=""
+            && formState.inputValues.old_password == 
+            formState.inputValues.password )
+            setError('Las contraseña actual debe ser diferente de la anterior.')
+
+
+        if (formState.inputValues.old_password != "" &&
+        formState.inputValues.password != "" &&
+        formState.inputValues.password2 != "") 
+        {                      
+            action = AuthActions.change_password(
+            formState.inputValues.token,
+            formState.inputValues.old_password,                
+            formState.inputValues.password,                
+            formState.inputValues.password2
+            )
+            if(formState.formIsValid){
+                setError(null)
+                try{
+                    await dispatch(action)
+                    setmessageOK("Contraseña cambiada con éxito.")
+                }catch (err){
+                    setError(err.message)
+                }
+            }else{
+                setError('Error en credenciales.')
+            }
+
+        }
+
+
+    }
+
+    const inputChangeHandler = useCallback((InputIdentifier,inputValue,inputValidity) =>{
+        dispatchFormState({
+            type: FORM_INPUT_UPDATE,
+            value: inputValue,
+            isValid : inputValidity,
+            input: InputIdentifier //Esta es una key que voy a mapear en mis inputvalues
+            })
+        },[dispatchFormState])
+
+
 
     return (
         <View style={styles.screen}>
@@ -129,18 +239,77 @@ const ProfileScreen = props => {
                 </View>
                 <View style={{alignContent:'center',alignItems:'center'}}>                            
                     <Text
-                    style={{color:Colors.accent,fontFamily:'open-sans',fontSize:18,textAlign:'center'}}
+                    style={{color:Colors.accent,fontFamily:'open-sans',fontSize:16,textAlign:'center'}}
                     >Tenga presente que mediante esta cuenta de instagram Bianca 
                         <Text style={{fontFamily:'open-sans-bold'}}> valida las publicaciones</Text>, verifique que
                         <Text style={{fontFamily:'open-sans-bold'}}> coincida con la de su cuenta en Instagram!</Text>
                         <Text style={{fontFamily:'open-sans'}}>No es necesario que contenga el @.</Text></Text>
-                    <TouchableOpacity
-                    onPress={()=>openModalHandler('Instagram Account',userData.instaAccount)} 
-                    style={{marginTop:7}}><Text style={{color:'green'}}>Editar</Text></TouchableOpacity>
+                        
+                    <View style={styles.buttonContainer}>
+                        <Button
+                        title='Actualizar cuenta Instagram' 
+                        color={Colors.accent}
+                        onPress={()=>openModalHandler('Instagram Account',userData.instaAccount)}
+                        ></Button>                   
+                    </View>    
                 </View>
-                <Text>{error}</Text>
+               
+                
             </View>
-        </View>
+            {changePassToggle &&             
+                    <View style={styles.authContainer}>
+
+                    <ScrollView>
+                            <Input
+                                id='old_password'
+                                label='Contraseña Actual'
+                                keyboardType='default'
+                                required
+                                secureTextEntry
+                                minLength={5}
+                                autoCapitalize="none"
+                                errorText="Ingrese una contraseña válida mínimo 5 caracteres."
+                                onInputChange={inputChangeHandler}
+                                initialValue=''
+                            />
+                            <Input
+                                id='password'
+                                label='Nueva Contraseña'
+                                keyboardType='default'
+                                required
+                                secureTextEntry
+                                minLength={5}
+                                autoCapitalize="none"
+                                errorText="Ingrese una contraseña válida mínimo 5 caracteres."
+                                onInputChange={inputChangeHandler}
+                                initialValue=''
+                            />
+                            <Input
+                                id='password2'
+                                label='Confirmar Nueva Contraseña'
+                                keyboardType='default'
+                                required
+                                secureTextEntry
+                                minLength={5}
+                                autoCapitalize="none"
+                                errorText="Ingrese una contraseña válida mínimo 5 caracteres."
+                                onInputChange={inputChangeHandler}
+                                initialValue=''
+                            />
+                        </ScrollView>
+                    </View>
+                    }
+                    {!changePassToggle && <Text></Text>}
+                    <View style={styles.buttonContainer}>
+                                    <Button 
+                                        title='Cambiar Contraseña en Bianca APP' 
+                                        color={Colors.accent} 
+                                        onPress={goToChangePassword}
+                                    />                            
+                    </View>          
+                {messageOK && <Text style={{color:'green'}}>{messageOK}</Text>}
+                {error && <Text style={{color:'red'}}>{error}</Text>}
+                </View>
     )
 }
 
@@ -152,7 +321,7 @@ const styles = StyleSheet.create({
     },
     titleContainer: {
         alignItems: 'center',
-        width: '90%',
+        width: '100%',
     },
     textContainer: {
         flexDirection: 'row',
@@ -177,7 +346,7 @@ const styles = StyleSheet.create({
     userPropsContainer: {
         flex: 1,
         alignItems: 'center',
-        width: '90%',
+        width: '100%',
     },
     editProfileContainer: {
         flexDirection: 'row',
@@ -186,7 +355,16 @@ const styles = StyleSheet.create({
         width: '100%',
         height: 50,
         padding: 10,
-    }
+    }, 
+    authContainer:{
+//marginHorizontal: 20,
+        
+        marginVertical: 20,
+        //height:'100%',
+        width:'100%',
+        padding:15,
+        elevation:3,
+    },
 })
 
 
