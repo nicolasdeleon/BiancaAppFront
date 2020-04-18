@@ -107,7 +107,7 @@ const EventFeedScreen = props => {
                             let s = 'N'
                             let benefitDescription = ''
                             let data4company = ''
-                            // let eventType
+                            let eventType
                             if (activeContracts.length != 0) {
                                 for (i = 0; i<activeContracts.length; i++) {
                                     if (activeContracts[i].event.pk == itemData.item.pk){
