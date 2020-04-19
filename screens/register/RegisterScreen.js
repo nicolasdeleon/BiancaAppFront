@@ -149,6 +149,9 @@ const RegisterScreen = props => {
     }
 
     return (
+        <KeyboardAvoidingView
+        style={styles.screen}
+        >
         <LinearGradient colors={[Colors.accent,Colors.dark]} style={styles.gradient}>
             <View style={styles.authContainer}>
                 <ScrollView>
@@ -243,6 +246,7 @@ const RegisterScreen = props => {
                 </ScrollView>
             </View>
         </LinearGradient>
+        </KeyboardAvoidingView>
     )
 }
 

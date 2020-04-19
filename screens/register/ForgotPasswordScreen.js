@@ -116,6 +116,9 @@ const ForgotPasswordScreen = props => {
     }
 
     return (
+        <KeyboardAvoidingView
+        style={styles.screen}
+        >
             <LinearGradient colors={[Colors.accent,Colors.dark]} style={styles.gradient}>
                 <View style={styles.authContainer}>
                     <ScrollView>
@@ -198,6 +201,7 @@ const ForgotPasswordScreen = props => {
                     </ScrollView>
                 </View>
             </LinearGradient>
+        </KeyboardAvoidingView>
     )
 }
 
