@@ -165,9 +165,10 @@ export const getActiveContracts = () => {
                 throw new Error('Conection error..')
             }
         }
-
+          
 
         const resData = await response.json()
+        console.log(resData)
         if(resData['response'] === 'Error'){
             throw new Error(resData['error_message'])
         }

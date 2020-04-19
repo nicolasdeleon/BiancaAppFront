@@ -10,7 +10,7 @@ import {
     TouchableNativeFeedback,
     Image
 } from 'react-native'
-
+import ProgressBar from 'react-native-progress/Bar'
 import Colors from '../constants/Colors'
 
 const STATUS_TABLE = {
@@ -25,16 +25,38 @@ const EventItem = props =>{
     const [disabled, setDisabled] = useState(false)
     const [textContainerColor, setTextContainerColor] = useState(Colors.greenActiveEvent)
 
+    const [progress, setProgress] = useState(0.5)
+
     let TouchableCmp = TouchableOpacity;
     if(Platform.OS === 'android' && Platform.Version>=21) {
         TouchableCmp = TouchableNativeFeedback
     }
     let eventStatus = STATUS_TABLE[props.status]
-
+    //status post
+    //('2BA', 'To_be_accepted'),
+    //('W', 'Winner'),
+    //('F', 'Finished'),
+    //('R', 'Refused')
+    
     useEffect( () => {
+        console.log('hola')
+        console.log(props.status)
+        console.log(props.currentStatus)
+        console.log(props.eventStatus)
+        console.log(props.postStatus)
         if(!(props.status === 'O')){
+            console.log("hola como te va")
             setDisabled(true);
             setTextContainerColor("#6B6B6B")
+            //setProgress(0.5)
+            if (props.currentStatus == "N") {
+                setProgress(1)
+            } else {
+                
+            }
+        }else
+        {
+            setProgress(0)//evento no abierto
         }
     },[props.status])
 
@@ -75,6 +97,11 @@ const EventItem = props =>{
                     <View style={{...styles.textContainer, backgroundColor:textContainerColor}}>
                         <Text style={styles.title}>{props.title}</Text>
                         <Text style={styles.status}>{eventStatus}</Text>
+                        <ProgressBar
+                            style={styles.progress}
+                            progress={progress}
+                            //indeterminate={this.state.indeterminate}
+                        />
                     </View>
                     {disabled && <View style={[styles.overlay]} />}
                 </Animated.View>
@@ -111,7 +138,7 @@ const styles = StyleSheet.create({
     textContainer:{
         alignItems: 'center',
         justifyContent: 'space-between',
-        height: '25%',
+        height: '10%',
         padding: 10,
     },
     overlay: {
@@ -123,7 +150,10 @@ const styles = StyleSheet.create({
         backgroundColor: 'black',
         width: '100%',
         height: '100%',
-      } 
+      },
+      progress: {
+        margin: 1,
+      }, 
 });
 
 export default EventItem
