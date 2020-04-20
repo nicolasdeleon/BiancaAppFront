@@ -5,6 +5,7 @@ import {
     StyleSheet,
     ActivityIndicator,
     TouchableOpacity,
+    KeyboardAvoidingView,
     ScrollView,
     Button,
 } from 'react-native'
@@ -40,6 +41,8 @@ const ProfileScreen = props => {
 
     const loadUserData = useCallback(async () =>{
         setIsLoading(true)
+        console.log("Load user data")
+        setChangePassTogle(false)
         setError(null)
         try {
             await dispatch(userActions.getUserInfo(userToken))
@@ -57,6 +60,7 @@ const ProfileScreen = props => {
 //FUNCIONES PARA EL MODAL O QUE SE ACTIVAN DESDE EL MODAL
     const closeEditModal = () =>{
         setModalVisible(false)
+        setError(null)
     }
 
     const setEditValueHandler = useCallback((InputIdentifier, inputValue, inputValidity) => {
@@ -96,7 +100,7 @@ const ProfileScreen = props => {
                     setIsLoading(false)
                 }
             }else{
-                setError('Invalid form credentials')
+                setError('Credenciales inválidas.')
             }
     }
 //action type for form reducer
@@ -140,12 +144,6 @@ const [formState,dispatchFormState] = useReducer(formReducer,{
 
     const goToChangePassword = async () =>{
         let action
-
-        console.log("change pass")
-        console.log(formState.inputValues.old_password)
-        console.log(formState.inputValues.password)
-        console.log(formState.inputValues.password2)
-
         if (formState.inputValues.old_password == "" ||
         formState.inputValues.password == "" ||
         formState.inputValues.password2 == "") {
@@ -176,14 +174,18 @@ const [formState,dispatchFormState] = useReducer(formReducer,{
             )
             if(formState.formIsValid){
                 setError(null)
+                setIsLoading(true)
                 try{
                     await dispatch(action)
+                    setIsLoading(false)
                     setmessageOK("Contraseña cambiada con éxito.")
                 }catch (err){
                     setError(err.message)
+                    setIsLoading(false)
                 }
             }else{
                 setError('Error en credenciales.')
+                setIsLoading(false)
             }
 
         }
@@ -203,113 +205,127 @@ const [formState,dispatchFormState] = useReducer(formReducer,{
 
 
     return (
-        <View style={styles.screen}>
-            <EditModal
-            modalVisible={modalVisible} 
-            onClose={closeEditModal}
-            onSend={modalSendFormHandler}
-            errorText={error}
-            loading={isLoading}
-            title={changingField}
-            acceptButtonText={'Aceptar'}
-            errorText={error}
-            loading={isLoading}
-            >
-            <Input
-            maxLength={15}
-            min={1}
-            desiredLength={15} 
-            initialValue ={modalValue}
-            fontSize={24}
-            textAlign='center'
-            onInputChange={setEditValueHandler}
-            autoCapitalize={'none'}
-            errorText="Ingrese un instagram válido."
-            />
-            </EditModal>
-            <View style={styles.titleContainer}>
-                <Text style={styles.title}>Bienvenido a Bianca!</Text>
-                <View style={styles.textContainer}>
-                    <FontAwesome name='instagram' size={25} color={Colors.accent}/>
-                    {isLoading ? 
+        
+        <KeyboardAvoidingView
+        onRefresh={loadUserData}
+        refreshing={isLoading}
+        style={styles.screen}>
+            
+                <EditModal
+                modalVisible={modalVisible} 
+                onClose={closeEditModal}
+                onSend={modalSendFormHandler}
+                errorText={error}
+                loading={isLoading}
+                title={changingField}
+                acceptButtonText={'Aceptar'}
+                errorText={error}
+                loading={isLoading}
+                >
+                <Input
+                maxLength={15}
+                min={1}
+                desiredLength={15} 
+                initialValue ={modalValue}
+                fontSize={24}
+                textAlign='center'
+                onInputChange={setEditValueHandler}
+                autoCapitalize={'none'}
+                errorText="Ingrese un instagram válido."
+                />
+                </EditModal>
+                <ScrollView style={styles.titleContainer}>
+                    <Text style={styles.title}>Bienvenido a Bianca!</Text>
+                    <View style={styles.textContainer}>
+                        <FontAwesome name='instagram' size={25} color={Colors.accent}/>
+                        {isLoading ? 
                         (<ActivityIndicator size='large' color={Colors.primary}/>) 
                         : 
                         <Text style={styles.instaAccount}> {userData.instaAccount} </Text>
-                    }
-                </View>
-                <View style={{alignContent:'center',alignItems:'center'}}>                            
-                    <Text
-                    style={{color:Colors.accent,fontFamily:'open-sans',fontSize:16,textAlign:'center'}}
-                    >Tenga presente que mediante esta cuenta de instagram Bianca 
-                        <Text style={{fontFamily:'open-sans-bold'}}> valida las publicaciones</Text>, verifique que
-                        <Text style={{fontFamily:'open-sans-bold'}}> coincida con la de su cuenta en Instagram!</Text>
-                        <Text style={{fontFamily:'open-sans'}}>No es necesario que contenga el @.</Text></Text>
+                        }
                         
-                    <View style={styles.buttonContainer}>
-                        <Button
-                        title='Actualizar cuenta Instagram' 
-                        color={Colors.accent}
-                        onPress={()=>openModalHandler('Instagram Account',userData.instaAccount)}
-                        ></Button>                   
-                    </View>    
-                </View>
-               
-                
-            </View>
-            {changePassToggle &&             
-                    <View style={styles.authContainer}>
-
-                    <ScrollView>
-                            <Input
-                                id='old_password'
-                                label='Contraseña Actual'
-                                keyboardType='default'
-                                required
-                                secureTextEntry
-                                minLength={5}
-                                autoCapitalize="none"
-                                errorText="Ingrese una contraseña válida mínimo 5 caracteres."
-                                onInputChange={inputChangeHandler}
-                                initialValue=''
-                            />
-                            <Input
-                                id='password'
-                                label='Nueva Contraseña'
-                                keyboardType='default'
-                                required
-                                secureTextEntry
-                                minLength={5}
-                                autoCapitalize="none"
-                                errorText="Ingrese una contraseña válida mínimo 5 caracteres."
-                                onInputChange={inputChangeHandler}
-                                initialValue=''
-                            />
-                            <Input
-                                id='password2'
-                                label='Confirmar Nueva Contraseña'
-                                keyboardType='default'
-                                required
-                                secureTextEntry
-                                minLength={5}
-                                autoCapitalize="none"
-                                errorText="Ingrese una contraseña válida mínimo 5 caracteres."
-                                onInputChange={inputChangeHandler}
-                                initialValue=''
-                            />
-                        </ScrollView>
                     </View>
+                    <View style={{alignContent:'center',alignItems:'center'}}>                            
+                        <Text
+                        style={{color:Colors.accent,fontFamily:'open-sans',fontSize:16,textAlign:'center'}}
+                        >Tenga presente que mediante esta cuenta de instagram Bianca 
+                            <Text style={{fontFamily:'open-sans-bold'}}> valida las publicaciones</Text>, verifique que
+                            <Text style={{fontFamily:'open-sans-bold'}}> coincida con la de su cuenta en Instagram!</Text>
+                            <Text style={{fontFamily:'open-sans'}}> No es necesario que contenga el @.</Text></Text>
+                            <Text></Text>
+                        <View style={styles.buttonContainer}>
+                            <Button
+                            title='Actualizar cuenta Instagram' 
+                            color={Colors.accent}
+                            onPress={()=>openModalHandler('Instagram Account',userData.instaAccount)}
+                            ></Button>                   
+                        </View>    
+                    </View>
+                
+                    
+                {changePassToggle &&             
+                        <View style={styles.authContainer}>
+
+                                <Input
+                                    id='old_password'
+                                    label='Contraseña Actual'
+                                    keyboardType='default'
+                                    required
+                                    secureTextEntry
+                                    minLength={5}
+                                    autoCapitalize="none"
+                                    errorText="Ingrese una contraseña válida mínimo 5 caracteres."
+                                    onInputChange={inputChangeHandler}
+                                    initialValue=''
+                                />
+                                <Input
+                                    id='password'
+                                    label='Nueva Contraseña'
+                                    keyboardType='default'
+                                    required
+                                    secureTextEntry
+                                    minLength={5}
+                                    autoCapitalize="none"
+                                    errorText="Ingrese una contraseña válida mínimo 5 caracteres."
+                                    onInputChange={inputChangeHandler}
+                                    initialValue=''
+                                />
+                                <Input
+                                    id='password2'
+                                    label='Confirmar Nueva Contraseña'
+                                    keyboardType='default'
+                                    required
+                                    secureTextEntry
+                                    minLength={5}
+                                    autoCapitalize="none"
+                                    errorText="Ingrese una contraseña válida mínimo 5 caracteres."
+                                    onInputChange={inputChangeHandler}
+                                    initialValue=''
+                                />
+                        </View>
                     }
                     {!changePassToggle && <Text></Text>}
-                    <View style={styles.buttonContainer}>
-                                    <Button 
-                                        title='Cambiar Contraseña en Bianca APP' 
-                                        color={Colors.accent} 
-                                        onPress={goToChangePassword}
-                                    />                            
-                    </View>          
-                {messageOK && <Text style={{color:'green'}}>{messageOK}</Text>}
-                {error && <Text style={{color:'red'}}>{error}</Text>}
-                </View>
+                    <View style={{alignContent:'center',alignItems:'center'}}>   
+                        <View style={styles.buttonContainer}>
+                            <Button 
+                                title='Cambiar Contraseña en Bianca APP' 
+                                color={Colors.accent} 
+                                onPress={goToChangePassword}
+                            />                            
+                        </View>          
+                        
+                    {isLoading ? 
+                        (<ActivityIndicator size='large' color={Colors.primary}/>) 
+                        : 
+                        <View>
+                        {messageOK && <Text style={{color:'green'}}>{messageOK}</Text>}
+                        {error && <Text style={{color:'red'}}>{error}</Text>}
+                        </View>
+                    }
+                    <Text></Text>
+                    </View>
+            </ScrollView>
+        </KeyboardAvoidingView>
     )
 }
 
@@ -320,7 +336,7 @@ const styles = StyleSheet.create({
         marginTop: 25,
     },
     titleContainer: {
-        alignItems: 'center',
+        //alignItems: 'center',
         width: '100%',
     },
     textContainer: {
