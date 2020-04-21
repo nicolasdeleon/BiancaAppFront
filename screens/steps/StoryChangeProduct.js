@@ -6,7 +6,8 @@ import {
     Text,
     ScrollView,
     Animated,
-    Alert
+    Alert,
+    KeyboardAvoidingView
 } from 'react-native'
 
 import { useDispatch } from 'react-redux'
@@ -126,43 +127,55 @@ const StoryChangeProduct = props =>{
 
     function InsertAccount() {
         return (
-            <View style={{flex:1, width:'100%', justifyContent: 'space-around', alignItems: 'center',}}>
-                <Text style={styles.textMostra}>{props.exchangeDetails}</Text>
-                <View style={{width:250}}>
-                <Input
-                  id='userData'
-                  label='Número de Teléfono'
-                  keyboardType='default'
-                  textAlign='center'
-                  style={{fontSize:24, color:"white"}}
-                  required
-                  autoCapitalize="none"
-                  errorText="Ingresa número válido"
-                  onInputChange={inputChangeHandler}
-                  initialValue={formState.inputValues.userData}
-                />
+            <KeyboardAvoidingView >
+            <ScrollView>
+                <View style={{ alignItems:'center'}}>
+                    <Text style={styles.textFelicidades}>¡FELICIDADES!</Text>
+                    <Text style={styles.textValidamos}>Nuestro equipo valido tu foto</Text>
+                    <Text></Text>
+                    <Text style={styles.textMostra}>{props.exchangeDetails}</Text>
+                    
+                    <Text></Text>
+                    <Text></Text>
+                    <Text></Text>
+                    <Input
+                    id='userData'
+                    label='Número de Teléfono'
+                    keyboardType='default'
+                    textAlign='center'
+                    style={{fontSize:24, color:"white"}}
+                    required
+                    autoCapitalize="none"
+                    errorText="Ingresa número válido"
+                    onInputChange={inputChangeHandler}
+                    initialValue={formState.inputValues.userData}
+                    />
+                    
+                    <Text></Text>
+                    <Text></Text>
+                    <AwesomeButton 
+                    backgroundColor={Colors.accent}
+                    borderRadius={110/2}
+                    width={200}
+                    height={80}
+                    disabled={!doAppearAnimaton}
+                    backgroundPlaceholder={'#010203'}
+                    backgroundDarker={'#010203'}
+                    onPress={(next) => {
+                        startDesappearAnimation()
+                        next()
+                    }}>
+                    RECIBIR BENEFICIO EN ESTA CUENTA
+                    </AwesomeButton>
+                    
                 </View>
-                <AwesomeButton 
-                backgroundColor={Colors.accent}
-                borderRadius={110/2}
-                width={200}
-                height={80}
-                disabled={!doAppearAnimaton}
-                backgroundPlaceholder={'#010203'}
-                backgroundDarker={'#010203'}
-                onPress={(next) => {
-                    startDesappearAnimation()
-                    next()
-                }}>
-                RECIBIR BENEFICIO EN ESTA CUENTA
-                </AwesomeButton>
-            </View>
+            </ScrollView>
+            </KeyboardAvoidingView>
         )
     }
 
     return (
-        <Animated.View style={{...styles.screen}}>
-        <Header/>
+        <Animated.View style={{...styles.screen}}>            
             {props.eventType === 'B' ? <InsertAccount/> : <InHandBenefit/>}
         </Animated.View>
     )
