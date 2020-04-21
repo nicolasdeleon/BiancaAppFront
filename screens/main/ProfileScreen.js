@@ -141,7 +141,9 @@ const [formState,dispatchFormState] = useReducer(formReducer,{
      formIsValid: false 
      }
  )//useReducer
-
+    const NotChangePassword = () => {
+        setChangePassTogle(false)
+    }
     const goToChangePassword = async () =>{
         let action
         if (formState.inputValues.old_password == "" ||
@@ -165,11 +167,11 @@ const [formState,dispatchFormState] = useReducer(formReducer,{
         if (formState.inputValues.old_password != "" &&
         formState.inputValues.password != "" &&
         formState.inputValues.password2 != "") 
-        {                      
+        {
             action = AuthActions.change_password(
             formState.inputValues.token,
-            formState.inputValues.old_password,                
-            formState.inputValues.password,                
+            formState.inputValues.old_password,
+            formState.inputValues.password,
             formState.inputValues.password2
             )
             if(formState.formIsValid){
@@ -311,8 +313,17 @@ const [formState,dispatchFormState] = useReducer(formReducer,{
                                 title='Cambiar Contraseña en Bianca APP' 
                                 color={Colors.accent} 
                                 onPress={goToChangePassword}
-                            />                            
-                        </View>          
+                            />
+                            {changePassToggle &&
+                            <View style={{width: 100, marginVertical: 8, alignSelf:'center'}}>
+                                <Button 
+                                title='Cancelar'
+                                color={'#ff0000'}
+                                onPress={NotChangePassword}
+                                />
+                            </View>
+                            }
+                        </View>
                         
                     {isLoading ? 
                         (<ActivityIndicator size='large' color={Colors.primary}/>) 
@@ -322,7 +333,6 @@ const [formState,dispatchFormState] = useReducer(formReducer,{
                         {error && <Text style={{color:'red'}}>{error}</Text>}
                         </View>
                     }
-                    <Text></Text>
                     </View>
             </ScrollView>
         </KeyboardAvoidingView>
@@ -336,7 +346,6 @@ const styles = StyleSheet.create({
         marginTop: 25,
     },
     titleContainer: {
-        //alignItems: 'center',
         width: '100%',
     },
     textContainer: {
@@ -373,10 +382,7 @@ const styles = StyleSheet.create({
         padding: 10,
     }, 
     authContainer:{
-//marginHorizontal: 20,
-        
         marginVertical: 20,
-        //height:'100%',
         width:'100%',
         padding:15,
         elevation:3,
