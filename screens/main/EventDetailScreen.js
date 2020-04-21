@@ -207,6 +207,8 @@ const MainScreen = props => {
           style={styles.gradient}>
         <View style={styles.screen}>
             <StoryValidation
+            refreshStatus={updateUserEventState}
+            loading={isLoading}
             active={state2}/>
         </View>
         </LinearGradient>

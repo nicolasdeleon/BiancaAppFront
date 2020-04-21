@@ -1,18 +1,15 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState } from 'react'
 import {
     View,
     Easing,
     StyleSheet,
     Text,
-    Image,
+    ActivityIndicator,
     Animated,
     TouchableOpacity
 } from 'react-native'
 
 import { Ionicons } from '@expo/vector-icons'
-
-
-import AwesomeButton from 'react-native-really-awesome-button';
 
 import useAnimation from '../../components/UseAnimaton'
 import BubbleText from '../../components/BubbleText'
@@ -48,10 +45,14 @@ const StorySubmission = props =>{
                 </View>
             </Animated.View>
             <View style={styles.classicCenter}>
-                <TouchableOpacity>
-                    <Ionicons name='md-refresh' size={45} color={'black'}/>
-                </TouchableOpacity>
-            <Text style={styles.consultarEstadoText}>Consultar estado</Text>
+                {props.loading ? 
+                    (<ActivityIndicator size='large' color={Colors.dark}/>) 
+                    : 
+                    <TouchableOpacity onPress={props.refreshStatus}>
+                        <Ionicons name='md-refresh' size={35} color={Colors.dark}/>
+                    </TouchableOpacity>
+                }
+                <Text style={styles.consultarEstadoText}>Consultar estado</Text>
             </View>
         </Animated.View>
     )
@@ -117,12 +118,11 @@ const styles = StyleSheet.create({
     },
     consultarEstadoText: {
         fontFamily:'open-sans',
-        fontSize: '14'
+        fontSize: 14
     },
     classicCenter: {
         alignItems:'center',
         justifyContent:'center'
-    }
     }
 });
 
