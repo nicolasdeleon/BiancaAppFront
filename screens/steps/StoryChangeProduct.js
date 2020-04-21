@@ -185,6 +185,7 @@ const styles = StyleSheet.create({
         position: 'absolute',
     },
     textFelicidades: {
+        marginTop:10,
         fontSize: 26,
         fontFamily: 'open-sans-bold',
         textAlign: 'center',
@@ -196,14 +197,14 @@ const styles = StyleSheet.create({
         fontFamily: 'open-sans',
         textAlign: 'center',
         color: 'white',
-        marginBottom: 50,
+        marginBottom: 40,
     },
     textMostra: {
         fontSize: 18,
         fontFamily: 'open-sans',
         textAlign: 'center',
         color: 'white',
-        marginBottom: 100,
+        marginBottom: 80,
     }
 
 });
