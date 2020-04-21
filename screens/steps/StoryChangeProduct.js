@@ -96,22 +96,25 @@ const StoryChangeProduct = props =>{
 
     function InHandBenefit() {
         return (
-            <View style={{flex:1, justifyContent: 'space-around', alignItems: 'center',}}>
-                <Text style={styles.textMostra}>Mostrá esta pantalla al encargado del local</Text>
-                <AwesomeButton 
-                backgroundColor={Colors.accent}
-                borderRadius={110/2}
-                width={110}
-                height={110}
-                disabled={!doAppearAnimaton}
-                backgroundPlaceholder={'#010203'}
-                backgroundDarker={'#010203'}
-                onPress={(next) => {
-                    startDesappearAnimation()
-                    next()
-                }}>
-                YA RECIBÍ EL BENEFICIO
-                </AwesomeButton>
+            <View>
+                <View style={{flex:1, justifyContent: 'space-around', alignItems: 'center',}}>
+                    <Header/>
+                    <Text style={styles.textMostra}>Mostrá esta pantalla al encargado del local</Text>
+                    <AwesomeButton 
+                    backgroundColor={Colors.accent}
+                    borderRadius={110/2}
+                    width={110}
+                    height={110}
+                    disabled={!doAppearAnimaton}
+                    backgroundPlaceholder={'#010203'}
+                    backgroundDarker={'#010203'}
+                    onPress={(next) => {
+                        startDesappearAnimation()
+                        next()
+                    }}>
+                    YA RECIBÍ EL BENEFICIO
+                    </AwesomeButton>
+                </View>
             </View>
         )
     }
@@ -130,15 +133,14 @@ const StoryChangeProduct = props =>{
             <KeyboardAvoidingView >
             <ScrollView>
                 <View style={{ alignItems:'center'}}>
-                    <Text style={styles.textFelicidades}>¡FELICIDADES!</Text>
-                    <Text style={styles.textValidamos}>Nuestro equipo valido tu foto</Text>
+                    <Header/>
                     <Text style={styles.textMostra}>{props.exchangeDetails}</Text>
                     <Input
                     id='userData'
                     label='Número de Teléfono'
                     keyboardType='default'
                     textAlign='center'
-                    style={{fontSize:24, color:"white", marginBottom:30}}
+                    style={{fontSize:24, color:"white", marginBottom:50}}
                     required
                     autoCapitalize="none"
                     errorText="Ingresa número válido"
@@ -197,14 +199,14 @@ const styles = StyleSheet.create({
         fontFamily: 'open-sans',
         textAlign: 'center',
         color: 'white',
-        marginBottom: 40,
+        marginBottom: 50,
     },
     textMostra: {
         fontSize: 18,
         fontFamily: 'open-sans',
         textAlign: 'center',
         color: 'white',
-        marginBottom: 80,
+        marginBottom: 50,
     }
 
 });
