@@ -5,8 +5,12 @@ import {
     StyleSheet,
     Text,
     Image,
-    Animated
+    Animated,
+    TouchableOpacity
 } from 'react-native'
+
+import { Ionicons } from '@expo/vector-icons'
+
 
 import AwesomeButton from 'react-native-really-awesome-button';
 
@@ -43,6 +47,12 @@ const StorySubmission = props =>{
                         text={"Activá las notificaciones para recibir un aviso de validación"}/>
                 </View>
             </Animated.View>
+            <View style={styles.classicCenter}>
+                <TouchableOpacity>
+                    <Ionicons name='md-refresh' size={45} color={'black'}/>
+                </TouchableOpacity>
+            <Text style={styles.consultarEstadoText}>Consultar estado</Text>
+            </View>
         </Animated.View>
     )
 };
@@ -104,6 +114,15 @@ const styles = StyleSheet.create({
         color: 'white',
         textDecorationLine: 'underline',
         fontFamily: 'open-sans'
+    },
+    consultarEstadoText: {
+        fontFamily:'open-sans',
+        fontSize: '14'
+    },
+    classicCenter: {
+        alignItems:'center',
+        justifyContent:'center'
+    }
     }
 });
 
