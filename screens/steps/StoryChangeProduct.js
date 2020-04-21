@@ -132,32 +132,25 @@ const StoryChangeProduct = props =>{
                 <View style={{ alignItems:'center'}}>
                     <Text style={styles.textFelicidades}>¡FELICIDADES!</Text>
                     <Text style={styles.textValidamos}>Nuestro equipo valido tu foto</Text>
-                    <Text></Text>
                     <Text style={styles.textMostra}>{props.exchangeDetails}</Text>
-                    
-                    <Text></Text>
-                    <Text></Text>
-                    <Text></Text>
                     <Input
                     id='userData'
                     label='Número de Teléfono'
                     keyboardType='default'
                     textAlign='center'
-                    style={{fontSize:24, color:"white"}}
+                    style={{fontSize:24, color:"white", marginBottom:30}}
                     required
                     autoCapitalize="none"
                     errorText="Ingresa número válido"
                     onInputChange={inputChangeHandler}
                     initialValue={formState.inputValues.userData}
                     />
-                    
-                    <Text></Text>
-                    <Text></Text>
                     <AwesomeButton 
                     backgroundColor={Colors.accent}
                     borderRadius={110/2}
                     width={200}
                     height={80}
+                    marginBottom={50}
                     disabled={!doAppearAnimaton}
                     backgroundPlaceholder={'#010203'}
                     backgroundDarker={'#010203'}
@@ -202,13 +195,15 @@ const styles = StyleSheet.create({
         fontSize: 20,
         fontFamily: 'open-sans',
         textAlign: 'center',
-        color: 'white'
+        color: 'white',
+        marginBottom: 50,
     },
     textMostra: {
         fontSize: 18,
         fontFamily: 'open-sans',
         textAlign: 'center',
-        color: 'white'
+        color: 'white',
+        marginBottom: 100,
     }
 
 });
