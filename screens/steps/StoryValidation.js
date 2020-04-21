@@ -1,14 +1,15 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState } from 'react'
 import {
     View,
     Easing,
     StyleSheet,
     Text,
-    Image,
-    Animated
+    ActivityIndicator,
+    Animated,
+    TouchableOpacity
 } from 'react-native'
 
-import AwesomeButton from 'react-native-really-awesome-button';
+import { Ionicons } from '@expo/vector-icons'
 
 import useAnimation from '../../components/UseAnimaton'
 import BubbleText from '../../components/BubbleText'
@@ -43,6 +44,16 @@ const StorySubmission = props =>{
                         text={"Activá las notificaciones para recibir un aviso de validación"}/>
                 </View>
             </Animated.View>
+            <View style={styles.classicCenter}>
+                {props.loading ? 
+                    (<ActivityIndicator size='large' color={Colors.dark}/>) 
+                    : 
+                    <TouchableOpacity onPress={props.refreshStatus}>
+                        <Ionicons name='md-refresh' size={35} color={Colors.dark}/>
+                    </TouchableOpacity>
+                }
+                <Text style={styles.consultarEstadoText}>Consultar estado</Text>
+            </View>
         </Animated.View>
     )
 };
@@ -104,6 +115,14 @@ const styles = StyleSheet.create({
         color: 'white',
         textDecorationLine: 'underline',
         fontFamily: 'open-sans'
+    },
+    consultarEstadoText: {
+        fontFamily:'open-sans',
+        fontSize: 14
+    },
+    classicCenter: {
+        alignItems:'center',
+        justifyContent:'center'
     }
 });
 
