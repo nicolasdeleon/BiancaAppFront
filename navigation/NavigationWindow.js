@@ -215,7 +215,7 @@ drawerIcon: drawerConfig =>(<Ionicons name='md-create' size={23} color={drawerCo
         backgroundColor:Colors.accent
     }
 })
-
+/*
 const FeedbackStack = createStackNavigator({
     Feedback: FeedbackFormScreen,
 },{
@@ -244,11 +244,11 @@ const FeedbackStack = createStackNavigator({
         </HeaderButtons>,
     }),
 })
-
+*/
 
 const MainProfileDrawer = createDrawerNavigator({
     ok: EventsandProfile,
-    feedback: FeedbackStack,
+    //feedback: FeedbackStack,
 },{
     contentOptions: {
         activeTintColor: Colors.primary,
@@ -276,15 +276,7 @@ const MainProfileDrawer = createDrawerNavigator({
                             source={ require('../staticData/BiancaLogo.png') }/>
                         </TouchableOpacity>
                         </View>
-                        <View style={ styles.menuButtonContainer }>
-                            <TouchableOpacity  onPress={ ()=> {
-                                props.navigation.navigate('feedback')
-                            }}>
-                            <Text 
-                            style={ styles.menuItemText }>
-                                Give us Feedback!</Text>
-                            </TouchableOpacity>
-                        </View>
+                        
                         
                         <View style={ styles.menuButtonContainer }>
                            <TouchableOpacity  onPress={ () => {
@@ -301,6 +293,20 @@ const MainProfileDrawer = createDrawerNavigator({
         )
     }
 })
+
+
+/*
+Codigo para agregar arriba si se quiere colocar el feedback
+<View style={ styles.menuButtonContainer }>
+                            <TouchableOpacity  onPress={ ()=> {
+                                props.navigation.navigate('feedback')
+                            }}>
+                            <Text 
+                            style={ styles.menuItemText }>
+                                Give us Feedback!</Text>
+                            </TouchableOpacity>
+                        </View>
+*/
 
 //Stack navigator creado para poder pasar de mi screen de log in a mi screen de register si hace falta
 //Falta darle un formato apropiado
