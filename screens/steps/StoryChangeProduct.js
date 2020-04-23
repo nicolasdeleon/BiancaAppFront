@@ -15,7 +15,6 @@ import { useDispatch } from 'react-redux'
 import AwesomeButton from 'react-native-really-awesome-button';
 
 import useAnimation from '../../components/UseAnimaton'
-import BubbleText from '../../components/BubbleText'
 import Colors from '../../constants/Colors';
 import Input from '../../components/Input'
 
@@ -47,7 +46,6 @@ const formReducer = (state, action) =>{
 
 
 const StoryChangeProduct = props =>{
-
 
     const [formState, dispatchFormState] = useReducer(formReducer,{
         inputValues: {
@@ -100,7 +98,7 @@ const StoryChangeProduct = props =>{
                 <View style={{flex:1, justifyContent: 'space-around', alignItems: 'center',}}>
                     <Header/>
                     <Text style={styles.textMostra}>Mostrá esta pantalla al encargado del local</Text>
-                    <AwesomeButton 
+                    <AwesomeButton
                     backgroundColor={Colors.accent}
                     borderRadius={110/2}
                     width={110}
@@ -170,8 +168,8 @@ const StoryChangeProduct = props =>{
     }
 
     return (
-        <Animated.View style={{...styles.screen}}>            
-            {props.eventType === 'B' ? <InsertAccount/> : <InHandBenefit/>}
+        <Animated.View style={{...styles.screen}}>
+            {props.eventType === 'A' ? <InHandBenefit/> : <InsertAccount/> }
         </Animated.View>
     )
 };
@@ -192,7 +190,7 @@ const styles = StyleSheet.create({
         fontFamily: 'open-sans-bold',
         textAlign: 'center',
         color: 'white',
-        marginBottom:6
+        marginBottom: 6
     },
     textValidamos: {
         fontSize: 20,

@@ -69,6 +69,7 @@ export const getEvenReltState = (userToken, EventPk) => {
             type: GET_EVENT_REL_STATUS,
             contractStatus: resData['status']
         })
+        return resData['status']
     }
 }
 
