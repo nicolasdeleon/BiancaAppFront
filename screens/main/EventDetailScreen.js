@@ -70,13 +70,25 @@ const MainScreen = props => {
         setState4(true)
     }
 
+    const refreshContractStatus = useCallback(async () => {
+        setIsLoading(true)
+        setError(null)
+        let action = EventActions.getEvenReltState(userToken, productId)
+        try {
+            await dispatch(action)
+        } catch (err){
+            setError(err.message)
+        }
+        setIsLoading(false)
+    },[dispatch, setIsLoading, setError, contractStatus,])
+
 
     const updateUserEventState = useCallback(async () => {
         setIsLoading(true)
         setError(null)
 
         let action = EventActions.getEvenReltState(userToken, productId)
-       
+
         try {
 
             await dispatch(action)
@@ -99,9 +111,7 @@ const MainScreen = props => {
             setState3(false)
             setState4(false)
         }
-
         setIsLoading(false)
-
     },[dispatch, setIsLoading, setError, contractStatus,])
 
     // FUNTION THAT fRUNS LOAD CONTRACTS AND EVENTS
@@ -140,7 +150,6 @@ const MainScreen = props => {
 
         let action
         action = EventActions.joinEvent(userToken, selectedEvent.pk, notificationToken)
-
         setError(null)
 
         try{
@@ -207,7 +216,7 @@ const MainScreen = props => {
           style={styles.gradient}>
         <View style={styles.screen}>
             <StoryValidation
-            refreshStatus={updateUserEventState}
+            refreshStatus={refreshContractStatus}
             loading={isLoading}
             active={state2}/>
         </View>
