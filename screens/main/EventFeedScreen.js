@@ -26,7 +26,7 @@ const status2Array = (status) => {
     else if (status == "F") {
         return [false, false, false, false, true]
     }
-    else return[false, false, false, false, false]
+    else return[true, false, false, false, false]
 }
 
 const EventFeedScreen = props => {
@@ -52,7 +52,9 @@ const EventFeedScreen = props => {
     },[dispatch, setIsLoading, setError])
 
     useEffect( () => {
+        let mounted = true
         loadContracts()
+        return () => false
     },[dispatch, loadContracts])
 
     useEffect( () => {
@@ -105,31 +107,29 @@ const EventFeedScreen = props => {
                         image={itemData.item.image}
                         onSelect={() => {
                             let s = 'N'
-                            let benefitDescription = ''
                             let data4company = ''
-                            let eventType
                             if (activeContracts.length != 0) {
                                 for (i = 0; i<activeContracts.length; i++) {
                                     if (activeContracts[i].event.pk == itemData.item.pk){
-                                        s = activeContracts[i].event.status
-                                        benefitDescription = activeContracts[i].event.benefitDescription
-                                        eventType = activeContracts[i].event.eventType
+                                        s = activeContracts[i].status
                                         data4company = activeContracts[i].data4Company
                                     }
                                 }
                             }
                             dispatch(EventActions.setEventRealState(s))
-                            props.navigation.navigate('EventDetail',{
-                            currentStatus: status2Array(s),
-                            benefitDescription: benefitDescription,
-                            eventType: eventType,
-                            eventId: itemData.item.pk,
-                            eventTitle: itemData.item.title,
-                            eventDescription: itemData.item.description,
-                            eventStatus: itemData.item.status,
-                            data4company: data4company
-                                    })}}
-                        >
+                            props.navigation.navigate('EventDetail', {
+                                currentStatus: status2Array(s),
+                                benefitDescription: itemData.item.benefitDescription,
+                                eventType: itemData.item.eventType,
+                                eventId: itemData.item.pk,
+                                eventTitle: itemData.item.title,
+                                eventDescription: itemData.item.description,
+                                eventStatus: itemData.item.status,
+                                data4company: data4company
+                                    })
+                            }
+                        }
+                    >
                         </EventItem> 
                     }
         />

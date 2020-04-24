@@ -66,7 +66,7 @@ const StoryWelcome = props =>{
                     <Text style={{...styles.textCalificanos}}>Calificar en App Store y Play Store!</Text>
                 </TouchableOpacity>
             </Animated.View>
-            {props.eventType === 'B' && <DataCheck/>}
+            {props.eventType != 'A' && <DataCheck/>}
             <Animated.View style={{...styles.Container}}>
                 <AwesomeButton 
                     backgroundColor={Colors.primary}

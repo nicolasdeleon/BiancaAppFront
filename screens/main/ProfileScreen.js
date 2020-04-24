@@ -41,7 +41,6 @@ const ProfileScreen = props => {
 
     const loadUserData = useCallback(async () =>{
         setIsLoading(true)
-        console.log("Load user data")
         setChangePassTogle(false)
         setError(null)
         try {

@@ -30,6 +30,9 @@ const MainScreen = props => {
     const productId = props.navigation.getParam('eventId')
     const selectedEvent = useSelector(state=>state.events.activeEvents.find(prod => prod.pk===productId))
     const contractStatus = useSelector( state => state.events.contractStatus )
+    const [data4company, setData4company] = useState(props.navigation.getParam('data4company'))
+    const [exchangeDetails, setExchangeDetails] = useState(props.navigation.getParam('benefitDescription'))
+    const [eventType, setEventType] = useState(props.navigation.getParam('eventType'))
     const dispatch = useDispatch()
 
     const [state0, setState0] = useState(props.navigation.getParam('currentStatus')[0])
@@ -79,6 +82,9 @@ const MainScreen = props => {
         } catch (err){
             setError(err.message)
         }
+        if(contractStatus === "W") {
+            initWinnerScreen()
+        }
         setIsLoading(false)
     },[dispatch, setIsLoading, setError, contractStatus,])
 
@@ -90,8 +96,8 @@ const MainScreen = props => {
         let action = EventActions.getEvenReltState(userToken, productId)
 
         try {
-
-            await dispatch(action)
+            const response = await dispatch(action)
+            dispatch(EventActions.setEventRealState(response))
         } catch (err){
             setError(err.message)
         }
@@ -104,23 +110,19 @@ const MainScreen = props => {
         }
         else if(contractStatus === "F") {
             initFinitScreen()
-        } else if(contractStatus == "N" ) {
-            // Lo mando al estado inicial
-            setState0(true)
-            setState2(false)
-            setState3(false)
-            setState4(false)
         }
         setIsLoading(false)
-    },[dispatch, setIsLoading, setError, contractStatus,])
+    }, [dispatch, setIsLoading, setError, contractStatus,])
 
     // FUNTION THAT fRUNS LOAD CONTRACTS AND EVENTS
    useEffect( () => {
-             updateUserEventState()
-    },[dispatch, updateUserEventState])
+        let mounted = true
+        updateUserEventState()
+        return () => mounted = false
+    }, [dispatch, updateUserEventState])
 
     useEffect( () => {
-        const willFocusSub = props.navigation.addListener('willFocus',()=>{
+        const willFocusSub = props.navigation.addListener('willFocus',() => {
             updateUserEventState() 
         })
         return () => {
@@ -154,18 +156,18 @@ const MainScreen = props => {
 
         try{
             await dispatch(action)
+            dispatch(EventActions.setEventRealState("2BA"))
         }catch (err){
             setError(err.message)
         }
     }
 
+
     finEvent = async (userData) => {
 
         let action
         action = EventActions.finEvent(userToken, selectedEvent.pk, userData)
-
         setError(null)
-
         try{
             await dispatch(action)
         }catch (err){
@@ -183,8 +185,8 @@ const MainScreen = props => {
         <View style={styles.screen}>
             <StoryFinit
             active={state4}
-            eventType={props.navigation.getParam('eventType')}
-            data4company={props.navigation.getParam('data4company')}
+            eventType={eventType}
+            data4company={data4company}
             next={()=>{props.navigation.navigate('EventFeed')}}/>
         </View>
         </LinearGradient>
@@ -198,11 +200,12 @@ const MainScreen = props => {
           style={styles.gradient}>
         <View style={styles.screen}>
             <StoryChangeProduct
-            exchangeDetails={props.navigation.getParam('benefitDescription')}
+            exchangeDetails={exchangeDetails}
             active={state3}
-            eventType={props.navigation.getParam('eventType')}
+            eventType={eventType}
             next={ (userData) => {
                 finEvent(userData)
+                setData4company(userData)
                 initFinitScreen()}}/>
         </View>
         </LinearGradient>
@@ -272,10 +275,10 @@ const MainScreen = props => {
 
 const styles = StyleSheet.create({
     gradient:{
-        width:'100%',
-        height:'100%',
-        justifyContent:'center',
-        alignItems:'center',
+        width: '100%',
+        height: '100%',
+        justifyContent: 'center',
+        alignItems: 'center',
     },
     screen: {
         flex: 1,
