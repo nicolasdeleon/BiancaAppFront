@@ -175,6 +175,29 @@ const MainScreen = props => {
         }
     }
 
+    watchEvent = async() => {
+        let notificationToken = null
+        const { status } = await Permissions.getAsync(Permissions.NOTIFICATIONS)
+        if (status === 'granted'){
+            notificationToken = await Notifications.getExpoPushTokenAsync()
+            Notifications.addListener(_handleNotification);
+        }
+        if(!userToken){
+            return
+        }
+
+        let action
+        action = EventActions.watchEvent(userToken, selectedEvent.pk, notificationToken)
+        setError(null)
+
+        try{
+            await dispatch(action)
+        }catch (err){
+            // do not show error! Fail silently for user
+            return
+        }
+    }
+
 
     if(state4){
         return (
@@ -257,6 +280,7 @@ const MainScreen = props => {
                     next={ () => {
                         updateUserEventState()
                         initStorySubmission()
+                        watchEvent()
                         setState1(true)
                     }}
                     active={state0}/>
