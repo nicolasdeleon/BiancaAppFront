@@ -113,6 +113,33 @@ export const joinEvent = (userToken, EventPk, nToken) => {
         }
 }
 
+export const watchEvent = (userToken, EventPk, nToken) => {
+    return async dispatch => {
+        const response = await fetch(
+            'https://biancaapp-ndlc.herokuapp.com/api/accounts/eventWatch'
+            ,{
+                method:'POST',
+                headers:{
+                    'Content-Type': 'application/json',
+                    'Authorization': `Token ${userToken}`
+                },
+                body: JSON.stringify({
+                    event_pk: EventPk,
+                    notToken: nToken
+                })
+            })
+            if(response.status>207){
+                const resData = await response.json()
+                if(resData['response'] === 'Error'){
+                    throw new Error(resData['error_message'])
+                }
+                else{
+                    throw new Error('Conection error..')
+                }
+            }
+        }
+}
+
 export const getActiveEvents = () => {
     return async (dispatch, getState) => {
         const response = await fetch(
