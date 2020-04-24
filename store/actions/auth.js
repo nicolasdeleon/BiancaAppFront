@@ -143,9 +143,7 @@ export const reset_password_confirm = (email, token, password, password2) => {
 }
 
 export const change_password = (token,old_password,password,password2) =>{
-    console.log("Change pass")
-    console.log(token)
-    return async dispatch =>{        
+    return async dispatch =>{
         const response = await fetch(
             'https://biancaapp-ndlc.herokuapp.com/api/accounts/change_password'
             ,{

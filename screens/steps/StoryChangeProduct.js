@@ -47,6 +47,7 @@ const formReducer = (state, action) =>{
 
 const StoryChangeProduct = props =>{
 
+    const [error, setError] = useState(null)
     const [formState, dispatchFormState] = useReducer(formReducer,{
         inputValues: {
             userData: ''
@@ -65,16 +66,16 @@ const StoryChangeProduct = props =>{
     dispatch = useDispatch()
     const startDesappearAnimation = async () => {
 
-        let link = ""
-        if(props.eventType == 'B') {
+        let data4company = ""
+        if(props.eventType != 'A') {
             if( formState.inputValues.userData == '' ||
                 !formState.inputValidities.userData ) {
                     Alert.alert('Ups! fijate de haber completado bien la información')
                     return
                 }
-            link = formState.inputValues.userData
+        data4company = formState.inputValues.userData
     }
-    props.next(link)
+    props.next(data4company)
 }
     const animateEntryScreen = { 
         opacity: appearAnimaton.interpolate({
@@ -138,13 +139,16 @@ const StoryChangeProduct = props =>{
                     label='Número de Teléfono'
                     keyboardType='default'
                     textAlign='center'
+                    tel
                     style={{fontSize:24, color:"white", marginBottom:50}}
                     required
                     autoCapitalize="none"
+                    desiredLength={20}
                     errorText="Ingresa número válido"
                     onInputChange={inputChangeHandler}
                     initialValue={formState.inputValues.userData}
                     />
+                    {error && <Text style={styles.errorText}>{error}</Text>}
                     <AwesomeButton 
                     backgroundColor={Colors.accent}
                     borderRadius={110/2}
@@ -205,8 +209,11 @@ const styles = StyleSheet.create({
         textAlign: 'center',
         color: 'white',
         marginBottom: 50,
-    }
-
+    },
+    errorText: {
+        color: 'red',
+        fontFamily: 'open-sans'
+    },
 });
 
 export default StoryChangeProduct

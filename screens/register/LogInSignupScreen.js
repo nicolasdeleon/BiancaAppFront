@@ -48,7 +48,7 @@ const formReducer = (state, action) =>{
 const LogInSignupScreen = props => {
 
     const [isLoading,setIsLoading] = useState(false)
-    const [error,setError] = useState(null)
+    const [error, setError] = useState(null)
     const [formState,dispatchFormState] = useReducer(formReducer,{
              inputValues: {
                 email:'',
@@ -141,7 +141,7 @@ const LogInSignupScreen = props => {
                             />
                      </View>
 
-                        <View style={{marginVertical:8}}>                            
+                        <View style={{marginVertical: 8}}>
                             <TouchableOpacity onPress={goToForgotPassword}>  
                                 <Text style={styles.forgotPasswordTex}>Olvidé mi contraseña.</Text>
                             </TouchableOpacity>
