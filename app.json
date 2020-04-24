@@ -10,7 +10,7 @@
     ],
     "version": "2.0.7",
     "orientation": "portrait",
-    "icon": "./staticData/BiancaLogo.png",
+    "icon": "./staticData/BiancaLogo2.png",
     "splash": {
       "image": "./staticData/BiancaLogo.png",
       "resizeMode": "contain",
