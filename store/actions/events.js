@@ -116,7 +116,7 @@ export const joinEvent = (userToken, EventPk, nToken) => {
 export const watchEvent = (userToken, EventPk, nToken) => {
     return async dispatch => {
         const response = await fetch(
-            'https://biancaapp-ndlc.herokuapp.com/api/accounts/eventWatchs'
+            'https://biancaapp-ndlc.herokuapp.com/api/accounts/eventWatch'
             ,{
                 method:'POST',
                 headers:{
