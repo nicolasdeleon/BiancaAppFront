@@ -52,7 +52,9 @@ const EventFeedScreen = props => {
     },[dispatch, setIsLoading, setError])
 
     useEffect( () => {
+        let mounted = true
         loadContracts()
+        return () => false
     },[dispatch, loadContracts])
 
     useEffect( () => {
@@ -104,7 +106,6 @@ const EventFeedScreen = props => {
                         status={itemData.item.status}
                         image={itemData.item.image}
                         onSelect={() => {
-                            console.log(itemData.item)
                             let s = 'N'
                             let data4company = ''
                             if (activeContracts.length != 0) {

@@ -116,7 +116,9 @@ const MainScreen = props => {
 
     // FUNTION THAT fRUNS LOAD CONTRACTS AND EVENTS
    useEffect( () => {
+        let mounted = true
         updateUserEventState()
+        return () => mounted = false
     }, [dispatch, updateUserEventState])
 
     useEffect( () => {
@@ -165,9 +167,7 @@ const MainScreen = props => {
 
         let action
         action = EventActions.finEvent(userToken, selectedEvent.pk, userData)
-
         setError(null)
-
         try{
             await dispatch(action)
         }catch (err){
