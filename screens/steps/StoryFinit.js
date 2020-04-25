@@ -31,7 +31,7 @@ const StoryWelcome = props =>{
             url = 'https://play.google.com/store/apps/details?id=bianca.bianca'
         }
         else if (Platform.OS === 'ios') {
-            url = 'https://play.google.com/store/apps/details?id=bianca.bianca'
+            url = 'https://apps.apple.com/ar/app/bianca/id1500011909'
         }
         const supported = await Linking.canOpenURL(url);
         if (supported) {
