@@ -46,7 +46,7 @@ const StoryWelcome = props =>{
         return (
             <View style={styles.datacheckContainer}>
                 <Text style={styles.beneficioEntregadoText}>
-                El beneficio de wabi será entregado a: {'\n'}
+                El beneficio se va a ver reflejado en tu cuenta de Wabi directamente el próximo jueves{'\n'}{'\n'}
                 <Text style={{color:Colors.primary, fontSize:22}}>{props.data4company}</Text>
                 </Text>
                 <Text style={styles.ponganseEnContacto}>pongase en contacto con support@biancaapp.com por cualquier duda</Text>
@@ -60,13 +60,13 @@ const StoryWelcome = props =>{
                 <Animated.Text style={{...styles.textGraciasPorUsar}}>Gracias por usar</Animated.Text>
                 <Animated.Text style={{...styles.textBianca}}>Bianca</Animated.Text>
             </View>
+            {props.eventType != 'A' && <DataCheck/>}
             <Animated.View style={{...styles.Container}}>
                 <TouchableOpacity
                     onPress={RateUs}>
                     <Text style={{...styles.textCalificanos}}>Calificar en App Store y Play Store!</Text>
                 </TouchableOpacity>
             </Animated.View>
-            {props.eventType != 'A' && <DataCheck/>}
             <Animated.View style={{...styles.Container}}>
                 <AwesomeButton 
                     backgroundColor={Colors.primary}
@@ -98,7 +98,6 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center',
         width: '80%',
-        height: '40%'
     },
     textGraciasPorUsar: {
         fontSize: 24,
@@ -127,6 +126,7 @@ const styles = StyleSheet.create({
         color: 'white'
     },
     datacheckContainer: {
+        marginVertical: 10,
         height: '20%',
         width: '95%',
         alignContent: 'center',

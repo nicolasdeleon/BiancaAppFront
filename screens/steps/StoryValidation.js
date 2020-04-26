@@ -31,12 +31,13 @@ const StorySubmission = props =>{
     return (
         <Animated.View style={{...styles.screen, ...animateEntryScreen}}>
             <Animated.Text style={styles.textEstamosValidando}>Estamos validando tu historia en Instagram</Animated.Text>
-            <Animated.Text style={styles.textUnMomento}>Un momento por favor...</Animated.Text>
+            <Animated.Text style={styles.textUnMomento}>¡Te notificaremos apenas este validada!</Animated.Text>
+            <Animated.Text style={styles.textAviso}>Esto puede demorar un tiempo. Si tenés cuenta privada <Text style={{fontFamily:'open-sans-bold'}}>@Biancaapp.ar</Text> te seguirá por Instagram</Animated.Text>
             <Animated.View style={styles.proTipContainer}>
                 <Animated.Image style={{...styles.image}} source={ require('../../staticData/dog.png') }/>
                 <View>
                     <View style={{marginLeft:4}}>
-                        <Text style={styles.textPropTip}>Pro tip</Text>
+                        <Text style={styles.textPropTip}>Bianca tip</Text>
                     </View>
                     <BubbleText
                         style={{fontSize:15, alignSelf:'flex-start'}}
@@ -86,6 +87,11 @@ const styles = StyleSheet.create({
     },
     textUnMomento: {
         fontSize: 20,
+        fontFamily: 'open-sans',
+        textAlign: 'center',
+    },
+    textAviso: {
+        fontSize: 14,
         fontFamily: 'open-sans',
         textAlign: 'center',
     },

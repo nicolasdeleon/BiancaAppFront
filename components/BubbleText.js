@@ -22,8 +22,7 @@ const styles = StyleSheet.create({
         shadowRadius: 6,
         elevation: 2, // elevation is only android
         backgroundColor: 'white',
-        borderRadius: 20,
-        padding: 8,
+        borderRadius: 14,
         marginVertical: 1,
         marginHorizontal: 5,
         width: '80%', 

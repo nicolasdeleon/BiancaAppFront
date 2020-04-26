@@ -98,7 +98,7 @@ const StorySubmission = props =>{
         <View style={styles.screen}>
             <View style={styles.Container}>
                 <Animated.Text style={{...styles.textPaso1,...animateEntryPaso1}}>Paso 1</Animated.Text>
-                <Animated.Text style={{...styles.textSubiTuHistoria,...animateEntryText}}>Subi tu historia a Instagram</Animated.Text>
+                <Animated.Text style={{...styles.textSubiTuHistoria,...animateEntryText}}>Subí tu historia a Instagram</Animated.Text>
                 <Animated.Image style={{...styles.image, ...animateEntryImage}} source={ require('../../staticData/dog.png') }/>
                 <View style={styles.bubbleContainer}>
                     <BubbleText
@@ -108,10 +108,10 @@ const StorySubmission = props =>{
                     <BubbleText
                     style={{fontSize:15, alignSelf:'flex-start', ...animateSecondBubble}}
                     textStyle={{fontSize: 14}}
-                    text={"¡Notificanos al subir tu historia!"}/>
+                    text={"¡Notificanos haciendo click en 'Ya subí mi foto' para poder validar la foto"}/>
                 </View>
             </View>
-            <Animated.View style={{height:'18%', ...styles.ContainerButton,...animateEntryButton}}>
+            <Animated.View style={{...styles.ContainerButton,...animateEntryButton}}>
                 <AwesomeButton 
                     backgroundColor={Colors.primary}
                     borderRadius={140/2}
@@ -124,7 +124,7 @@ const StorySubmission = props =>{
                         startDesappearAnimation()
                         next()
                     }}>
-                    YA SUBI MI FOTO
+                    YA SUBÍ MI FOTO
                 </AwesomeButton>
                 <TouchableOpacity
                   onPress={OpenInstagram}>
@@ -140,7 +140,7 @@ const styles = StyleSheet.create({
     screen: {
         width: '100%',
         height: '100%',
-        justifyContent: 'space-evenly',
+        justifyContent: 'center',
         alignItems: 'center',
         position: 'absolute'
     },
@@ -148,11 +148,11 @@ const styles = StyleSheet.create({
         justifyContent:'center',
         alignItems:'center',
         width: '100%',
-        height: '40%'
+        height: '60%'
     },
     ContainerButton: {
-        justifyContent:'flex-end',
-        alignItems:'center',
+        justifyContent: 'center',
+        alignItems: 'center',
         width: '100%',
         height: '40%',
     },
@@ -170,10 +170,10 @@ const styles = StyleSheet.create({
         color: 'white'
     },
     image:{
-        width:'30%',
-        height:'30%',
+        width: 75,
+        height: 75,
         resizeMode: 'contain',
-        marginRight: 5,
+        marginRight: 15,
         alignSelf:'flex-end',
         transform : [
             { rotate: '-12deg' },

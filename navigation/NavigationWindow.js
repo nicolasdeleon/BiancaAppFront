@@ -262,6 +262,7 @@ const MainProfileDrawer = createDrawerNavigator({
         return (
             <View style={{
                 backgroundColor: Colors.accent,
+                alignItems:'center',
                 height:'100%',
                 width:'100%'
                 }}>
@@ -336,7 +337,7 @@ const styles = StyleSheet.create({
     menuButtonContainer: {
         margin: 2,
         alignContent: 'center',
-        justifyContent: 'center',
+        justifyContent: 'flex-end',
         marginLeft: 12,
         marginVertical: 7
     },
@@ -346,8 +347,8 @@ const styles = StyleSheet.create({
         fontFamily: 'open-sans-bold'
     },
     image: {
-        width: '100%',
-        height: '60%',
+        width: 100,
+        height: 100,
         flex: 1,
     },
 })

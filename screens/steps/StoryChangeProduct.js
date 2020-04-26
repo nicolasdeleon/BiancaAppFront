@@ -88,7 +88,7 @@ const StoryChangeProduct = props =>{
         return (
             <View style={{alignContent:'center', alignItems:'center'}}>
                 <Text style={styles.textFelicidades}>¡FELICIDADES!</Text>
-                <Text style={styles.textValidamos}>Nuestro equipo valido tu foto</Text>
+                <Text style={styles.textValidamos}>Nuestro equipo validó tu foto</Text>
             </View>
         )
     }
