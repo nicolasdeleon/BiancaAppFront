@@ -46,10 +46,10 @@ const StoryWelcome = props =>{
         return (
             <View style={styles.datacheckContainer}>
                 <Text style={styles.beneficioEntregadoText}>
-                El beneficio se va a ver reflejado en tu cuenta de Wabi directamente el próximo jueves{'\n'}{'\n'}
+                El beneficio se verá reflejado en tu cuenta de Wabi dentro de los próximo 5 días hábiles{'\n'}{'\n'}
                 <Text style={{color:Colors.primary, fontSize:22}}>{props.data4company}</Text>
                 </Text>
-                <Text style={styles.ponganseEnContacto}>pongase en contacto con support@biancaapp.com por cualquier duda</Text>
+                <Text style={styles.ponganseEnContacto}>Contactanos a support@biancaapp.com por cualquier consulta</Text>
             </View>
         )
     }

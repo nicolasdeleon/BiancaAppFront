@@ -108,7 +108,7 @@ const StorySubmission = props =>{
                     <BubbleText
                     style={{fontSize:15, alignSelf:'flex-start', ...animateSecondBubble}}
                     textStyle={{fontSize: 14}}
-                    text={"¡Notificanos haciendo click en 'Ya subí mi foto' para poder validar la foto"}/>
+                    text={"¡Notificanos para poder validar la foto"}/>
                 </View>
             </View>
             <Animated.View style={{...styles.ContainerButton,...animateEntryButton}}>
