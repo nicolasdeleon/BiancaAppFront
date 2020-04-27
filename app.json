@@ -8,7 +8,7 @@
       "ios",
       "android"
     ],
-    "version": "2.0.7",
+    "version": "2.1.0",
     "orientation": "portrait",
     "icon": "./staticData/BiancaLogo1024.png",
     "splash": {
@@ -25,11 +25,11 @@
     "ios": {
       "supportsTablet": false,
       "bundleIdentifier": "com.bianca",
-      "buildNumber": "1.0.1"
+      "buildNumber": "1.1.0"
     },
     "android": {
       "package": "bianca.bianca",
-      "versionCode":9,
+      "versionCode":10,
       "permissions": [],
       "googleServicesFile": "./google-services.json"
     },
