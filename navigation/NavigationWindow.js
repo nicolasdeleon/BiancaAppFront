@@ -6,7 +6,7 @@ import {
     Text,StyleSheet,
     TouchableOpacity
 } from 'react-native'
-import { Ionicons } from '@expo/vector-icons'
+import { FontAwesome, Ionicons } from '@expo/vector-icons'
 import {useDispatch} from 'react-redux'
 import * as authActions from '../store/actions/auth'
 
@@ -31,6 +31,7 @@ import { MaterialCommunityIcons } from '@expo/vector-icons'
 import EventDetailScreen from '../screens/main/EventDetailScreen'
 import EventFeedScreen from '../screens/main/EventFeedScreen'
 import ProfileScreen from '../screens/main/ProfileScreen'
+import ConfigScreen from '../screens/main/ConfigScreen'
 import LogInSignupScreen from '../screens/register/LogInSignupScreen'
 import RegisterScreen from '../screens/register/RegisterScreen'
 import StartupScreen from '../screens/StartupScreen'
@@ -68,6 +69,36 @@ const EventNavigator = createStackNavigator({
     }),
 })
 
+const ConfigStack = createStackNavigator({
+    Config: ConfigScreen,
+},{
+    navigationOptions: {
+        drawerIcon: drawerConfig =>(<Ionicons name='md-list' size={23} color={drawerConfig.tintColor}/>),
+    },
+
+    defaultNavigationOptions: ({ navigation }) => ({
+        headerTitleStyle: {
+            fontFamily: 'open-sans-bold'
+        },
+        headerStyle: {
+            backgroundColor: Colors.accent
+        },
+        headerBackTitleStyle: {
+            fontFamily: 'open-sans-bold' 
+        },
+        headerTintColor: "black",
+        headerTitle: "Configuraciones",
+
+        headerRight: <HeaderButtons HeaderButtonComponent={CustomHeaderButton}>
+        <Item 
+        title="Menu"
+        iconName="md-menu"
+        onPress={()=>{navigation.toggleDrawer()}}
+        />
+        </HeaderButtons>,
+    }),
+})
+
 
 const ProfileStack = createStackNavigator({
     Profile: ProfileScreen,
@@ -88,8 +119,8 @@ const ProfileStack = createStackNavigator({
         },
         headerTintColor: "black",
         headerTitle: "Usuario",
-        
-        headerRight:  <HeaderButtons HeaderButtonComponent={CustomHeaderButton}>
+
+        headerRight: <HeaderButtons HeaderButtonComponent={CustomHeaderButton}>
         <Item 
         title="Menu"
         iconName="md-menu"
@@ -122,9 +153,8 @@ const EventsandProfile = createMaterialBottomTabNavigator({
             tabBarColor:Colors.primary,
             tabBarIcon:  (tabInfo) => {
                 return(
-                    <Ionicons
-                    //name = 'user-o'
-                    name = 'md-settings'
+                    <FontAwesome
+                    name = 'user-o'
                     size = {25}
                     color = { tabInfo.tintColor }
                     />
@@ -148,7 +178,7 @@ drawerIcon: drawerConfig =>(<Ionicons name='md-create' size={23} color={drawerCo
 
 const MainProfileDrawer = createDrawerNavigator({
     ok: EventsandProfile,
-    //feedback: FeedbackStack,
+    config: ConfigStack,
 },{
     contentOptions: {
         activeTintColor: Colors.primary,
@@ -174,8 +204,15 @@ const MainProfileDrawer = createDrawerNavigator({
                         <View style={ styles.menuButtonContainer }>
                             <TouchableOpacity  
                                 style={{marginVertical: 5}}
+                                onPress={ () => {
+                                    props.navigation.navigate('Events')
+                                }}>
+                                <Text style={ styles.menuItemText }>Eventos</Text>
+                            </TouchableOpacity>
+                            <TouchableOpacity  
+                                style={{marginVertical: 5}}
                             onPress={ () => {
-                                props.navigation.navigate('Profile')
+                                props.navigation.navigate('config')
                             }}>
                                 <Text style={ styles.menuItemText }>Configuraciones</Text>
                             </TouchableOpacity>
