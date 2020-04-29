@@ -1,4 +1,5 @@
-import React from 'react'
+
+import React, { useState, useCallback, useEffect} from 'react'
 import {
     View,
     Text,
@@ -7,8 +8,46 @@ import {
 } from 'react-native'
 
 import Colors from '../constants/Colors'
+import ProgressBar from 'react-native-progress/Bar'
+import { useSelector, useDispatch } from 'react-redux'
 
 const MyEvent = props =>{
+    const [error, setError] = useState()
+    const [isLoading, setIsLoading] = useState(false)
+    const [progress, setProgress] = useState(0)
+    const activeContracts = useSelector( state => state.events.activeContracts )
+    const dispatch = useDispatch()
+        //status post
+    //('2BA', 'To_be_accepted'),
+    //('W', 'Winner'),
+    //('F', 'Finished'),
+    //('R', 'Refused')
+    const loadContracts = useCallback(async () =>{
+        setIsLoading(true)
+        setError(null)
+        try {
+            await dispatch(EventActions.getActiveContracts())
+        } catch (err){
+            setError(err.message)
+        }
+        setIsLoading(false)
+    },[dispatch, setIsLoading, setError])
+
+    useEffect( () => {
+        let mounted = true
+        loadContracts()
+        /*if(props.currentStatus === '2BA'){
+            console.log("2BA")
+            setProgress(0.50)
+            if (props.currentStatus === "N" || props.currentStatus === "R" ) {
+                setProgress(1)
+            } else {
+                
+            }
+        }*/
+        return () => false
+    },[dispatch, loadContracts])
+
     return (
     <View style={styles.Container}>
         <View style={styles.imageContainer}>
@@ -16,7 +55,11 @@ const MyEvent = props =>{
         </View>
         <View style={styles.infoContainer}>
             <Text style={styles.beneficioText}>{props.text}</Text>
-            <Text style={styles.progress}>PROGRESS BAR</Text>
+            <ProgressBar
+                            style={styles.progress}
+                            progress={progress}
+                            //indeterminate={this.state.indeterminate}
+                        />
         </View>
     </View>
     )
@@ -57,7 +100,10 @@ const styles = StyleSheet.create({
         fontFamily: 'open-sans',
         textAlign: 'left',
         marginVertical: 6,
-    }
+    },
+    progress: {
+      margin: 1,
+    }, 
 });
 
 export default MyEvent
