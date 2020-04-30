@@ -23,3 +23,4 @@ Para correr todo es necesario que se instalen librerias con el comando: expo ins
 - redux-thunk
 - expo-linear-gradient
 - react-native-really-awesome-button
+- react-native-progress/Bar
