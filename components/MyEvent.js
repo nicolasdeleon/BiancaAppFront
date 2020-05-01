@@ -13,6 +13,7 @@ const MyEvent = props => {
     return (
     <View style={styles.Container}>
         <View style={styles.imageContainer}>
+            <Text style={styles.title}>{props.title}</Text>
             <Image style={ styles.image } source={ require('../staticData/BiancaLogo.png') }/>
         </View>
         <View style={styles.infoContainer}>
@@ -26,6 +27,12 @@ const MyEvent = props => {
 };
 
 const styles = StyleSheet.create({
+    title:{
+        fontFamily: 'open-sans-bold',
+        fontSize: 14,
+        marginVertical: -20,
+        marginTop: 20
+    },
     Container: {
         flexDirection: 'row',
         alignItems: 'center',

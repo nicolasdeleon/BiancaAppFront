@@ -11,34 +11,36 @@ import {
 import MyEvent from '../../components/MyEvent'
 import ProgressBar from 'react-native-progress/Bar'
 import Colors from '../../constants/Colors'
-import EventItem from '../../components/EventItem'
-import ErrorComponent from '../../components/ErrorComponent'
+import ZeroPosts from '../../components/ZeroPosts'
 
 import { useSelector, useDispatch } from 'react-redux'
 import * as EventActions from '../../store/actions/events'
 import * as AuthActions from '../../store/actions/auth'
 
-const status2Array = (status) => {
-    if (status == "2BA") { 
-        return [false, false, true, false, false]
-    }
-    else if (status == "W") {
-        return [false, false, false, true, false]
-    }
-    else if (status == "F") {
-        return [false, false, false, false, true]
-    }
-    else return[true, false, false, false, false]
+
+const STEP_STATUS_TABLE = {
+    '2BA': 'Aguarde! Estamos validando su foto en Instagram.',
+    'W': 'Felicitaciones! Ha ganado el beneficio.',
+    'F': 'Beneficio canjeado.',
 }
+const PROGRESSBAR_STATUS_TABLE = {
+    '2BA': 0.5,
+    'W': 1,
+    'F': 1,
+}
+const COLOR_STATUS_TABLE = {
+    '2BA': Colors.primaryGradientLight,
+    'W': Colors.greenActiveEvent,
+    'F': Colors.greenActiveEvent,
+}
+
 
 const ProfileScreen = props => {
 
 const [error, setError] = useState()
 const [isLoading, setIsLoading] = useState(false)
 const activeEvents = useSelector( state => state.events.activeEvents )
-const userToken = useSelector( state => state.auth.token )
 const activeContracts = useSelector( state => state.events.activeContracts )
-const userStateInSelectedEvent = useState()
 const dispatch = useDispatch()
 
 
@@ -47,11 +49,11 @@ const loadContracts = useCallback(async () =>{
     setError(null)
     try {
         await dispatch(EventActions.getActiveContracts())
-        await dispatch(EventActions.getActiveEvents())
     } catch (err){
         setError(err.message)
     }
     setIsLoading(false)
+    console.log(activeContracts)
 },[dispatch, setIsLoading, setError])
 
 useEffect( () => {
@@ -92,70 +94,37 @@ if(isLoading){
 }
 
 // Previsto por fallas en el servidor 
-if(!isLoading && activeEvents.length === 0){
+if(!isLoading && activeContracts.length === 0){
     return(
-        <ErrorComponent/>
+        <ZeroPosts/>
     )
 }
-
+/*            <View style={styles.resumenContainer}>
+                <Text style={styles.actividadTitle}>Tu actividad en Bianca</Text>
+            </View>
+            */
     return (
         <View style={styles.screen}>
-            <View style={styles.resumenContainer}>
-                <Text style={styles.actividadTitle}>Te dejamos un breve resumen de tu actividad</Text>
-            </View>
             <View style={styles.eventosContainer}>
-                <Text style={styles.actividadTitle}>Eventos Realizados y Activos</Text>
+                <Text style={styles.actividadTitle}>Tu actividad en Bianca</Text>
                 <View style={{flex:1, width:'100%'}}>
-
-
                 <FlatList 
                 onRefresh={loadContracts}
                 refreshing={isLoading}
                 data={activeContracts} 
-                keyExtractor ={item=>String(item.pk)}
+                keyExtractor ={item=>String(item.event.pk)}
                 renderItem={itemData => 
-                    
-                    <MyEvent
-                    text={"Ganate un 30% de descuento en todos los eventos de Bianca!"}>
-                        <Text style={styles.stepText}>Ultimo paso! Introduce tu telefono</Text>
-                        <ProgressBar style={styles.progress} width={200} color={Colors.dark} progress={0.7}/>
-                    </MyEvent>
-                    /*<EventItem
-                                title={itemData.item.title}
-                                status={itemData.item.status}
-                                image={itemData.item.image}
-                                onSelect={() => {
-                                    let s = 'N'
-                                    let data4company = ''
-                                    if (activeContracts.length != 0) {
-                                        for (i = 0; i<activeContracts.length; i++) {
-                                            if (activeContracts[i].event.pk == itemData.item.pk){
-                                                s = activeContracts[i].status
-                                                data4company = activeContracts[i].data4Company
-                                            }
-                                        }
-                                    }
-                                    
-                                    dispatch(EventActions.setEventRealState(s))
-                                    props.navigation.navigate('EventDetail', {
-                                        currentStatus: status2Array(s),
-                                        benefitDescription: itemData.item.benefitDescription,
-                                        eventType: itemData.item.eventType,
-                                        eventId: itemData.item.pk,
-                                        eventTitle: itemData.item.title,
-                                        eventDescription: itemData.item.description,
-                                        eventStatus: itemData.item.status,
-                                        data4company: data4company
-                                            }
-                                        )
-                                    }
-                                }
-                            >
-                                </EventItem> */
-                            }
+                        <MyEvent
+                            title={itemData.item.event.title}
+                            text={"Ganate un 30% de descuento en todos los eventos de Bianca!"}>
+                            
+                            <Text style={styles.stepText}>{STEP_STATUS_TABLE[itemData.item.status]}</Text>
+                            
+                            <ProgressBar style={styles.progress} width={200} color={COLOR_STATUS_TABLE[itemData.item.status]} 
+                            progress={PROGRESSBAR_STATUS_TABLE[itemData.item.status]}></ProgressBar>
+                        </MyEvent>
+                        }
                 />
-
-
                 </View>
             </View>
         </View>
