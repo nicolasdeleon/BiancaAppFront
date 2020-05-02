@@ -35,11 +35,11 @@ export const login = (email, password) => {
                 })
             })
         if(response.status > 207){
-            throw new Error('Conection error..')
+            throw new Error("Ups! Verifique sus credenciales")
         }
         const resData = await response.json()
         if(resData['response'] === 'Error' || resData['error_message']){
-            throw new Error(resData['error_message'])
+            throw new Error("Ups! Verifique sus credenciales")
         }
         dispatch({
             type:LOGIN,
