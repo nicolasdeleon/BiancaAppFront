@@ -55,7 +55,6 @@ const loadContracts = useCallback(async () =>{
         setError(err.message)
     }
     setIsLoading(false)
-    console.log(activeContracts)
 },[dispatch, setIsLoading, setError])
 
 useEffect( () => {
