@@ -10,7 +10,7 @@
     ],
     "version": "2.2.0",
     "orientation": "portrait",
-    "icon": "./staticData/LogoSinCirculo.png",
+    "icon": "./staticData/LogoSinCirculo.jpg",
     "splash": {
       "image": "./staticData/BiancaLogo.png",
       "resizeMode": "contain",
