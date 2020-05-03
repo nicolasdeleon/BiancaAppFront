@@ -178,7 +178,6 @@ const styles = StyleSheet.create({
         transform : [
             { rotate: '-12deg' },
             { translateY: 25 },
-            { translateX: 8 }
         ],
     },
     Instagram: {
