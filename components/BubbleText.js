@@ -23,12 +23,13 @@ const styles = StyleSheet.create({
         elevation: 2, // elevation is only android
         backgroundColor: 'white',
         borderRadius: 14,
-        marginVertical: 1,
         marginHorizontal: 5,
         width: '80%', 
-        marginVertical: 5
+        marginVertical: 5,
+        padding: 3
     },
     text: {
+        textAlign: 'justify',
         fontFamily: 'open-sans',
         marginLeft: 3,
     }

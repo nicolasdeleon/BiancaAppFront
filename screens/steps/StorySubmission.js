@@ -102,13 +102,13 @@ const StorySubmission = props =>{
                 <Animated.Image style={{...styles.image, ...animateEntryImage}} source={ require('../../staticData/dog.png') }/>
                 <View style={styles.bubbleContainer}>
                     <BubbleText
-                    style={{fontSize:15, alignSelf:'flex-start', ...animateFirstBubble}}
+                    style={{fontSize:15, ...animateFirstBubble}}
                     textStyle={{fontSize: 14}}
                     text={props.description}/>
                     <BubbleText
-                    style={{fontSize:15, alignSelf:'flex-start', ...animateSecondBubble}}
+                    style={{fontSize:15, ...animateSecondBubble}}
                     textStyle={{fontSize: 14}}
-                    text={"¡Notificanos para poder validar la foto"}/>
+                    text={"¡Notificanos haciendo click en 'Ya subí mi foto' para poder validar la foto!"}/>
                 </View>
             </View>
             <Animated.View style={{...styles.ContainerButton,...animateEntryButton}}>
@@ -148,13 +148,13 @@ const styles = StyleSheet.create({
         justifyContent:'center',
         alignItems:'center',
         width: '100%',
-        height: '60%'
+        height: '64%'
     },
     ContainerButton: {
         justifyContent: 'center',
         alignItems: 'center',
         width: '100%',
-        height: '40%',
+        height: '36%',
     },
     textPaso1: {
         fontSize: 24,
@@ -178,7 +178,6 @@ const styles = StyleSheet.create({
         transform : [
             { rotate: '-12deg' },
             { translateY: 25 },
-            { translateX: 8 }
         ],
     },
     Instagram: {
@@ -189,7 +188,6 @@ const styles = StyleSheet.create({
         color: 'white'
     },
     bubbleContainer: {
-        height: '45%',
         marginHorizontal: 5,
         padding: 4,
         alignSelf: 'flex-start'
