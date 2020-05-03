@@ -87,7 +87,7 @@ const ConfigStack = createStackNavigator({
             fontFamily: 'open-sans-bold' 
         },
         headerTintColor: "black",
-        headerTitle: "Configuraciones",
+        headerTitle: "Mi perfil",
 
         headerRight: <HeaderButtons HeaderButtonComponent={CustomHeaderButton}>
         <Item 
@@ -118,7 +118,7 @@ const ProfileStack = createStackNavigator({
             fontFamily: 'open-sans-bold' 
         },
         headerTintColor: "black",
-        headerTitle: "Usuario",
+        headerTitle: "Actividad",
 
         headerRight: <HeaderButtons HeaderButtonComponent={CustomHeaderButton}>
         <Item 
@@ -154,7 +154,7 @@ const EventsandProfile = createMaterialBottomTabNavigator({
             tabBarIcon:  (tabInfo) => {
                 return(
                     <FontAwesome
-                    name = 'user-o'
+                    name = 'bell-o'
                     size = {25}
                     color = { tabInfo.tintColor }
                     />
@@ -183,7 +183,7 @@ const MainProfileDrawer = createDrawerNavigator({
     contentOptions: {
         activeTintColor: Colors.primary,
     },
-    drawerWidth: '50%',
+    drawerWidth: '38%',
     hideStatusBar: true,
     drawerPosition: 'right',
     contentComponent: props => {
@@ -203,26 +203,26 @@ const MainProfileDrawer = createDrawerNavigator({
                         </View>
                         <View style={ styles.menuButtonContainer }>
                             <TouchableOpacity  
-                                style={{marginVertical: 5}}
+                                style={{marginVertical: 6}}
                                 onPress={ () => {
                                     props.navigation.navigate('Events')
                                 }}>
                                 <Text style={ styles.menuItemText }>Eventos</Text>
                             </TouchableOpacity>
                             <TouchableOpacity  
-                                style={{marginVertical: 5}}
+                                style={{marginVertical: 6}}
                             onPress={ () => {
                                 props.navigation.navigate('config')
                             }}>
-                                <Text style={ styles.menuItemText }>Configuraciones</Text>
+                                <Text style={ styles.menuItemText }>Mi Perfil</Text>
                             </TouchableOpacity>
                             <TouchableOpacity  
-                            style={{marginVertical: 5}}
+                            style={{marginVertical: 20}}
                             onPress={ () => {
                                 dispatch(authActions.logout())
                                     props.navigation.navigate('start')
                                 }}>
-                                    <Text style={ styles.menuItemText }>Log Out</Text>
+                                    <Text style={ styles.menuItemText }>Log out</Text>
                             </TouchableOpacity>
                         </View>
                 </SafeAreaView>
@@ -277,8 +277,8 @@ const styles = StyleSheet.create({
         fontFamily: 'open-sans-bold'
     },
     image: {
-        width: 100,
-        height: 100,
+        width: 115,
+        height: 115,
         flex: 1,
     },
 })

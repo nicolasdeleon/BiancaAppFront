@@ -19,19 +19,22 @@ import * as AuthActions from '../../store/actions/auth'
 
 
 const STEP_STATUS_TABLE = {
-    '2BA': 'Aguarde! Estamos validando su foto en Instagram.',
-    'W': 'Felicitaciones! Ha ganado el beneficio.',
-    'F': 'Beneficio canjeado.',
+    '2BA': 'Estamos validando tu foto en Instagram. Recordá que biancaapp.ar te seguirá de tener cuenta privada.',
+    'W': 'Se valido tu foto! Ingresá al evento para realizar el último paso.',
+    'F': 'Listo! Se te notificará al recibir el beneficio. Esto puede demorar como máximo 5 días hábiles.',
+    'Retrieved': 'Ya se te ha entregado el beneficio!'
 }
 const PROGRESSBAR_STATUS_TABLE = {
-    '2BA': 0.5,
-    'W': 1,
-    'F': 1,
+    '2BA': 0.25,
+    'W': 0.5,
+    'F': 0.75,
+    'Retrieved': 1
 }
 const COLOR_STATUS_TABLE = {
     '2BA': Colors.primaryGradientLight,
     'W': Colors.greenActiveEvent,
-    'F': Colors.greenActiveEvent,
+    'F': Colors.accent,
+    'Retrieved': Colors.accent
 }
 
 
@@ -39,7 +42,6 @@ const ProfileScreen = props => {
 
 const [error, setError] = useState()
 const [isLoading, setIsLoading] = useState(false)
-const activeEvents = useSelector( state => state.events.activeEvents )
 const activeContracts = useSelector( state => state.events.activeContracts )
 const dispatch = useDispatch()
 
@@ -99,10 +101,6 @@ if(!isLoading && activeContracts.length === 0){
         <ZeroPosts/>
     )
 }
-/*            <View style={styles.resumenContainer}>
-                <Text style={styles.actividadTitle}>Tu actividad en Bianca</Text>
-            </View>
-            */
     return (
         <View style={styles.screen}>
             <View style={styles.eventosContainer}>
@@ -112,16 +110,19 @@ if(!isLoading && activeContracts.length === 0){
                 onRefresh={loadContracts}
                 refreshing={isLoading}
                 data={activeContracts} 
-                keyExtractor ={item=>String(item.event.pk)}
-                renderItem={itemData => 
+                keyExtractor={item=>String(item.event.pk)}
+                renderItem={
+                    itemData => 
                         <MyEvent
+                            image={itemData.item.event.image}
                             title={itemData.item.event.title}
-                            text={"Ganate un 30% de descuento en todos los eventos de Bianca!"}>
-                            
-                            <Text style={styles.stepText}>{STEP_STATUS_TABLE[itemData.item.status]}</Text>
-                            
-                            <ProgressBar style={styles.progress} width={200} color={COLOR_STATUS_TABLE[itemData.item.status]} 
-                            progress={PROGRESSBAR_STATUS_TABLE[itemData.item.status]}></ProgressBar>
+                            text={STEP_STATUS_TABLE[itemData.item.receivedBenefit ? 'Retrieved' : itemData.item.status]}>
+                            <ProgressBar 
+                              style={styles.progress} 
+                              width={200} 
+                              color={COLOR_STATUS_TABLE[itemData.item.receivedBenefit ? 'Retrieved' : itemData.item.status]} 
+                              progress={PROGRESSBAR_STATUS_TABLE[itemData.item.receivedBenefit ? 'Retrieved' : itemData.item.status]}>
+                              </ProgressBar>
                         </MyEvent>
                         }
                 />
@@ -149,7 +150,7 @@ const styles = StyleSheet.create({
         height: '70%'
     },
     actividadTitle: {
-        margin: 20,
+        margin: 10,
         fontSize: 20,
         textAlign: 'center',
         fontFamily: 'open-sans-bold'

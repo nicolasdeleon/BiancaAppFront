@@ -14,7 +14,7 @@ const MyEvent = props => {
     <View style={styles.Container}>
         <View style={styles.imageContainer}>
             <Text style={styles.title}>{props.title}</Text>
-            <Image style={ styles.image } source={ require('../staticData/BiancaLogo.png') }/>
+            <Image style={ styles.image } source={{uri:props.image}}/>
         </View>
         <View style={styles.infoContainer}>
             <Text style={styles.beneficioText}>{props.text}</Text>
@@ -30,9 +30,7 @@ const styles = StyleSheet.create({
     title:{
         fontFamily: 'open-sans-bold',
         fontSize: 14,
-        marginVertical: -20,
-        marginTop: 20
-    },
+        },
     Container: {
         flexDirection: 'row',
         alignItems: 'center',
@@ -44,8 +42,8 @@ const styles = StyleSheet.create({
     },
     image: {
         resizeMode: 'contain',
-        width: '100%',
-        height: '100%'
+        width: '80%',
+        height: '50%'
     },
     imageContainer: {
         alignItems: 'center',
@@ -55,16 +53,16 @@ const styles = StyleSheet.create({
     },
     infoContainer: {
         height: '100%',
-        width: '70%',
+        width: '60%',
         alignItems: 'flex-start',
         justifyContent: 'center'
     },
     beneficioText: {
         fontFamily: 'open-sans',
-        textAlign: 'left'
+        textAlign: 'left',
+        marginBottom: 8,
     },
     childrenContainer: {
-        marginTop: 20,
     }
 });
 
