@@ -36,7 +36,6 @@ const styles = StyleSheet.create({
         marginVertical: 3,
     },
     actividadTitle: {
-        //margin: 20,
         fontSize: 20,
         marginTop:70,
         textAlign: 'center',

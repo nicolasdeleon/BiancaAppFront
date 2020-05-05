@@ -108,6 +108,8 @@ const LogInSignupScreen = props => {
     return (
         <KeyboardAvoidingView
         style={styles.screen}
+        behavior="padding"
+        keyboardVerticalOffset={-500}
         >
             <LinearGradient colors={[Colors.accent,Colors.dark]} style={styles.gradient}>
                 <View style={styles.authContainer}>
