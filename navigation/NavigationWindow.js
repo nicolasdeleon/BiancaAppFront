@@ -222,7 +222,7 @@ const MainProfileDrawer = createDrawerNavigator({
                                 dispatch(authActions.logout())
                                     props.navigation.navigate('start')
                                 }}>
-                                    <Text style={ styles.menuItemText }>Log out</Text>
+                                    <Text style={ styles.menuItemText }>Salir</Text>
                             </TouchableOpacity>
                         </View>
                 </SafeAreaView>

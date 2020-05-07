@@ -29,7 +29,7 @@ const styles = StyleSheet.create({
         padding: 3
     },
     text: {
-        textAlign: 'justify',
+        textAlign: 'left',
         fontFamily: 'open-sans',
         marginLeft: 3,
     }

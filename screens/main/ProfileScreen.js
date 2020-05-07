@@ -46,7 +46,7 @@ const activeContracts = useSelector( state => state.events.activeContracts )
 const dispatch = useDispatch()
 
 
-const loadContracts = useCallback(async () =>{
+const loadContracts = useCallback(async () => {
     setIsLoading(true)
     setError(null)
     try {
@@ -64,7 +64,7 @@ useEffect( () => {
 },[dispatch, loadContracts])
 
 useEffect( () => {
-    const willFocusSub = props.navigation.addListener('willFocus',()=>{
+    const willFocusSub = props.navigation.addListener('willFocus', () => {
         loadContracts() 
     })
     return () => {
