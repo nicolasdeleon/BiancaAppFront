@@ -29,7 +29,7 @@
     },
     "android": {
       "package": "bianca.bianca",
-      "versionCode":11,
+      "versionCode":13,
       "permissions": [],
       "googleServicesFile": "./google-services.json"
     },
