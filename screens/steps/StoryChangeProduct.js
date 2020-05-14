@@ -129,7 +129,9 @@ const StoryChangeProduct = props =>{
 
     function InsertAccount() {
         return (
-            <KeyboardAvoidingView >
+            <KeyboardAvoidingView 
+            behavior="height"
+            keyboardVerticalOffset={80}>
             <ScrollView>
                 <View style={{ alignItems:'center'}}>
                     <Header/>

@@ -206,8 +206,8 @@ const [formState,dispatchFormState] = useReducer(formReducer,{
     return (
         
         <KeyboardAvoidingView
-        behavior="padding"
-        keyboardVerticalOffset={-500}
+        behavior="height"
+        keyboardVerticalOffset={80}
         onRefresh={loadUserData}
         refreshing={isLoading}
         style={styles.screen}>
