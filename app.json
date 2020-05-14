@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "Bianca",
-    "slug": "Bianca",
+    "name": "BiancaApp",
+    "slug": "BiancaApp",
     "privacy": "public",
     "sdkVersion": "35.0.0",
     "platforms": [
