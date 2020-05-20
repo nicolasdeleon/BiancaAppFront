@@ -29,7 +29,6 @@ const StorySubmission = props =>{
             }),
     }
 
- 
     return (
         <Animated.View style={{...styles.screen, ...animateEntryScreen}}>
             <Animated.Text style={styles.textEstamosValidando}>Estamos validando tu historia en Instagram</Animated.Text>
@@ -61,8 +60,7 @@ const StorySubmission = props =>{
             <Animated.Text style={styles.textVolverAtras} 
                     onPress={(next) => {
                         props.next()
-                    }}>No subiste la foto? Voler atrás.</Animated.Text>
-            
+                    }}>No subiste la foto? Haz click para volver atrás</Animated.Text>
         </Animated.View>
     )
 };
