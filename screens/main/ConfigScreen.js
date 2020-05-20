@@ -204,7 +204,6 @@ const [formState,dispatchFormState] = useReducer(formReducer,{
 
 
     return (
-        
         <KeyboardAvoidingView
         behavior="height"
         keyboardVerticalOffset={80}

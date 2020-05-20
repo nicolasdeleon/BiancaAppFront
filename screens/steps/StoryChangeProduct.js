@@ -129,9 +129,10 @@ const StoryChangeProduct = props =>{
 
     function InsertAccount() {
         return (
-            <KeyboardAvoidingView 
+            <KeyboardAvoidingView
             behavior="height"
-            keyboardVerticalOffset={80}>
+            keyboardVerticalOffset={40}>
+            <View style={styles.overallScreen}>
             <ScrollView>
                 <View style={{ alignItems:'center'}}>
                     <Header/>
@@ -169,6 +170,7 @@ const StoryChangeProduct = props =>{
                     
                 </View>
             </ScrollView>
+            </View>
             </KeyboardAvoidingView>
         )
     }
@@ -182,6 +184,10 @@ const StoryChangeProduct = props =>{
 
 
 const styles = StyleSheet.create({
+    overallScreen: {
+        width: '100%',
+        maxHeight: '100%',
+    },
     screen: {
         width: '100%',
         height: '100%',
