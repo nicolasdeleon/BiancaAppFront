@@ -15,6 +15,7 @@ import useAnimation from '../../components/UseAnimaton'
 import BubbleText from '../../components/BubbleText'
 import Colors from '../../constants/Colors';
 
+
 const StorySubmission = props =>{
 
     const [doAppearAnimaton, setAppearAnimaton] = useState(props.active)
@@ -28,6 +29,7 @@ const StorySubmission = props =>{
             }),
     }
 
+ 
     return (
         <Animated.View style={{...styles.screen, ...animateEntryScreen}}>
             <Animated.Text style={styles.textEstamosValidando}>Estamos validando tu historia en Instagram</Animated.Text>
@@ -55,6 +57,12 @@ const StorySubmission = props =>{
                 }
                 <Text style={styles.consultarEstadoText}>Consultar estado</Text>
             </View>
+            <Text></Text>
+            <Animated.Text style={styles.textVolverAtras} 
+                    onPress={(next) => {
+                        props.next()
+                    }}>No subiste la foto? Voler atrás.</Animated.Text>
+            
         </Animated.View>
     )
 };
@@ -124,12 +132,18 @@ const styles = StyleSheet.create({
     },
     consultarEstadoText: {
         fontFamily:'open-sans',
-        fontSize: 14
+        fontSize: 14,
     },
     classicCenter: {
         alignItems:'center',
-        justifyContent:'center'
-    }
+        //justifyContent:'center'
+    },
+    textVolverAtras: {
+        fontSize: 14,
+        fontFamily: 'open-sans',
+        textAlign: 'center',
+        textDecorationLine: "underline",
+    },
 });
 
 export default StorySubmission

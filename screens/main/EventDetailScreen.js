@@ -199,6 +199,18 @@ const MainScreen = props => {
     }
 
 
+    removeUserFromEvent = async () => {
+        let action
+        action = EventActions.removeUserFromEvent(userToken, selectedEvent.pk)
+        setError(null)
+        try{
+            await dispatch(action)
+        }catch (err){
+            setError(err.message)
+        }
+    }
+
+
     if(state4){
         return (
         <LinearGradient
@@ -244,7 +256,15 @@ const MainScreen = props => {
             <StoryValidation
             refreshStatus={refreshContractStatus}
             loading={isLoading}
-            active={state2}/>
+            active={state2}
+            
+            next={ () => {
+                removeUserFromEvent()
+                initStorySubmission()
+                watchEvent()
+                setState1(true)
+            }}
+            />
         </View>
         </LinearGradient>
         )
