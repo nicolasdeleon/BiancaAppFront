@@ -98,21 +98,16 @@ const StoryChangeProduct = props =>{
             <View>
                 <View style={{flex:1, justifyContent: 'space-around', alignItems: 'center',}}>
                     <Header/>
-                    <Text style={styles.textMostra}>Mostrá esta pantalla al encargado del local</Text>
-                    <AwesomeButton
-                    backgroundColor={Colors.accent}
-                    borderRadius={110/2}
-                    width={110}
-                    height={110}
-                    disabled={!doAppearAnimaton}
-                    backgroundPlaceholder={'#010203'}
-                    backgroundDarker={'#010203'}
-                    onPress={(next) => {
-                        startDesappearAnimation()
-                        next()
-                    }}>
-                    YA RECIBÍ EL BENEFICIO
-                    </AwesomeButton>
+                    <Text style={{color:Colors.primary,
+                        fontFamily: 'open-sans-bold',
+                        marginBottom: 50,fontSize:30}}>{props.exchangeCode}</Text>
+                    <Text style={styles.textMostra}>¿Como canjeo mi cupón?</Text>
+                    <Text style={styles.textMostra}>{props.exchangeDetails}</Text>
+                    <Text style={{        fontSize: 14,
+                        fontFamily: 'open-sans',
+                        textAlign: 'center',
+                        color: 'white',
+                        marginBottom: 50,}}>Este cupón deja de ser válido una vez canjeado</Text>
                 </View>
             </View>
         )

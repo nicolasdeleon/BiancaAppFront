@@ -60,7 +60,7 @@ const StorySubmission = props =>{
             <Animated.Text style={styles.textVolverAtras} 
                     onPress={(next) => {
                         props.next()
-                    }}>No subiste la foto? Hacé click para volver atrás</Animated.Text>
+                    }}>¿No subiste la foto? Hacé click para volver atrás</Animated.Text>
         </Animated.View>
     )
 };

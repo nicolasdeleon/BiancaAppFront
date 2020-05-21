@@ -33,6 +33,7 @@ const MainScreen = props => {
     const [data4company, setData4company] = useState(props.navigation.getParam('data4company'))
     const [exchangeDetails, setExchangeDetails] = useState(props.navigation.getParam('benefitDescription'))
     const [eventType, setEventType] = useState(props.navigation.getParam('eventType'))
+    const [exchangeCode, setExchangeCode] = useState(props.navigation.getParam('exchangeCode'))
     const dispatch = useDispatch()
 
     const [state0, setState0] = useState(props.navigation.getParam('currentStatus')[0])
@@ -238,6 +239,7 @@ const MainScreen = props => {
             exchangeDetails={exchangeDetails}
             active={state3}
             eventType={eventType}
+            exchangeCode={exchangeCode}
             next={ (userData) => {
                 finEvent(userData)
                 setData4company(userData)

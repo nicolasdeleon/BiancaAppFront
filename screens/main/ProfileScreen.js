@@ -20,8 +20,8 @@ import * as AuthActions from '../../store/actions/auth'
 
 const STEP_STATUS_TABLE = {
     '2BA': 'Estamos validando tu foto en Instagram. Recordá que biancaapp.ar te seguirá de tener cuenta privada.',
-    'W': 'Se valido tu foto! Ingresá al evento para realizar el último paso.',
-    'F': 'Listo! Se te notificará al recibir el beneficio. Esto puede demorar como máximo 5 días hábiles.',
+    'W': '¡Se valido tu foto! Ingresá al evento para enterarte como canjear el beneficio.',
+    'F': '¡Listo! Se te notificará al recibir el beneficio.',
     'Retrieved': 'Ya se te ha entregado el beneficio!'
 }
 const PROGRESSBAR_STATUS_TABLE = {

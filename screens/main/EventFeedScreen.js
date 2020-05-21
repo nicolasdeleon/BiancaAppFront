@@ -108,14 +108,17 @@ const EventFeedScreen = props => {
                         onSelect={() => {
                             let s = 'N'
                             let data4company = ''
+                            let exchangeCode = ''
                             if (activeContracts.length != 0) {
                                 for (i = 0; i<activeContracts.length; i++) {
                                     if (activeContracts[i].event.pk == itemData.item.pk){
                                         s = activeContracts[i].status
                                         data4company = activeContracts[i].data4Company
+                                        exchangeCode = activeContracts[i].exchange_code
                                     }
                                 }
                             }
+                            console.log(exchangeCode)
                             dispatch(EventActions.setEventRealState(s))
                             props.navigation.navigate('EventDetail', {
                                 currentStatus: status2Array(s),
@@ -125,7 +128,8 @@ const EventFeedScreen = props => {
                                 eventTitle: itemData.item.title,
                                 eventDescription: itemData.item.description,
                                 eventStatus: itemData.item.status,
-                                data4company: data4company
+                                data4company: data4company,
+                                exchangeCode: exchangeCode
                                     })
                             }
                         }

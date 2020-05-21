@@ -61,6 +61,7 @@ const StoryWelcome = props =>{
                 <Animated.Text style={{...styles.textBianca}}>Bianca</Animated.Text>
             </View>
             {props.eventType != 'A' && <DataCheck/>}
+            {props.eventType == 'A' && <Text style={styles.beneficioEntregadoText}>¡Esperamos que hayas disfrutado del beneficio!</Text>}
             <Animated.View style={{...styles.Container}}>
                 <TouchableOpacity
                     onPress={RateUs}>
