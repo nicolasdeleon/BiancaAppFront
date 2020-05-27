@@ -118,7 +118,7 @@ const EventFeedScreen = props => {
                                     }
                                 }
                             }
-                            console.log(exchangeCode)
+                            console.log("Feed:",exchangeCode)
                             dispatch(EventActions.setEventRealState(s))
                             props.navigation.navigate('EventDetail', {
                                 currentStatus: status2Array(s),

@@ -94,6 +94,7 @@ const StoryChangeProduct = props =>{
     }
 
     function InHandBenefit() {
+        console.log("InHandBenefit exchange code:", props.exchangeCode)
         return (
             <View>
                 <View style={{flex:1, justifyContent: 'space-around', alignItems: 'center',}}>
@@ -103,11 +104,13 @@ const StoryChangeProduct = props =>{
                         marginBottom: 50,fontSize:30}}>{props.exchangeCode}</Text>
                     <Text style={styles.textMostra}>¿Como canjeo mi cupón?</Text>
                     <Text style={styles.textMostra}>{props.exchangeDetails}</Text>
-                    <Text style={{        fontSize: 14,
+                    <Text style={{
+                        fontSize: 14,
                         fontFamily: 'open-sans',
                         textAlign: 'center',
                         color: 'white',
-                        marginBottom: 50,}}>Este cupón deja de ser válido una vez canjeado</Text>
+                        marginBottom: 50
+                    }}>Este cupón deja de ser válido una vez canjeado</Text>
                 </View>
             </View>
         )
@@ -172,7 +175,8 @@ const StoryChangeProduct = props =>{
 
     return (
         <Animated.View style={{...styles.screen}}>
-            {props.eventType === 'A' ? <InHandBenefit/> : <InsertAccount/> }
+            {props.eventType === 'A' && <InHandBenefit/>}
+            {props.eventType === 'B' && <InsertAccount/>}
         </Animated.View>
     )
 };

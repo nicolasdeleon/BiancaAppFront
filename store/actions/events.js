@@ -68,7 +68,8 @@ export const getEvenReltState = (userToken, EventPk) => {
         const resData = await response.json()
         dispatch({
             type: GET_EVENT_REL_STATUS,
-            contractStatus: resData['status']
+            contractStatus: resData['status'],
+            contractCupon: resData['cupon']
         })
         return resData['status']
     }

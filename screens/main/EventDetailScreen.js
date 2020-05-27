@@ -30,6 +30,7 @@ const MainScreen = props => {
     const productId = props.navigation.getParam('eventId')
     const selectedEvent = useSelector(state=>state.events.activeEvents.find(prod => prod.pk===productId))
     const contractStatus = useSelector( state => state.events.contractStatus )
+    const cupon = useSelector( state => state.events.contractCupon )
     const [data4company, setData4company] = useState(props.navigation.getParam('data4company'))
     const [exchangeDetails, setExchangeDetails] = useState(props.navigation.getParam('benefitDescription'))
     const [eventType, setEventType] = useState(props.navigation.getParam('eventType'))
@@ -80,6 +81,8 @@ const MainScreen = props => {
         let action = EventActions.getEvenReltState(userToken, productId)
         try {
             await dispatch(action)
+            await dispatch(EventActions.getActiveContracts())
+            await dispatch(EventActions.getActiveEvents())
         } catch (err){
             setError(err.message)
         }
@@ -107,6 +110,9 @@ const MainScreen = props => {
             initValidationScreen()
         }
         else if(contractStatus === "W") {
+            if(cupon) {
+                setExchangeCode(cupon)
+            }
             initWinnerScreen()
         }
         else if(contractStatus === "F") {
@@ -259,11 +265,9 @@ const MainScreen = props => {
             refreshStatus={refreshContractStatus}
             loading={isLoading}
             active={state2}
-            
             next={ () => {
                 removeUserFromEvent()
                 initStorySubmission()
-                watchEvent()
                 setState1(true)
             }}
             />
@@ -282,6 +286,7 @@ const MainScreen = props => {
             description={props.navigation.getParam('eventDescription')}
             active={state1}
             next={ () => {
+                console.log("Story sub:", exchangeCode)
                 joinEvent()
                 initValidationScreen()
             }}

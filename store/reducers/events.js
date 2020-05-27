@@ -1,4 +1,4 @@
-import{
+import {
     JOIN_EVENT,
     GET_ACTIVE_CONTRACTS,
     GET_ACTIVE_EVENTS,
@@ -9,7 +9,8 @@ import{
 const initialState = {
     activeContracts : [],
     activeEvents: [],
-    contractStatus: [] // Guarda el estado puntual del usuario dependiendo de donde esta parado en la app
+    contractStatus: [], // Guarda el estado puntual del usuario dependiendo de donde esta parado en la app
+    contractCupon: [] // Guarda el codigo de canje del usuario dependiendo de donde esta parado en la app
 }
 
 export default (state = initialState, action) => {
@@ -27,7 +28,8 @@ export default (state = initialState, action) => {
         case GET_EVENT_REL_STATUS:
             return {
                  ...state,
-            contractStatus: action.contractStatus
+            contractStatus: action.contractStatus,
+            contractCupon: action.contractCupon
             }
         case GET_ACTIVE_CONTRACTS:
             return {
