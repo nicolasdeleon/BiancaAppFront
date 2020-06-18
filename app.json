@@ -8,7 +8,7 @@
       "ios",
       "android"
     ],
-    "version": "2.2.2",
+    "version": "2.2.3",
     "orientation": "portrait",
     "icon": "./staticData/LogoSinCirculo.png",
     "splash": {
@@ -25,11 +25,11 @@
     "ios": {
       "supportsTablet": false,
       "bundleIdentifier": "com.bianca",
-      "buildNumber": "2.2.2"
+      "buildNumber": "2.2.3"
     },
     "android": {
       "package": "bianca.bianca",
-      "versionCode":15,
+      "versionCode":16,
       "permissions": [],
       "googleServicesFile": "./google-services.json"
     },
