@@ -97,7 +97,6 @@ const StorySubmission = props =>{
     return (
         <View style={styles.screen}>
             <View style={styles.Container}>
-                <Animated.Text style={{...styles.textPaso1,...animateEntryPaso1}}>Paso 1</Animated.Text>
                 <Animated.Text style={{...styles.textSubiTuHistoria,...animateEntryText}}>Subí tu historia a Instagram</Animated.Text>
                 <Animated.Image style={{...styles.image, ...animateEntryImage}} source={ require('../../staticData/dog.png') }/>
                 <View style={styles.bubbleContainer}>
